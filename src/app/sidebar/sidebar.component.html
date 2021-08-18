@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="close-filter-container">
+    <button theme="icon" (click)="hideSidebar()" icon="times"></button>
+  </div>
+<novo-search placeholder="Keyword Search" alwaysOpen="true" [(ngModel)]="keyword" (ngModelChange)="searchOnDelay()"></novo-search>
+</div>
+<novo-loading *ngIf="loading"></novo-loading>
+<ng-container *ngIf="!loading">
+  <div class="filters">
+    <app-sidebar-filter field="publishedCategory(id,name)" title="{{ 'CATEGORY' | translate}}" [filter]="filter" (checkboxFilter)="updateFilter('publishedCategory', $event)" ></app-sidebar-filter>
+    <app-sidebar-filter field="address(state)" title="{{ 'STATE' | translate}}" [filter]="filter" (checkboxFilter)="updateFilter('address(state)', $event)"></app-sidebar-filter>
+    <app-sidebar-filter field="address(city)" title="{{ 'CITY' | translate}}" [filter]="filter" (checkboxFilter)="updateFilter('address(city)', $event)"></app-sidebar-filter>
+  </div>
+</ng-container>
+
+<a *ngIf="showPrivacyPolicy" (click)="viewPrivacyPolicy()" class="privacy-policy-link">{{ 'PRIVACY_POLICY' | translate }}</a>
+
+<section class="credits">
+    <span class="powered-by">Powered By</span>
+    <a target="_blank" href="http://www.bullhorn.com/">
+        <img class="bullhorn" src="assets/logo.svg">
+    </a>
+</section>
