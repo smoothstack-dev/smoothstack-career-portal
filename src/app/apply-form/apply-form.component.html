@@ -1,0 +1,24 @@
+<novo-card title="Quick Apply" class="apply-card">
+  <section *ngIf="!loading">
+    <novo-form [form]="form" layout="vertical">
+      <div *ngFor="let control of formControls" class="novo-form-row">
+        <novo-control [form]="form" [control]="control"></novo-control>
+      </div>
+    </novo-form>
+    <span *ngIf="hasError" class="error">{{ 'ERROR_WHILE_APPLYING' | translate }}</span>
+  </section>
+  <div class="apply-card-footer">
+    <button
+      class="apply-button"
+      theme="primary"
+      color="pulse"
+      icon="send"
+      [disabled]="!form.valid"
+      (click)="save()"
+      data-automation-id="create-modal-save"
+      [loading]="applying"
+    >
+      {{ 'APPLY' | translate }}
+    </button>
+  </div>
+</novo-card>

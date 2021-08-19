@@ -27,10 +27,10 @@ export class ApplyModalComponent implements OnInit {
 
   public job: any;
   public source: string;
-  public firstName: TextBoxControl;
-  public lastName: TextBoxControl;
-  public email: TextBoxControl;
-  public phoneNumber: TextBoxControl;
+  public firstName: TextBoxControl = {} as any;
+  public lastName: TextBoxControl = {} as any;
+  public email: TextBoxControl = {} as any;
+  public phoneNumber: TextBoxControl = {} as any;
   public form: NovoFormGroup;
   public genderRaceEthnicity: any;
   public veteran: any;

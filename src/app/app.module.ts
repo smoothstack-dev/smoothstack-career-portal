@@ -28,6 +28,7 @@ import { JobResolver } from './job.resolver';
 import { ServerResponseService } from './services/server-response/server-response.service';
 import { environment } from '../environments/environment';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ApplyFormComponent } from './apply-form/apply-form.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -48,6 +49,7 @@ export function initSettings(settings: SettingsService): any {
       MainPageComponent,
       JobDetailsComponent,
       ApplyModalComponent,
+      ApplyFormComponent,
       ErrorModalComponent,
       StripHtmlPipe,
       SidebarFilterComponent,

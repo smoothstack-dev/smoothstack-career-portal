@@ -1,21 +1,27 @@
-.background{
+.background {
   overflow-x: hidden;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   max-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
   .job-container {
     margin: 0% 10%;
     padding: 5%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     &.safari-scroll {
       height: 100%;
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
     }
-    >button[theme="dialogue"] {
+    > button[theme='dialogue'] {
       margin: -10px -15px 20px -15px;
     }
+    .job-description-container {
+      display: flex;
+      justify-content: space-between;
+    }
     .job-description-text {
+      display: block;
+      max-width: 50%;
       word-break: break-word;
     }
     .job-header {
@@ -25,7 +31,7 @@
         width: 100%;
         flex-wrap: wrap;
         .job-info {
-          color: #0B344F;
+          color: #0b344f;
           padding: 10px 10px;
           margin: 5px;
           background-color: #f4f4f4;
@@ -62,12 +68,14 @@
 }
 
 @media only screen and (max-width: 768px) {
-  :host{
-    .background>.job-container {
+  :host {
+    .job-description-container {
+      flex-direction: column;
+    }
+    .background > .job-container {
       margin: 0%;
     }
   }
-
 }
 
 novo-loading {
