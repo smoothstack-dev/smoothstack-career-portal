@@ -9,32 +9,20 @@
     "rtf",
     "odt"
   ],
-  "companyName": "[ COMPANY NAME HERE ]",
+  "companyName": "Smoothstack",
   "companyLogoPath": "",
   "companyUrl": "",
   "careersUrl": "",
   "defaultLocale": "en-US",
-  "supportedLocales": [
-      "en-US",
-      "en-GB",
-      "en",
-      "fr-FR",
-      "fr",
-      "es",
-      "de",
-      "it",
-      "nl",
-      "ru",
-      "zh-CN"
-  ],
+  "supportedLocales": ["en-US"],
   "minUploadSize": 4096,
   "maxRelatedJobs": 5,
   "maxUploadSize": 5242880,
   "service": {
     "batchSize": 500,
-    "corpToken": "1VCNF4",
+    "corpToken": "7xjpg0",
     "port": null,
-    "swimlane": "91",
+    "swimlane": "32",
     "fields": [
       "id",
       "title",
@@ -58,16 +46,11 @@
       }
     ],
     "showCategory": true,
-    "keywordSearchFields": [
-      "publicDescription",
-      "title"
-    ]
+    "keywordSearchFields": ["publicDescription", "title"]
   },
   "additionalJobCriteria": {
     "field": "[ FILTER FIELD HERE ]",
-    "values": [
-      "[ FILTER VALUE HERE ]"
-    ],
+    "values": ["[ FILTER VALUE HERE ]"],
     "sort": "-dateLastPublished"
   },
   "integrations": {
