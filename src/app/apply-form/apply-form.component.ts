@@ -74,7 +74,7 @@ export class ApplyFormComponent implements OnInit {
       required: true,
       hidden: false,
       value: '',
-      interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: true }],
+      interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: false }],
     });
 
     this.resume = new FileControl({

@@ -60,10 +60,6 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.static.ts"
-                },
-                {
-                  "replace": "src/app.json",
-                  "with": "src/app.json.template"
                 }
               ]
             },
