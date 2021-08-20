@@ -1,4 +1,5 @@
 :host {
+  min-width: 30%;
   /deep/novo-card {
     .novo-card {
       header {
@@ -16,6 +17,9 @@
     }
   }
   /deep/novo-form {
+    .novo-form-container{
+      width: 90%;
+    }
     header {
       display: none;
     }

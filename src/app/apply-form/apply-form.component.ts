@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NovoFormGroup, FormUtils, TextBoxControl, FileControl, NovoToastService } from 'novo-elements';
+import {
+  NovoFormGroup,
+  FormUtils,
+  TextBoxControl,
+  FileControl,
+  NovoToastService,
+  FieldInteractionApi,
+} from 'novo-elements';
 import { TranslateService } from 'chomsky';
 import { SettingsService } from '../services/settings/settings.service';
 import { AnalyticsService } from '../services/analytics/analytics.service';
@@ -67,6 +74,7 @@ export class ApplyFormComponent implements OnInit {
       required: true,
       hidden: false,
       value: '',
+      interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: true }],
     });
 
     this.resume = new FileControl({
@@ -86,6 +94,13 @@ export class ApplyFormComponent implements OnInit {
 
   public goToJobList(): void {
     this.router.navigate(['/']);
+  }
+
+  private validatePhone(API: FieldInteractionApi): void {
+    const phoneNumberPattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    if (!phoneNumberPattern.test(API.getActiveValue())) {
+      API.markAsInvalid(API.getActiveKey(), 'Invalid Phone Number');
+    }
   }
 
   public save(): void {
