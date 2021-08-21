@@ -10,12 +10,16 @@ const LANGUAGE_KEY: any = makeStateKey<string>('language');
 
 @Injectable()
 export class SettingsService {
-
   public static settings: ISettings;
   public static isServer: boolean;
   public static urlRoot: string;
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) platformId: string, @Optional() @Inject(REQUEST) protected request: Request, private transferState: TransferState) {
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) platformId: string,
+    @Optional() @Inject(REQUEST) protected request: Request,
+    private transferState: TransferState
+  ) {
     SettingsService.isServer = isPlatformServer(platformId);
   }
 
@@ -27,7 +31,13 @@ export class SettingsService {
   public async setConfig(data: ISettings): Promise<any> {
     SettingsService.settings = data;
 
-    const objectConfigOptions: string[] = ['service', 'additionalJobCriteria', 'integrations', 'eeoc', 'privacyConsent'];
+    const objectConfigOptions: string[] = [
+      'service',
+      'additionalJobCriteria',
+      'integrations',
+      'eeoc',
+      'privacyConsent',
+    ];
 
     objectConfigOptions.forEach((option: string) => {
       if (!SettingsService.settings[option]) {
@@ -49,6 +59,7 @@ export class SettingsService {
         'publishedZip',
         'salary',
         'salaryUnit',
+        'customText3',
       ];
     }
 
@@ -62,25 +73,30 @@ export class SettingsService {
       ];
     }
 
-    if (!SettingsService.settings.service.keywordSearchFields || SettingsService.settings.service.keywordSearchFields.length === 0) {
-      SettingsService.settings.service.keywordSearchFields = [
-        'publicDescription',
-        'title',
-      ];
+    if (
+      !SettingsService.settings.service.keywordSearchFields ||
+      SettingsService.settings.service.keywordSearchFields.length === 0
+    ) {
+      SettingsService.settings.service.keywordSearchFields = ['publicDescription', 'title'];
     }
     const validTokenRegex: RegExp = /[^A-Za-z0-9]/;
-    if (!SettingsService.settings.service.corpToken || validTokenRegex.test(SettingsService.settings.service.corpToken)) {
+    if (
+      !SettingsService.settings.service.corpToken ||
+      validTokenRegex.test(SettingsService.settings.service.corpToken)
+    ) {
       throw new Error('Invalid Corp Token');
     }
     const validSwimlaneRegex: RegExp = /[^0-9]/;
-    if (!SettingsService.settings.service.swimlane || validSwimlaneRegex.test(SettingsService.settings.service.swimlane.toString())) {
+    if (
+      !SettingsService.settings.service.swimlane ||
+      validSwimlaneRegex.test(SettingsService.settings.service.swimlane.toString())
+    ) {
       throw new Error('Invalid Swimlane');
     }
     if (SettingsService.urlRoot) {
       TranslateService.setLocation(`${SettingsService.urlRoot}i18n/`);
     }
     await TranslateService.use(this.getPreferredLanguage()).toPromise();
-
   }
 
   private getPreferredLanguage(): string {
@@ -105,5 +121,4 @@ export class SettingsService {
     }
     return language;
   }
-
 }

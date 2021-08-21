@@ -12,6 +12,7 @@
 novo-list {
   overflow: auto;
   min-height: 61.3vh;
+  max-width: 50%;
   .list-item {
     display: flex;
     flex-direction: row;
@@ -93,6 +94,9 @@ novo-list {
 }
 @media only screen and (max-width: 768px) {
   :host {
+    novo-list {
+      max-width: none!important;
+    }
     div.open-positions {
       font-weight: 600;
       font-size: 1.5em;

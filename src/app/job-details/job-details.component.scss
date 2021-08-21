@@ -70,7 +70,10 @@
 @media only screen and (max-width: 768px) {
   :host {
     .job-description-container {
-      flex-direction: column;
+      flex-direction: column-reverse;
+    }
+    .job-description-text {
+      max-width: none!important;
     }
     .background > .job-container {
       margin: 0%;
