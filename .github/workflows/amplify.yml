@@ -35,6 +35,9 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: us-east-1
     
+    - name: Install and Build
+      run: npm ci
+    
     - name: Deploy
       uses: ambientlight/amplify-cli-action@0.3.0
       with:
