@@ -35,8 +35,9 @@ jobs:
         AWS_REGION: us-east-1
     
     - name: Install and Build
-    - run: npm ci
-    - run: npm run build:static
+      run: |
+           npm ci
+           npm run build:static
     
     - name: Deploy
       uses: ambientlight/amplify-cli-action@0.3.0
