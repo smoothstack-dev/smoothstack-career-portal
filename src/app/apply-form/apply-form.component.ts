@@ -117,8 +117,6 @@ export class ApplyFormComponent implements OnInit {
 
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
-      console.log(this.form.value.resume[0].file)
-      console.log(formData.getAll('resume'))
       this.applyService
         .apply(this.job.id, requestParams, formData)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
