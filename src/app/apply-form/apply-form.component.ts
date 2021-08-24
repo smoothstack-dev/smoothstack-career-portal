@@ -111,12 +111,14 @@ export class ApplyFormComponent implements OnInit {
         firstName: encodeURIComponent(this.form.value.firstName),
         lastName: encodeURIComponent(this.form.value.lastName),
         email: encodeURIComponent(this.form.value.email),
-        phone: encodeURIComponent(this.form.value.phone || ''),
+        phone: encodeURIComponent(this.form.value.phone),
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
       };
 
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
+      console.log(this.form.value.resume[0].file)
+      console.log(formData.getAll('resume'))
       this.applyService
         .apply(this.job.id, requestParams, formData)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
