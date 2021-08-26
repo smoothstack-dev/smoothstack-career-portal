@@ -13,12 +13,15 @@
       theme="primary"
       color="pulse"
       icon="send"
-      [disabled]="!form.valid"
+      [disabled]="alreadyApplied || !form.valid"
       (click)="save()"
       data-automation-id="create-modal-save"
       [loading]="applying"
     >
-      {{ 'APPLY' | translate }}
+      {{ (!alreadyApplied ? 'APPLY' : 'ALREADY_APPLIED') | translate }}
     </button>
+    <p class="applied-text" *ngIf="alreadyApplied">
+      You can only submit one application. <br> You will be considered for multiple positions.
+    </p>
   </div>
 </novo-card>

@@ -10,15 +10,15 @@
         {{ job.publishedCategory?.name }}
       </span>
       <div class="job-info-container">
-        <!-- <span class="job-info" *ngIf="job.address.city || job.address.state">
+        <span class="job-info" *ngIf="job.customText3 === '1' && (job.address.city || job.address.state)">
           <i class="bhi-location"></i>
           {{ job.address.city }}<span *ngIf="job.address?.city && job.address?.state">,&nbsp;</span
           >{{ job.address.state }}
-        </span> -->
-        <!-- <span class="job-info">
+        </span>
+        <span class="job-info" *ngIf="job.customText3 === '0'">
           <i class="bhi-location"></i>
           Multiple Locations
-        </span> -->
+        </span>
       </div>
     </div>
     <div class="job-description-container">

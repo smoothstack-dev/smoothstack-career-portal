@@ -36,7 +36,8 @@
       "isDeleted",
       "publishedZip",
       "salary",
-      "salaryUnit"
+      "salaryUnit",
+      "customText3"
     ],
     "jobInfoChips": [
       "employmentType",

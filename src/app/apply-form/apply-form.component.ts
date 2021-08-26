@@ -30,8 +30,9 @@ export class ApplyFormComponent implements OnInit {
   public hasError: boolean = false;
   public formControls: any[] = [this.firstName, this.lastName, this.email, this.phoneNumber];
   public applying: boolean = false;
+  public alreadyApplied: boolean = false;
   public showCategory: boolean = SettingsService.settings.service.showCategory;
-  private APPLIED_JOBS_KEY: string = 'APPLIED_JOBS_KEY';
+  private APPLIED_KEY: string = 'APPLIED_KEY';
 
   constructor(
     private formUtils: FormUtils,
@@ -42,6 +43,7 @@ export class ApplyFormComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.checkSessionStorage();
     this.setupForm();
   }
   public setupForm(): void {
@@ -92,6 +94,12 @@ export class ApplyFormComponent implements OnInit {
     this.loading = false;
   }
 
+  private checkSessionStorage(): void {
+    if (!SettingsService.isServer) {
+      this.alreadyApplied = JSON.parse(sessionStorage.getItem(this.APPLIED_KEY));
+    }
+  }
+
   public goToJobList(): void {
     this.router.navigate(['/']);
   }
@@ -133,6 +141,7 @@ export class ApplyFormComponent implements OnInit {
       hideDelay: 3000,
     };
     this.toaster.alert(toastOptions);
+    this.storehasApplied();
     this.goToJobList();
     this.applying = false;
   }
@@ -140,5 +149,9 @@ export class ApplyFormComponent implements OnInit {
   private applyOnFailure(res: any): void {
     this.hasError = true;
     this.applying = false;
+  }
+
+  private storehasApplied(): void {
+    sessionStorage.setItem(this.APPLIED_KEY, 'true');
   }
 }
