@@ -15,7 +15,15 @@ import { ApplyService } from './services/apply/apply.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarFilterComponent } from './sidebar/sidebar-filter/sidebar-filter.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
-import { NovoListModule, NovoElementsModule, NovoHeaderModule, NovoModalModule, NovoModalService, FieldInteractionApi, NovoToastService,  } from 'novo-elements';
+import {
+  NovoListModule,
+  NovoElementsModule,
+  NovoHeaderModule,
+  NovoModalModule,
+  NovoModalService,
+  FieldInteractionApi,
+  NovoToastService,
+} from 'novo-elements';
 import { MainPageComponent } from './main-page/main-page.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { ApplyModalComponent } from './apply-modal/apply-modal.component';
@@ -42,25 +50,22 @@ export function initSettings(settings: SettingsService): any {
 }
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      JobListComponent,
-      SidebarComponent,
-      MainPageComponent,
-      JobDetailsComponent,
-      ApplyModalComponent,
-      ApplyFormComponent,
-      ErrorModalComponent,
-      StripHtmlPipe,
-      SidebarFilterComponent,
-      StructuredSeoComponent,
-      PrivacyPolicyComponent,
-   ],
-   entryComponents: [
-      ApplyModalComponent,
-      ErrorModalComponent,
-   ],
-   imports: [
+  declarations: [
+    AppComponent,
+    JobListComponent,
+    SidebarComponent,
+    MainPageComponent,
+    JobDetailsComponent,
+    ApplyModalComponent,
+    ApplyFormComponent,
+    ErrorModalComponent,
+    StripHtmlPipe,
+    SidebarFilterComponent,
+    StructuredSeoComponent,
+    PrivacyPolicyComponent,
+  ],
+  entryComponents: [ApplyModalComponent, ErrorModalComponent],
+  imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     NovoElementsModule,
@@ -71,10 +76,7 @@ export function initSettings(settings: SettingsService): any {
     ClipboardModule,
     FormsModule,
     ChomskyModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false, useHash: environment.useHash },
-  ),
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initSettings, deps: [SettingsService], multi: true },
@@ -92,4 +94,4 @@ export function initSettings(settings: SettingsService): any {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
