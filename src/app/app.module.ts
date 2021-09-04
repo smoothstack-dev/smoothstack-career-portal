@@ -76,7 +76,7 @@ export function initSettings(settings: SettingsService): any {
     ClipboardModule,
     FormsModule,
     ChomskyModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: false }),
+    RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: environment.useHash }),
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initSettings, deps: [SettingsService], multi: true },
