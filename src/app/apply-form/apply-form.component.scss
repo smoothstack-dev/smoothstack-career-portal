@@ -50,7 +50,7 @@
       }
     }
     .novo-form-container {
-      width: 93%;
+      width: 95%;
     }
     header {
       display: none;
@@ -73,7 +73,7 @@
       flex-flow: column;
       align-items: center;
       .apply-button {
-        width: 93%;
+        width: 95%;
       }
       .applied-text {
         color: #da4453;
@@ -92,13 +92,8 @@
     min-width: unset;
     align-self: start;
     padding-bottom: 30px;
-    // novo-form {
-    //   max-height: calc(100vh - 113px);
-    // }
-    // section {
-    //   max-height: calc(100vh - 180px);
-    //   // height: calc(100vh - 230px);
-    //   // width: 100vw;
-    // }
+    novo-form {
+      overflow-x:hidden;
+    }
   }
 }
