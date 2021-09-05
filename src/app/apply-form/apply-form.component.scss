@@ -17,7 +17,39 @@
     }
   }
   /deep/novo-form {
-    .novo-form-container{
+    novo-tiles {
+      color: #662255;
+      .tile-container {
+        flex-wrap: wrap;
+        border: hidden;
+        .tile:not(.disabled).active {
+          background: #662255;
+          color: whitesmoke;
+        }
+        .tile:not(.disabled):hover {
+          background-color: #662255;
+          color: whitesmoke;
+        }
+        .tile {
+          border: solid thin #662255;
+          border-radius: 3px;
+          margin: 3px;
+          padding: 12px;
+        }
+        span.active-indicator {
+          display: none;
+        }
+      }
+    }
+    novo-control.tiles {
+      label.novo-control-label {
+        width: auto !important;
+        transform: translateY(-125%) !important;
+        white-space: normal !important;
+        overflow-x: visible !important;
+      }
+    }
+    .novo-form-container {
       width: 90%;
     }
     header {
@@ -44,7 +76,7 @@
         width: 90%;
       }
       .applied-text {
-        color:#da4453;
+        color: #da4453;
         font-size: small;
         align-self: flex-start;
         padding-left: 20px;

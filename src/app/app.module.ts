@@ -37,6 +37,7 @@ import { ServerResponseService } from './services/server-response/server-respons
 import { environment } from '../environments/environment';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ApplyFormComponent } from './apply-form/apply-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -70,6 +71,7 @@ export function initSettings(settings: SettingsService): any {
     HttpClientModule,
     NovoElementsModule,
     NovoListModule,
+    NoopAnimationsModule,
     NovoHeaderModule,
     BrowserTransferStateModule,
     NovoModalModule,
