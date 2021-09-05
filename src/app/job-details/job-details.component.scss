@@ -64,6 +64,9 @@
       color: #4a89dc;
       padding-top: 15px;
     }
+    app-apply-form {
+      transform: translateY(-250px)
+    }
   }
 }
 
@@ -77,6 +80,9 @@
     }
     .background > .job-container {
       margin: 0%;
+    }
+    app-apply-form {
+      transform: none!important;
     }
   }
 }
