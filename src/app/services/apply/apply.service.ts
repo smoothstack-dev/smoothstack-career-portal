@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 export class ApplyService {
   public constructor(private http: HttpClient, public settings: SettingsService) {}
   get baseUrl(): string {
+    return `http://localhost:3000/local/careers`
     return 'https://0tz7ym4mad.execute-api.us-east-1.amazonaws.com/prod/careers';
   }
 
