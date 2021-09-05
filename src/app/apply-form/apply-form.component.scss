@@ -34,7 +34,7 @@
           border: solid thin #662255;
           border-radius: 3px;
           margin: 3px;
-          padding: 12px;
+          padding: 10px;
         }
         span.active-indicator {
           display: none;
@@ -50,7 +50,7 @@
       }
     }
     .novo-form-container {
-      width: 90%;
+      width: 93%;
     }
     header {
       display: none;
@@ -73,7 +73,7 @@
       flex-flow: column;
       align-items: center;
       .apply-button {
-        width: 90%;
+        width: 93%;
       }
       .applied-text {
         color: #da4453;
@@ -92,13 +92,13 @@
     min-width: unset;
     align-self: start;
     padding-bottom: 30px;
-    novo-form {
-      max-height: calc(100vh - 113px);
-    }
-    section {
-      max-height: calc(100vh - 180px);
-      // height: calc(100vh - 230px);
-      // width: 100vw;
-    }
+    // novo-form {
+    //   max-height: calc(100vh - 113px);
+    // }
+    // section {
+    //   max-height: calc(100vh - 180px);
+    //   // height: calc(100vh - 230px);
+    //   // width: 100vw;
+    // }
   }
 }
