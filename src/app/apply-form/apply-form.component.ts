@@ -230,6 +230,7 @@ export class ApplyFormComponent implements OnInit {
       key: 'resume',
       required: true,
       hidden: false,
+      label: 'Upload Resume',
       description: `${TranslateService.translate(
         'ACCEPTED_RESUME'
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
