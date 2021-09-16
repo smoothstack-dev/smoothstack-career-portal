@@ -339,17 +339,21 @@ export class ApplyFormComponent implements OnInit {
     return this.form.value.isMilitary === 'No' ? 'Civilian' : this.form.value.militaryStatus;
   };
 
+  private toTitleCase = (str: string) => {
+    return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
+  };
+
   public save(): void {
     if (this.form.valid) {
       this.applying = true;
       this.analytics.trackEvent(`Apply to Job: ${this.job.id}`);
       let requestParams: any = {
-        firstName: encodeURIComponent(this.form.value.firstName),
-        lastName: encodeURIComponent(this.form.value.lastName),
-        email: encodeURIComponent(this.form.value.email),
-        phone: encodeURIComponent(this.form.value.phone),
+        firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
+        lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
+        email: encodeURIComponent(this.form.value.email.trim()),
+        phone: encodeURIComponent(this.form.value.phone.trim()),
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
-        city: encodeURIComponent(this.form.value.city),
+        city: encodeURIComponent(this.form.value.city.trim()),
         state: encodeURIComponent(this.form.value.state),
         zip: encodeURIComponent(this.form.value.zip),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
@@ -359,11 +363,17 @@ export class ApplyFormComponent implements OnInit {
         currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
         ...(this.form.value.graduationMonth &&
           this.form.value.graduationYear && {
-            graduationDate: encodeURIComponent(`${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`),
+            graduationDate: encodeURIComponent(
+              `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
+            ),
           }),
-        ...(this.form.value.degreeExpected && { degreeExpected: encodeURIComponent(this.form.value.degreeExpected) }),
-        ...(this.form.value.highestDegree && { highestDegree: encodeURIComponent(this.form.value.highestDegree) }),
-        ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major) }),
+        ...(this.form.value.degreeExpected && {
+          degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
+        }),
+        ...(this.form.value.highestDegree && {
+          highestDegree: encodeURIComponent(this.form.value.highestDegree),
+        }),
+        ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
         militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
         ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
       };
