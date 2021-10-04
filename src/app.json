@@ -37,7 +37,8 @@
       "publishedZip",
       "salary",
       "salaryUnit",
-      "customText3"
+      "customText3",
+      "customText2"
     ],
     "jobInfoChips": [
       "employmentType",
