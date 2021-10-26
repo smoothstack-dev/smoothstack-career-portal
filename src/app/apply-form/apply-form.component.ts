@@ -26,6 +26,7 @@ export class ApplyFormComponent implements OnInit {
   @Input() job: any;
   public firstName: TextBoxControl = {} as any;
   public lastName: TextBoxControl = {} as any;
+  public nickName: TextBoxControl = {} as any;
   public email: TextBoxControl = {} as any;
   public phoneNumber: TextBoxControl = {} as any;
   public city: TextBoxControl = {} as any;
@@ -77,6 +78,12 @@ export class ApplyFormComponent implements OnInit {
       key: 'lastName',
       label: TranslateService.translate('LAST_NAME'),
       required: true,
+      hidden: false,
+    });
+    this.nickName = new TextBoxControl({
+      key: 'nickName',
+      label: 'NICKNAME (OPTIONAL)',
+      required: false,
       hidden: false,
     });
     this.email = new TextBoxControl({
@@ -239,6 +246,7 @@ export class ApplyFormComponent implements OnInit {
     this.formControls = [
       this.firstName,
       this.lastName,
+      this.nickName,
       this.email,
       this.phoneNumber,
       this.city,
@@ -350,6 +358,7 @@ export class ApplyFormComponent implements OnInit {
       let requestParams: any = {
         firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
         lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
+        nickName: encodeURIComponent(this.form.value.nickName.trim()),
         email: encodeURIComponent(this.form.value.email.trim()),
         phone: encodeURIComponent(this.form.value.phone.trim()),
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
