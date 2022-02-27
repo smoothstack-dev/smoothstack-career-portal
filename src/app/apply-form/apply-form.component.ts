@@ -13,7 +13,7 @@ import { TranslateService } from 'chomsky';
 import { SettingsService } from '../services/settings/settings.service';
 import { AnalyticsService } from '../services/analytics/analytics.service';
 import { ApplyService } from '../services/apply/apply.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 
@@ -54,19 +54,29 @@ export class ApplyFormComponent implements OnInit {
   public alreadyApplied: boolean = false;
   public showCategory: boolean = SettingsService.settings.service.showCategory;
   private APPLIED_KEY: string = 'APPLIED_KEY';
+  private utmSource: string;
 
   constructor(
     private formUtils: FormUtils,
     private applyService: ApplyService,
     private analytics: AnalyticsService,
     private toaster: NovoToastService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
     this.checkSessionStorage();
     this.setupForm();
+    this.getUtmSource();
   }
+
+  public getUtmSource(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.utmSource = params['utm_source'];
+    });
+  }
+
   public setupForm(): void {
     this.firstName = new TextBoxControl({
       key: 'firstName',
@@ -385,6 +395,7 @@ export class ApplyFormComponent implements OnInit {
         ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
         militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
         ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
+        ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
       };
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
