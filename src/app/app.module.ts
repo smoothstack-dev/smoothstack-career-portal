@@ -38,6 +38,7 @@ import { environment } from '../environments/environment';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ApplyFormComponent } from './apply-form/apply-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SuccessModal } from './success-modal/success-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -59,13 +60,14 @@ export function initSettings(settings: SettingsService): any {
     JobDetailsComponent,
     ApplyModalComponent,
     ApplyFormComponent,
+    SuccessModal,
     ErrorModalComponent,
     StripHtmlPipe,
     SidebarFilterComponent,
     StructuredSeoComponent,
     PrivacyPolicyComponent,
   ],
-  entryComponents: [ApplyModalComponent, ErrorModalComponent],
+  entryComponents: [ApplyModalComponent, ErrorModalComponent, SuccessModal],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,

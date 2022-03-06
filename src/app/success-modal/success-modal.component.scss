@@ -1,0 +1,18 @@
+:host {
+  /deep/footer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    button {
+      max-width: 80%;
+    }
+  }
+
+  /deep/.modal-close {
+    display: none;
+  }
+
+  strong {
+    color: #63666c;
+  }
+}
