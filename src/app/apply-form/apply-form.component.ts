@@ -68,7 +68,7 @@ export class ApplyFormComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.checkSessionStorage();
+    this.checkLocalStorage();
     this.setupForm();
     this.getUtmSource();
   }
@@ -332,9 +332,9 @@ export class ApplyFormComponent implements OnInit {
     }
   };
 
-  private checkSessionStorage(): void {
+  private checkLocalStorage(): void {
     if (!SettingsService.isServer) {
-      this.alreadyApplied = JSON.parse(sessionStorage.getItem(this.APPLIED_KEY));
+      this.alreadyApplied = JSON.parse(localStorage.getItem(this.APPLIED_KEY));
     }
   }
 
@@ -431,6 +431,6 @@ export class ApplyFormComponent implements OnInit {
   }
 
   private storehasApplied(): void {
-    sessionStorage.setItem(this.APPLIED_KEY, 'true');
+    localStorage.setItem(this.APPLIED_KEY, 'true');
   }
 }
