@@ -8,14 +8,16 @@ import {
   FieldInteractionApi,
   SelectControl,
   TilesControl,
+  NovoModalService,
 } from 'novo-elements';
 import { TranslateService } from 'chomsky';
 import { SettingsService } from '../services/settings/settings.service';
 import { AnalyticsService } from '../services/analytics/analytics.service';
 import { ApplyService } from '../services/apply/apply.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
+import { SuccessModal } from '../success-modal/success-modal.component';
 
 @Component({
   selector: 'app-apply-form',
@@ -61,8 +63,8 @@ export class ApplyFormComponent implements OnInit {
     private applyService: ApplyService,
     private analytics: AnalyticsService,
     private toaster: NovoToastService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NovoModalService
   ) {}
 
   public ngOnInit(): void {
@@ -336,10 +338,6 @@ export class ApplyFormComponent implements OnInit {
     }
   }
 
-  public goToJobList(): void {
-    this.router.navigate(['/']);
-  }
-
   private validatePhone(API: FieldInteractionApi): void {
     const phoneNumberPattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     if (!phoneNumberPattern.test(API.getActiveValue())) {
@@ -405,6 +403,13 @@ export class ApplyFormComponent implements OnInit {
     }
   }
 
+  private showSuccessModal(link: string) {
+    this.modalService.open(SuccessModal, {
+      schedulingLink: link,
+      jobTitle: this.job.title,
+    });
+  }
+
   private applyOnSuccess(res: any): void {
     let toastOptions: any = {
       theme: 'success',
@@ -416,7 +421,7 @@ export class ApplyFormComponent implements OnInit {
     };
     this.toaster.alert(toastOptions);
     this.storehasApplied();
-    this.goToJobList();
+    this.showSuccessModal(res.schedulingLink);
     this.applying = false;
   }
 
