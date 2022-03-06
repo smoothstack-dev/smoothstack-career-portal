@@ -33,8 +33,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./success-modal.component.scss'],
 })
 export class SuccessModal {
-  private schedulingLink: string;
-  private jobTitle: string;
+  public schedulingLink: string;
+  public jobTitle: string;
 
   constructor(
     private modalRef: NovoModalRef,
