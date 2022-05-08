@@ -57,6 +57,8 @@ export class ApplyFormComponent implements OnInit {
   public showCategory: boolean = SettingsService.settings.service.showCategory;
   private APPLIED_KEY: string = 'APPLIED_KEY';
   private utmSource: string;
+  private utmMedium: string;
+  private utmCampaign: string;
 
   constructor(
     private formUtils: FormUtils,
@@ -70,12 +72,14 @@ export class ApplyFormComponent implements OnInit {
   public ngOnInit(): void {
     this.checkLocalStorage();
     this.setupForm();
-    this.getUtmSource();
+    this.getUTM();
   }
 
-  public getUtmSource(): void {
+  public getUTM(): void {
     this.route.queryParams.subscribe((params) => {
       this.utmSource = params['utm_source'];
+      this.utmMedium = params['utm_medium'];
+      this.utmCampaign = params['utm_campaign'];
     });
   }
 
@@ -394,6 +398,8 @@ export class ApplyFormComponent implements OnInit {
         militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
         ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
         ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+        ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
+        ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
       };
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
