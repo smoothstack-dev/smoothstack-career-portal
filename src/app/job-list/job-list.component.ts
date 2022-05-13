@@ -4,6 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { SettingsService } from '../services/settings/settings.service';
 import { Router } from '@angular/router';
 import { TranslateService } from 'chomsky';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-job-list',
@@ -41,7 +42,11 @@ export class JobListComponent implements OnChanges {
     this.meta.updateTag({ name: 'og:description', content: description });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
-    this.http.getjobs(this.filter, { start: this.start }).subscribe(this.onSuccess.bind(this), this.onFailure.bind(this));
+
+    const job1 = this.http.getjobs(this.filter, { start: this.start });
+    const job2 = this.http.getjobs(this.filter, { start: this.start }, 30, "service2")
+
+    forkJoin([job1, job2]).subscribe(this.onSuccess.bind(this), this.onFailure.bind(this))
   }
 
   public loadMore(): void {
@@ -66,14 +71,17 @@ export class JobListComponent implements OnChanges {
     this._loading = value;
   }
 
-  private onSuccess(res: any): void {
-    if (this.start > 0) {
-      this.jobs = this.jobs.concat(res.data);
-    } else {
-      this.jobs = res.data;
-    }
-    this.total = res.total;
-    this.moreAvailable = (res.count === 30);
+  private onSuccess(results: any[]): void {
+    let total = 0;
+    results.forEach((res,index)=>{
+      // add service# into data for future process
+      const jobs = res.data.map((d) => ({ ...d, service: "service" + (index+1)}));
+      this.jobs = this.jobs.concat(jobs);
+      total +=res.total;
+    })
+    console.log("current available jobs", this.jobs)
+    this.total = total;
+    this.moreAvailable = (results[0].count === 30);
     this.loading = false;
   }
 
@@ -84,5 +92,4 @@ export class JobListComponent implements OnChanges {
     this.moreAvailable = false;
     this.showError.emit(true);
   }
-
 }

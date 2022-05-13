@@ -10,6 +10,7 @@ interface ISettings {
     maxRelatedJobs: number;
     maxUploadSize: number;
     service: IServiceSettings;
+    service2: IServiceSettings;
     additionalJobCriteria: IAdditionalJobCriteria;
     integrations: IIntegrationSettings;
     darkTheme: boolean;

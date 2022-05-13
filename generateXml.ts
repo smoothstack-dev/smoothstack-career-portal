@@ -6,6 +6,7 @@ import * as jsonxml from 'jsontoxml';
 export function generateSitemap(appConfig: ISettings, res: any, req: any): any {
   let sitemapUrls: { name: 'url', children: [{ name: 'loc', text: string }, { name: 'lastmod', text: string }] }[] = [];
   let jobsUrl: string = `https://public-rest${appConfig.service.swimlane}.bullhornstaffing.com/rest-services/${appConfig.service.corpToken}/search/JobOrder?query=(isOpen:1%20AND%20isDeleted:0)${getQuery(appConfig)}&fields=id,title,address(city,state,zip),employmentType,dateLastPublished,publicDescription&count=500&sort=-dateLastPublished&start=0`;
+  console.log("jobsUrl",jobsUrl);
   let body: string = '';
   get(jobsUrl, (response: IncomingMessage) => {
 
@@ -37,6 +38,7 @@ export function generateRss(appConfig: ISettings, res: any, req: any): any {
   let jobListings: any = {
     children: [], title: `${appConfig.companyName} Job Opportunities`, link: `${req.protocol}://${req.hostname}${req.originalUrl}`, pubDate: new Date().toUTCString(), ttl: 5};
   let jobsUrl: string = `https://public-rest${appConfig.service.swimlane}.bullhornstaffing.com/rest-services/${appConfig.service.corpToken}/search/JobOrder?query=(isOpen:1%20AND%20isDeleted:0)${getQuery(appConfig)}&fields=id,title,address(city,state,zip),employmentType,dateLastPublished,publicDescription&count=500&sort=-dateLastPublished&start=0`;
+  console.log("jobsUrl generateRss",jobsUrl);
   let body: string = '';
   get(jobsUrl, (response: IncomingMessage) => {
 

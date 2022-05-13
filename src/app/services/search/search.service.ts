@@ -12,14 +12,30 @@ export class SearchService {
     let service: IServiceSettings = SettingsService.settings.service;
     let port: number = service.port ? service.port : 443;
     let scheme: string = `http${ port === 443  ? 's' : '' }`;
-
     return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
   }
 
-  public getjobs(filter?: any, params: any = {}, count: number = 30): Observable<any> {
+  get baseUrl_2(): string { // for staffing, using service 2
+    let service: IServiceSettings = SettingsService.settings.service2;
+    let port: number = service.port ? service.port : 443;
+    let scheme: string = `http${ port === 443  ? 's' : '' }`;
+    return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
+  }
+
+  public getjobs(filter?: any, params: any = {}, count: number = 30, serviceNum: string = "service1"): Observable<any> {
     let queryArray: string[] = [];
-    params.query = `(isOpen:1) AND (isDeleted:0)${this.formatAdditionalCriteria(true)}${this.formatFilter(filter, true)}`;
-    params.fields = SettingsService.settings.service.fields;
+    let fields: string[] = [];
+
+    const {service:assignService, baseUrl:url} = this.getServiceAndUrl(serviceNum);
+
+    if(serviceNum === "service1"){
+      //  Note: job id 1 should not be display on the dashboard
+      params.query = `!(id:1) AND (isOpen:1) AND (isDeleted:0)${this.formatAdditionalCriteria(true)}${this.formatFilter(filter, true)}`;
+    }else{ 
+      // service2
+      params.query = `(isOpen:1) AND (isDeleted:0)${this.formatAdditionalCriteria(true)}${this.formatFilter(filter, true)}`;
+    }
+    params.fields = assignService.fields;
     params.count = count;
     params.sort = SettingsService.settings.additionalJobCriteria.sort;
     params.showTotalMatched = true;
@@ -29,14 +45,16 @@ export class SearchService {
     }
     let queryString: string = queryArray.join('&');
 
-    return this.http.get(`${this.baseUrl}/search/JobOrder?${queryString}`);
+    return this.http.get(`${url}/search/JobOrder?${queryString}`);
   }
 
-  public openJob(id: string | number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/query/JobBoardPost?where=(id=${id})&fields=${SettingsService.settings.service.fields}`);
+  public openJob(id: string | number, serviceNum: string = "service1" ): Observable<any> {
+    const {service:assignService, baseUrl:url} = this.getServiceAndUrl(serviceNum);
+    
+    return this.http.get(`${url}/query/JobBoardPost?where=(id=${id})&fields=${assignService.fields}`);
   }
 
-  public getCurrentJobIds(filter: any, ignoreFields: string[]): Observable<any> {
+  public getCurrentJobIds(filter: any, ignoreFields: string[], serviceNum: string = "service1"): Observable<any> {
     let queryArray: string[] = [];
     let params: any = {};
 
@@ -50,37 +68,41 @@ export class SearchService {
     }
     let queryString: string = queryArray.join('&');
 
-    return this.http.get(`${this.baseUrl}/search/JobOrder?${queryString}`);
+    const {baseUrl:url} = this.getServiceAndUrl(serviceNum);
+
+    return this.http.get(`${url}/search/JobOrder?${queryString}`);
   }
 
-  public getAvailableFilterOptions(ids: number[], field: string): Observable<any> {
+  public getAvailableFilterOptions(ids: number[], field: string, serviceNum: string = "service1"): Observable<any> {
     let params: any = {};
     let queryArray: string[] = [];
     if (ids.length > 0) {
-    params.where = `id IN (${ids.toString()})`;
-    params.count = `500`;
-    params.fields = `${field},count(id)`;
-    params.groupBy = field;
-    switch (field) {
-      case 'publishedCategory(id,name)':
-        params.orderBy = 'publishedCategory.name';
-        break;
-      case 'address(state)':
-        params.orderBy = 'address.state';
-        break;
-      case 'address(city)':
-        params.orderBy = 'address.city';
-        break;
-      default:
-        params.orderBy = '-count.id';
-        break;
-    }
-    for (let key in params) {
-      queryArray.push(`${key}=${params[key]}`);
-    }
-    let queryString: string = queryArray.join('&');
+      params.where = `id IN (${ids.toString()})`;
+      params.count = `500`;
+      params.fields = `${field},count(id)`;
+      params.groupBy = field;
+      switch (field) {
+        case 'publishedCategory(id,name)':
+          params.orderBy = 'publishedCategory.name';
+          break;
+        case 'address(state)':
+          params.orderBy = 'address.state';
+          break;
+        case 'address(city)':
+          params.orderBy = 'address.city';
+          break;
+        default:
+          params.orderBy = '-count.id';
+          break;
+      }
+      for (let key in params) {
+        queryArray.push(`${key}=${params[key]}`);
+      }
+      let queryString: string = queryArray.join('&');
 
-      return this.http.get(`${this.baseUrl}/query/JobBoardPost?${queryString}`); // tslint:disable-line
+      const { baseUrl:url} = this.getServiceAndUrl(serviceNum);
+
+      return this.http.get(`${url}/query/JobBoardPost?${queryString}`); // tslint:disable-line
     } else {
       return of({count: 0, start: 0, data: []});
     }
@@ -121,6 +143,21 @@ export class SearchService {
     }
 
     return additionalFilter.replace(/{\?\^\^equals}/g, isSearch ? ':' : '=').replace(/{\?\^\^delimiter}/g, isSearch ? '"' : '\'');
+  }
+
+  private getServiceAndUrl(serviceNum: string = "service1"){
+    let service:IServiceSettings;
+    let baseUrl:string;
+
+    if(serviceNum === "service1"){
+      service = SettingsService.settings.service;
+      baseUrl = this.baseUrl;
+    }else{ // "service2"
+      service = SettingsService.settings.service2;
+      baseUrl = this.baseUrl_2;
+    }
+
+    return {service, baseUrl}
   }
 
 }
