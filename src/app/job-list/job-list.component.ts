@@ -57,8 +57,8 @@ export class JobListComponent implements OnChanges {
     this.displaySidebar.emit(true);
   }
 
-  public loadJob(jobId: number): void {
-    this.router.navigate([`jobs/${jobId}`]);
+  public loadJob(jobId: number, serviceNum:string): void {
+    this.router.navigate([`jobs/${jobId}/${serviceNum}`]); // 
     this.loading = true;
   }
 

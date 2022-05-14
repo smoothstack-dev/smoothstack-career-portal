@@ -21,7 +21,7 @@ export function generateSitemap(appConfig: ISettings, res: any, req: any): any {
         sitemapUrls.push({
           name: 'url',
           children: [
-            { name: 'loc', text: `${req.protocol}://${req.hostname}${req.originalUrl.replace('/sitemap', '/jobs')}/${job.id}` },
+            { name: 'loc', text: `${req.protocol}://${req.hostname}${req.originalUrl.replace('/sitemap', '/jobs')}/${job.id}/${job.service}` },
             { name: 'lastmod', text: `${postDate.getFullYear()}-${('0' + (postDate.getMonth() + 1)).slice(-2)}-${('0' + postDate.getDate()).slice(-2)}` },
           ],
         });
@@ -59,7 +59,7 @@ export function generateRss(appConfig: ISettings, res: any, req: any): any {
             { name: 'state', text: job.address.state },
             { name: 'zip', text: job.address.zip },
             { name: 'pubDate', text: postDate.toUTCString() },
-            { name: 'link', text: `${req.protocol}://${req.hostname}${req.originalUrl.replace('/feed', '/jobs')}/${job.id}`},
+            { name: 'link', text: `${req.protocol}://${req.hostname}${req.originalUrl.replace('/feed', '/jobs')}/${job.id}/${job.service}`},
           ],
         });
       });

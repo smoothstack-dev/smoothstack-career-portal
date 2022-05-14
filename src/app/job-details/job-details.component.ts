@@ -20,6 +20,7 @@ import { TranslateService } from 'chomsky';
 export class JobDetailsComponent implements OnInit {
   public job: JobBoardPost | any;
   public id: string;
+  public serviceNum: string;
   public source: string;
   public loading: boolean = true;
   public relatedJobs: any;
@@ -50,13 +51,16 @@ export class JobDetailsComponent implements OnInit {
       this.isSafariAgent = navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1;
     }
     this.loading = true;
+    console.log("this.route",this.route)
     this.id = this.route.snapshot.paramMap.get('id');
+    this.serviceNum = this.route.snapshot.paramMap.get('service');
     this.source = this.route.snapshot.queryParams.source;
     this.analytics.trackEvent(`Open Job: ${this.id}`);
     this.checkSessionStorage();
     this.setJob();
   }
 
+  // TODO: check seession storage and add service num 
   public checkSessionStorage(): void {
     if (!SettingsService.isServer) {
       let alreadyAppliedJobs: any = sessionStorage.getItem(this.APPLIED_JOBS_KEY);

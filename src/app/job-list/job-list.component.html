@@ -3,15 +3,20 @@
   <span class="open-positions-text">{{ 'OPEN_POSITIONS' | translate }} ({{ total }})</span>
 </div>
 <novo-list direction="vertical" *ngIf="!loading && jobs.length > 0">
-  <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.id" (click)="loadJob(job.id)">
+  <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.id + '/' + job.service"
+    (click)="loadJob(job.id,job.service)">
     <novo-list-item>
       <item-content direction="vertical">
         <item-title>
-          <a class="job-title" [href]="'jobs/' + job.id" [routerLink]="'jobs/' + job.id"> {{ job.title }}</a>
+          <a class="job-title" [href]="'jobs/' + job.id +  '/' + job.service "
+            [routerLink]="'jobs/' + job.id +  '/' + job.service ">
+            {{ job.title }}</a>
         </item-title>
       </item-content>
       <item-end>
-        <button theme="dialogue"><div class="apply-button-text">APPLY</div></button>
+        <button theme="dialogue">
+          <div class="apply-button-text">APPLY</div>
+        </button>
       </item-end>
     </novo-list-item>
   </div>
