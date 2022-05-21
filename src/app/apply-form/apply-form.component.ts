@@ -394,7 +394,7 @@ export class ApplyFormComponent implements OnInit {
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
         relocation: encodeURIComponent(this.form.value.relocation),
-        service: encodeURIComponent(this.service)
+        serviceNum: encodeURIComponent(this.service)
       }
       if(this.service === "service1"){
         let additionalRequestParams: any = { 
