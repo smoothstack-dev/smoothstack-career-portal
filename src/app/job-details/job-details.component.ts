@@ -51,7 +51,6 @@ export class JobDetailsComponent implements OnInit {
       this.isSafariAgent = navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1;
     }
     this.loading = true;
-    console.log("this.route",this.route)
     this.id = this.route.snapshot.paramMap.get('id');
     this.serviceNum = this.route.snapshot.paramMap.get('service');
     this.source = this.route.snapshot.queryParams.source;

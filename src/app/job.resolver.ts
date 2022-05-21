@@ -13,8 +13,10 @@ export class JobResolver implements Resolve<any> {
   constructor(private searchService: SearchService, private serverResponse: ServerResponseService) { }
 
   public resolve(route: ActivatedRouteSnapshot): Observable<any> {
-
-    return this.searchService.openJob(route.paramMap.get('id')).pipe(catchError( () => {
+    const jobId = route.paramMap.get('id');
+    const serviceNum = route.paramMap.get('service');
+    
+    return this.searchService.openJob(jobId,serviceNum).pipe(catchError( () => {
       this.serverResponse.setNotFound();
       console.error('invalid job id'); // tslint:disable-line
       return of({jobs: []});

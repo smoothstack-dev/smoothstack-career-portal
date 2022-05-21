@@ -58,8 +58,8 @@
   "service2": {
     "batchSize": 500,
     "port": null,
-    "corpToken": "7xjpg0",
-    "swimlane": "32",
+    "corpToken": "8yy144",
+    "swimlane": "33",
     "fields": [
       "id",
       "title",

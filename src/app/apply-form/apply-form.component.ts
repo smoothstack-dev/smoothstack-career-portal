@@ -393,7 +393,8 @@ export class ApplyFormComponent implements OnInit {
         phone: encodeURIComponent(this.form.value.phone.trim()),
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
-        relocation: encodeURIComponent(this.form.value.relocation)
+        relocation: encodeURIComponent(this.form.value.relocation),
+        service: encodeURIComponent(this.service)
       }
       let additionalRequestParams: any = { 
         city: encodeURIComponent(this.form.value.city.trim()),
