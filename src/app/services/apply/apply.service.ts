@@ -10,9 +10,9 @@ export class ApplyService {
     return 'https://0tz7ym4mad.execute-api.us-east-1.amazonaws.com/prod/careers';
   }
 
-  public apply(id: number, params: any, formData: FormData,service: string = "service1"): Observable<any> {
+  public apply(id: number, params: any, formData: FormData): Observable<any> {
     let applyParams: any = this.assembleParams(params);
-    return this.http.post(`${this.baseUrl}/${service}/${id}?${applyParams}`, formData);
+    return this.http.post(`${this.baseUrl}/${id}?${applyParams}`, formData);
   }
 
   private assembleParams(data: any): string {

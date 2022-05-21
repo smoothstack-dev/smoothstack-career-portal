@@ -396,39 +396,38 @@ export class ApplyFormComponent implements OnInit {
         relocation: encodeURIComponent(this.form.value.relocation),
         service: encodeURIComponent(this.service)
       }
-      let additionalRequestParams: any = { 
-        city: encodeURIComponent(this.form.value.city.trim()),
-        state: encodeURIComponent(this.form.value.state),
-        zip: encodeURIComponent(this.form.value.zip),
-        codingAbility: encodeURIComponent(this.form.value.codingAbility),
-        yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
-        currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
-        ...(this.form.value.graduationMonth &&
-          this.form.value.graduationYear && {
-            graduationDate: encodeURIComponent(
-              `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
-            ),
-          }),
-        ...(this.form.value.degreeExpected && {
-          degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
-        }),
-        ...(this.form.value.highestDegree && {
-          highestDegree: encodeURIComponent(this.form.value.highestDegree),
-        }),
-        ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
-        militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
-        ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
-        ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
-      };
-
       if(this.service === "service1"){
+        let additionalRequestParams: any = { 
+          city: encodeURIComponent(this.form.value.city.trim()),
+          state: encodeURIComponent(this.form.value.state),
+          zip: encodeURIComponent(this.form.value.zip),
+          codingAbility: encodeURIComponent(this.form.value.codingAbility),
+          yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
+          currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
+          ...(this.form.value.graduationMonth &&
+            this.form.value.graduationYear && {
+              graduationDate: encodeURIComponent(
+                `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
+              ),
+            }),
+          ...(this.form.value.degreeExpected && {
+            degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
+          }),
+          ...(this.form.value.highestDegree && {
+            highestDegree: encodeURIComponent(this.form.value.highestDegree),
+          }),
+          ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
+          militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
+          ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
+          ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+        };
         Object.assign(requestParams, additionalRequestParams);
       }
 
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
       this.applyService
-        .apply(this.job.id, requestParams, formData, this.service)
+        .apply(this.job.id, requestParams, formData)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
     }
   }
