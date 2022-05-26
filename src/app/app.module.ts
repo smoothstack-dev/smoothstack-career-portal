@@ -42,7 +42,7 @@ import { SuccessModal } from './success-modal/success-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
-  { path: 'jobs/:id/:service', component: JobDetailsComponent, resolve: { message: JobResolver } },
+  { path: 'jobs/:corpId/:id', component: JobDetailsComponent, resolve: { message: JobResolver } },
   { path: 'jobs', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
 ];

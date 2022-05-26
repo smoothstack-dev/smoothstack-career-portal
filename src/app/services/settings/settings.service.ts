@@ -30,9 +30,9 @@ export class SettingsService {
 
   public async setConfig(data: ISettings): Promise<any> {
     SettingsService.settings = data;
-
     const objectConfigOptions: string[] = [
       'service',
+      'staffAugService',
       'additionalJobCriteria',
       'integrations',
       'eeoc',
@@ -44,9 +44,18 @@ export class SettingsService {
         SettingsService.settings[option] = {};
       }
     });
-    if (!SettingsService.settings.service.fields || SettingsService.settings.service.fields.length === 0) {
-      SettingsService.settings.service.fields = [
+
+    this.checkServiceFields(SettingsService.settings.service);
+    this.checkServiceFields(SettingsService.settings.staffAugService);
+
+    await TranslateService.use(this.getPreferredLanguage()).toPromise();
+  }
+
+  private checkServiceFields = (service: IServiceSettings) => {
+    if (!service.fields || service.fields.length === 0) {
+      service.fields = [
         'id',
+        'corpId',
         'title',
         'publishedCategory(id,name)',
         'address(city,state,countryName)',
@@ -63,8 +72,8 @@ export class SettingsService {
       ];
     }
 
-    if (!SettingsService.settings.service.jobInfoChips) {
-      SettingsService.settings.service.jobInfoChips = [
+    if (!service.jobInfoChips) {
+      service.jobInfoChips = [
         'employmentType',
         {
           type: 'mediumDate',
@@ -73,31 +82,21 @@ export class SettingsService {
       ];
     }
 
-    if (
-      !SettingsService.settings.service.keywordSearchFields ||
-      SettingsService.settings.service.keywordSearchFields.length === 0
-    ) {
-      SettingsService.settings.service.keywordSearchFields = ['publicDescription', 'title'];
+    if (!service.keywordSearchFields || service.keywordSearchFields.length === 0) {
+      service.keywordSearchFields = ['publicDescription', 'title'];
     }
     const validTokenRegex: RegExp = /[^A-Za-z0-9]/;
-    if (
-      !SettingsService.settings.service.corpToken ||
-      validTokenRegex.test(SettingsService.settings.service.corpToken)
-    ) {
+    if (!service.corpToken || validTokenRegex.test(service.corpToken)) {
       throw new Error('Invalid Corp Token');
     }
     const validSwimlaneRegex: RegExp = /[^0-9]/;
-    if (
-      !SettingsService.settings.service.swimlane ||
-      validSwimlaneRegex.test(SettingsService.settings.service.swimlane.toString())
-    ) {
+    if (!service.swimlane || validSwimlaneRegex.test(service.swimlane.toString())) {
       throw new Error('Invalid Swimlane');
     }
     if (SettingsService.urlRoot) {
       TranslateService.setLocation(`${SettingsService.urlRoot}i18n/`);
     }
-    await TranslateService.use(this.getPreferredLanguage()).toPromise();
-  }
+  };
 
   private getPreferredLanguage(): string {
     let supportedLanguages: string[] = SettingsService.settings.supportedLocales;

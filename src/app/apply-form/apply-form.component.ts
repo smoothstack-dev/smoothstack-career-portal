@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 import { SuccessModal } from '../success-modal/success-modal.component';
+import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId } from '../typings/corporation';
 
 @Component({
   selector: 'app-apply-form',
@@ -54,10 +55,10 @@ export class ApplyFormComponent implements OnInit {
   public formControls: any[] = [];
   public applying: boolean = false;
   public alreadyApplied: boolean = false;
-  public showCategory: boolean = SettingsService.settings.service.showCategory;
+  public showCategory: boolean;
   private APPLIED_KEY: string = 'APPLIED_KEY';
   private utmSource: string;
-  private service: string;
+  private corpType: CORP_TYPE;
 
   constructor(
     private formUtils: FormUtils,
@@ -69,7 +70,9 @@ export class ApplyFormComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.service = this.route.snapshot.paramMap.get('service');
+    const corpId = this.route.snapshot.paramMap.get('corpId');
+    this.corpType = getCorpTypeByCorpId(corpId);
+    this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
     this.checkLocalStorage();
     this.setupForm();
     this.getUtmSource();
@@ -82,7 +85,6 @@ export class ApplyFormComponent implements OnInit {
   }
 
   public setupForm(): void {
-    // Shared fields for both service1 and service2
     this.firstName = new TextBoxControl({
       key: 'firstName',
       label: TranslateService.translate('FIRST_NAME'),
@@ -132,16 +134,6 @@ export class ApplyFormComponent implements OnInit {
         { label: 'No', value: 'Not Authorized' },
       ],
     });
-    this.relocation = new TilesControl({
-      key: 'relocation',
-      label: 'Willingness to Relocate',
-      required: true,
-      options: [
-        { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
-        { label: 'Would consider moving for the right role', value: 'Undecided' },
-        { label: 'Not an option', value: 'No' },
-      ],
-    });
     this.resume = new FileControl({
       key: 'resume',
       required: true,
@@ -152,117 +144,131 @@ export class ApplyFormComponent implements OnInit {
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
     });
 
-    // Additional fields for jobs from service 1
-    if(this.service === "service1"){
-      this.city = new TextBoxControl({
-        key: 'city',
-        label: 'CITY',
-        required: true,
-        hidden: false,
-      });
-      this.state = new SelectControl({
-        key: 'state',
-        label: 'STATE',
-        required: true,
-        hidden: false,
-        options: states,
-      });
-      this.zip = new TextBoxControl({
-        key: 'zip',
-        label: 'ZIP CODE',
-        type: 'number',
-        required: true,
-        hidden: false,
-        interactions: [{ event: 'change', script: this.validateZip, invokeOnInit: false }],
-      });
-      this.codingAbility = new TilesControl({
-        key: 'codingAbility',
-        label: 'How would you rank your coding ability? (0 - lowest, 10 - highest)',
-        required: true,
-        options: Array.from(Array(11).keys()).map((r) => r.toString()),
-      });
-      this.yearsOfExperience = new TilesControl({
-        key: 'yearsOfExperience',
-        label: 'Years of Experience (Including Personal/Educational Projects)',
-        required: true,
-        hidden: false,
-        options: [
-          { label: '0-1 years', value: '0-1' },
-          { label: '1-2 years', value: '1-2' },
-          { label: '2-3 years', value: '2-3' },
-          { label: '3+ years', value: '3+' },
-        ],
-      });
-      this.currentlyStudent = new TilesControl({
-        key: 'currentlyStudent',
-        label: 'Are you currently a student?',
-        required: true,
-        options: ['Yes', 'No'],
-        interactions: [{ event: 'change', script: this.showEducationFields }],
-      });
-      this.graduationMonth = new SelectControl({
-        key: 'graduationMonth',
-        label: 'Expected Graduation Month',
-        required: true,
-        hidden: true,
-        options: months.map((label, i) => ({ label, value: `${i + 1}`.padStart(2, '0') })),
-      });
-      this.graduationYear = new TilesControl({
-        key: 'graduationYear',
-        label: 'Expected Graduation Year',
-        required: true,
-        hidden: true,
-        options: Array.from(Array(4)).map((v, i) => {
-          const year = new Date().getFullYear().toString();
-          return `${year.substr(0, 3)}${+year.substr(-1) + i}`;
-        }),
-      });
-      this.degreeExpected = new TilesControl({
-        key: 'degreeExpected',
-        label: 'Degree Expected',
-        required: true,
-        hidden: true,
-        options: ['High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
-        interactions: [{ event: 'change', script: this.showMajor }],
-      });
-      this.highestDegree = new TilesControl({
-        key: 'highestDegree',
-        label: 'Highest Degree Achieved',
-        required: true,
-        hidden: true,
-        options: ['None', 'GED', 'High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
-        interactions: [{ event: 'change', script: this.showMajor }],
-      });
-      this.major = new TextBoxControl({
-        key: 'major',
-        label: 'MAJOR',
-        required: true,
-        hidden: true,
-      });
-      this.isMilitary = new TilesControl({
-        key: 'isMilitary',
-        label: 'Are you a veteran or currently serving in the military?',
-        required: true,
-        options: ['Yes', 'No'],
-        interactions: [{ event: 'change', script: this.showMilitaryStatus }],
-      });
-      this.militaryStatus = new TilesControl({
-        key: 'militaryStatus',
-        label: 'Military Status',
-        required: true,
-        hidden: true,
-        options: ['Veteran', 'Active'],
-      });
-      this.militaryBranch = new TilesControl({
-        key: 'militaryBranch',
-        label: 'Military Branch',
-        required: true,
-        hidden: true,
-        options: ['Army', 'Air Force', 'Navy', 'Marine Corps', 'Coast Guard', 'Reserves', 'Other'],
-      });
-    }
+    this.city = new TextBoxControl({
+      key: 'city',
+      label: 'CITY',
+      required: true,
+      hidden: false,
+    });
+    this.state = new SelectControl({
+      key: 'state',
+      label: 'STATE',
+      required: true,
+      hidden: false,
+      options: states,
+    });
+    this.zip = new TextBoxControl({
+      key: 'zip',
+      label: 'ZIP CODE',
+      type: 'number',
+      required: true,
+      hidden: false,
+      interactions: [{ event: 'change', script: this.validateZip, invokeOnInit: false }],
+    });
+    this.codingAbility = new TilesControl({
+      key: 'codingAbility',
+      label: 'How would you rank your coding ability? (0 - lowest, 10 - highest)',
+      required: true,
+      options: Array.from(Array(11).keys()).map((r) => r.toString()),
+    });
+    this.yearsOfExperience = new TilesControl({
+      key: 'yearsOfExperience',
+      label: 'Years of Experience (Including Personal/Educational Projects)',
+      required: true,
+      hidden: false,
+      options: [
+        { label: '0-1 years', value: '0-1' },
+        { label: '1-2 years', value: '1-2' },
+        { label: '2-3 years', value: '2-3' },
+        { label: '3+ years', value: '3+' },
+      ],
+    });
+    this.currentlyStudent = new TilesControl({
+      key: 'currentlyStudent',
+      label: 'Are you currently a student?',
+      required: true,
+      options: ['Yes', 'No'],
+      interactions: [{ event: 'change', script: this.showEducationFields }],
+    });
+    this.graduationMonth = new SelectControl({
+      key: 'graduationMonth',
+      label: 'Expected Graduation Month',
+      required: true,
+      hidden: true,
+      options: months.map((label, i) => ({ label, value: `${i + 1}`.padStart(2, '0') })),
+    });
+    this.graduationYear = new TilesControl({
+      key: 'graduationYear',
+      label: 'Expected Graduation Year',
+      required: true,
+      hidden: true,
+      options: Array.from(Array(4)).map((v, i) => {
+        const year = new Date().getFullYear().toString();
+        return `${year.substr(0, 3)}${+year.substr(-1) + i}`;
+      }),
+    });
+    this.degreeExpected = new TilesControl({
+      key: 'degreeExpected',
+      label: 'Degree Expected',
+      required: true,
+      hidden: true,
+      options: ['High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
+      interactions: [{ event: 'change', script: this.showMajor }],
+    });
+    this.highestDegree = new TilesControl({
+      key: 'highestDegree',
+      label: 'Highest Degree Achieved',
+      required: true,
+      hidden: true,
+      options: ['None', 'GED', 'High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
+      interactions: [{ event: 'change', script: this.showMajor }],
+    });
+    this.major = new TextBoxControl({
+      key: 'major',
+      label: 'MAJOR',
+      required: true,
+      hidden: true,
+    });
+    this.isMilitary = new TilesControl({
+      key: 'isMilitary',
+      label: 'Are you a veteran or currently serving in the military?',
+      required: true,
+      options: ['Yes', 'No'],
+      interactions: [{ event: 'change', script: this.showMilitaryStatus }],
+    });
+    this.militaryStatus = new TilesControl({
+      key: 'militaryStatus',
+      label: 'Military Status',
+      required: true,
+      hidden: true,
+      options: ['Veteran', 'Active'],
+    });
+    this.militaryBranch = new TilesControl({
+      key: 'militaryBranch',
+      label: 'Military Branch',
+      required: true,
+      hidden: true,
+      options: ['Army', 'Air Force', 'Navy', 'Marine Corps', 'Coast Guard', 'Reserves', 'Other'],
+    });
 
-    if(this.service === "service1"){
+    this.relocation = new TilesControl({
+      key: 'relocation',
+      label: 'Willingness to Relocate',
+      required: true,
+      options:
+        this.corpType === CORP_TYPE.APPRENTICESHIP
+          ? [
+              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
+              { label: 'Would consider moving for the right role', value: 'Undecided' },
+              { label: 'Not an option', value: 'No' },
+            ]
+          : [
+              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
+              { label: 'Not an option', value: 'No' },
+            ],
+    });
+
+    if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
       this.formControls = [
         this.firstName,
         this.lastName,
@@ -287,8 +293,7 @@ export class ApplyFormComponent implements OnInit {
         this.militaryBranch,
         this.resume,
       ];
-    }else{
-      // service2
+    } else {
       this.formControls = [
         this.firstName,
         this.lastName,
@@ -300,7 +305,6 @@ export class ApplyFormComponent implements OnInit {
         this.resume,
       ];
     }
-    
 
     this.form = this.formUtils.toFormGroup([...this.formControls]);
     this.loading = false;
@@ -384,7 +388,7 @@ export class ApplyFormComponent implements OnInit {
   public save(): void {
     if (this.form.valid) {
       this.applying = true;
-      this.analytics.trackEvent(`Apply to Job: ${this.job.id}`);
+      this.analytics.trackEvent(`Apply to corpId: ${this.job.corpId}, Job: ${this.job.id}`);
       let requestParams: any = {
         firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
         lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
@@ -394,10 +398,9 @@ export class ApplyFormComponent implements OnInit {
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
         relocation: encodeURIComponent(this.form.value.relocation),
-        serviceNum: encodeURIComponent(this.service)
-      }
-      if(this.service === "service1"){
-        let additionalRequestParams: any = { 
+      };
+      if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
+        let additionalRequestParams: any = {
           city: encodeURIComponent(this.form.value.city.trim()),
           state: encodeURIComponent(this.form.value.state),
           zip: encodeURIComponent(this.form.value.zip),
@@ -427,7 +430,7 @@ export class ApplyFormComponent implements OnInit {
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
       this.applyService
-        .apply(this.job.id, requestParams, formData)
+        .apply(this.job.id, requestParams, formData, this.corpType)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
     }
   }

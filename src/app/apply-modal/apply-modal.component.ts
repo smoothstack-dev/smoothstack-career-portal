@@ -17,6 +17,7 @@ import { SettingsService } from '../services/settings/settings.service';
 import { AnalyticsService } from '../services/analytics/analytics.service';
 import { ApplyService } from '../services/apply/apply.service';
 import { Router } from '@angular/router';
+import { CORPORATION, CORP_TYPE } from '../typings/corporation';
 
 @Component({
   selector: 'app-apply-modal',
@@ -24,7 +25,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./apply-modal.component.scss'],
 })
 export class ApplyModalComponent implements OnInit {
-
   public job: any;
   public source: string;
   public firstName: TextBoxControl = {} as any;
@@ -43,20 +43,28 @@ export class ApplyModalComponent implements OnInit {
   public consentControl: any;
   public applying: boolean = false;
   public consentCheckbox: boolean = SettingsService.settings.privacyConsent.consentCheckbox;
-  public showCategory: boolean  = SettingsService.settings.service.showCategory;
+  public showCategory: boolean;
   private APPLIED_JOBS_KEY: string = 'APPLIED_JOBS_KEY';
+  private corpType: CORP_TYPE;
 
-  constructor(private formUtils: FormUtils,
-              public params: NovoModalParams,
-              private modalRef: NovoModalRef,
-              private applyService: ApplyService,
-              private analytics: AnalyticsService,
-              private toaster: NovoToastService,
-              private router: Router ) { this.toaster.parentViewContainer = this.params['viewContainer']; }
+  constructor(
+    private formUtils: FormUtils,
+    public params: NovoModalParams,
+    private modalRef: NovoModalRef,
+    private applyService: ApplyService,
+    private analytics: AnalyticsService,
+    private toaster: NovoToastService,
+    private router: Router
+  ) {
+    this.toaster.parentViewContainer = this.params['viewContainer'];
+  }
 
   public ngOnInit(): void {
+    console.log('ngOnInit');
     this.job = this.params['job'];
     this.source = this.params['source'];
+    this.corpType = CORP_TYPE.APPRENTICESHIP;
+    this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
     this.setupForm();
   }
   public setupForm(): void {
@@ -98,10 +106,11 @@ export class ApplyModalComponent implements OnInit {
         hidden: false,
         options: [
           { value: 'M', label: TranslateService.translate('EEOC.GENDER_MALE') },
-          { value: 'F', label: TranslateService.translate('EEOC.GENDER_FEMALE')},
-          { value: 'D', label: TranslateService.translate('EEOC.GENDER_ND')},
+          { value: 'F', label: TranslateService.translate('EEOC.GENDER_FEMALE') },
+          { value: 'D', label: TranslateService.translate('EEOC.GENDER_ND') },
         ],
-      }), new PickerControl({
+      }),
+      new PickerControl({
         key: 'ethnicity',
         label: TranslateService.translate('EEOC.RACE_ETHNICITY_LABEL'),
         required: SettingsService.settings.eeoc.genderRaceEthnicity,
@@ -130,9 +139,9 @@ export class ApplyModalComponent implements OnInit {
         hidden: false,
         options: [
           { value: 'P', label: TranslateService.translate('EEOC.VETERAN_P') },
-          { value: 'V', label: TranslateService.translate('EEOC.VETERAN_V')},
-          { value: 'N', label: TranslateService.translate('EEOC.VETERAN_N')},
-          { value: 'D', label: TranslateService.translate('EEOC.VETERAN_D')},
+          { value: 'V', label: TranslateService.translate('EEOC.VETERAN_V') },
+          { value: 'N', label: TranslateService.translate('EEOC.VETERAN_N') },
+          { value: 'D', label: TranslateService.translate('EEOC.VETERAN_D') },
         ],
       }),
     ];
@@ -145,8 +154,8 @@ export class ApplyModalComponent implements OnInit {
         hidden: false,
         options: [
           { value: 'Y', label: TranslateService.translate('EEOC.DISABILITY_Y') },
-          { value: 'N', label: TranslateService.translate('EEOC.DISABILITY_N')},
-          { value: 'D', label: TranslateService.translate('EEOC.DISABILITY_D')},
+          { value: 'N', label: TranslateService.translate('EEOC.DISABILITY_N') },
+          { value: 'D', label: TranslateService.translate('EEOC.DISABILITY_D') },
         ],
       }),
     ];
@@ -154,7 +163,9 @@ export class ApplyModalComponent implements OnInit {
       key: 'resume',
       required: true,
       hidden: false,
-      description: `${TranslateService.translate('ACCEPTED_RESUME')} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
+      description: `${TranslateService.translate(
+        'ACCEPTED_RESUME'
+      )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
     });
 
     this.formControls = [this.firstName, this.lastName, this.email, this.phoneNumber, this.resume];
@@ -225,7 +236,9 @@ export class ApplyModalComponent implements OnInit {
 
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
-      this.applyService.apply(this.job.id, requestParams, formData).subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this) );
+      this.applyService
+        .apply(this.job.id, requestParams, formData, this.corpType)
+        .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
     }
   }
 
@@ -235,7 +248,8 @@ export class ApplyModalComponent implements OnInit {
       this.router.navigate([url]);
     } else {
       window.open(url);
-    }  }
+    }
+  }
 
   private applyOnSuccess(res: any): void {
     let toastOptions: any = {

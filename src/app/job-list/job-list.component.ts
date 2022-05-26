@@ -5,6 +5,7 @@ import { SettingsService } from '../services/settings/settings.service';
 import { Router } from '@angular/router';
 import { TranslateService } from 'chomsky';
 import { forkJoin } from 'rxjs';
+import { CORPORATION, CORP_TYPE } from '../typings/corporation';
 
 @Component({
   selector: 'app-job-list',
@@ -24,29 +25,25 @@ export class JobListComponent implements OnChanges {
   public _loading: boolean = true;
   public moreAvailable: boolean = true;
   public total: number | '...' = '...';
-  public jobInfoChips: [string|any]  = SettingsService.settings.service.jobInfoChips;
-  public showCategory: boolean  = SettingsService.settings.service.showCategory;
   private start: number = 0;
 
-  constructor(private http: SearchService, private titleService: Title, private meta: Meta, private router: Router) {
-   }
+  constructor(private http: SearchService, private titleService: Title, private meta: Meta, private router: Router) {}
 
   public ngOnChanges(changes: SimpleChanges): any {
     this.getData();
   }
 
   public getData(loadMore: boolean = false): void {
-    this.start = loadMore ? (this.start + 30) : 0;
+    this.start = loadMore ? this.start + 30 : 0;
     this.titleService.setTitle(`${SettingsService.settings.companyName} - Careers`);
     let description: string = TranslateService.translate('PAGE_DESCRIPTION');
     this.meta.updateTag({ name: 'og:description', content: description });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
+    const job1 = this.http.getJobs(this.filter, { start: this.start });
+    const job2 = this.http.getSAJobs(this.filter, { start: this.start });
 
-    const job1 = this.http.getjobs(this.filter, { start: this.start });
-    const job2 = this.http.getjobs(this.filter, { start: this.start }, 30, "service2")
-
-    forkJoin([job1, job2]).subscribe(this.onSuccess.bind(this), this.onFailure.bind(this))
+    forkJoin([job1, job2]).subscribe(this.onSuccess.bind(this), this.onFailure.bind(this));
   }
 
   public loadMore(): void {
@@ -57,8 +54,9 @@ export class JobListComponent implements OnChanges {
     this.displaySidebar.emit(true);
   }
 
-  public loadJob(jobId: number, serviceNum:string): void {
-    this.router.navigate([`jobs/${jobId}/${serviceNum}`]); // 
+  public loadJob(jobId: number, corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP): void {
+    const jobUrl = `jobs/${SettingsService.settings[CORPORATION[corpType].serviceName].corpToken}/${jobId}`;
+    this.router.navigate([jobUrl]);
     this.loading = true;
   }
 
@@ -73,15 +71,20 @@ export class JobListComponent implements OnChanges {
 
   private onSuccess(results: any[]): void {
     let total = 0;
-    results.forEach((res,index)=>{
+    results.forEach((res, index) => {
       // add service# into data for future process
-      const jobs = res.data.map((d) => ({ ...d, service: "service" + (index+1)}));
+      let corpType: string;
+      if (index === 0) {
+        corpType = CORP_TYPE.APPRENTICESHIP;
+      } else {
+        corpType = CORP_TYPE.STAFF_AUG;
+      }
+      const jobs = res.data.map((d) => ({ ...d, corpType, corpId: CORPORATION[corpType].corpId }));
       this.jobs = this.jobs.concat(jobs);
-      total +=res.total;
-    })
-    console.log("current available jobs", this.jobs)
+      total += res.total;
+    });
     this.total = total;
-    this.moreAvailable = (results[0].count === 30);
+    this.moreAvailable = results[0].count === 30;
     this.loading = false;
   }
 

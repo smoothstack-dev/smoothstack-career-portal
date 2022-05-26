@@ -55,7 +55,7 @@
       "title"
     ]
   },
-  "service2": {
+  "staffAugService": {
     "batchSize": 500,
     "port": null,
     "corpToken": "8yy144",
