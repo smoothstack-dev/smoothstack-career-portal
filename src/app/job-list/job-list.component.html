@@ -21,7 +21,7 @@
     </novo-list-item>
   </div>
 </novo-list>
-<div class="load-more-button" *ngIf="!loading && moreAvailable">
+<div class="load-more-button" *ngIf="!loading && (moreAvailable || moreSAAvailable)">
   <button theme="secondary" (click)="loadMore()" inverse>Load More</button>
 </div>
 <div class="empty-list" *ngIf="!loading && jobs.length === 0">
