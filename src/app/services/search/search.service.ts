@@ -175,7 +175,6 @@ export class SearchService {
   }
 
   private getServiceAndUrl(corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP) {
-    console.log('serviceURL', corpType);
     switch (corpType) {
       case CORP_TYPE.APPRENTICESHIP:
         return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.baseUrl };
