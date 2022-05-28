@@ -59,6 +59,8 @@ export class ApplyFormComponent implements OnInit {
   private APPLIED_KEY: string = 'APPLIED_KEY';
   private utmSource: string;
   private corpType: CORP_TYPE;
+  private utmMedium: string;
+  private utmCampaign: string;
 
   constructor(
     private formUtils: FormUtils,
@@ -75,12 +77,14 @@ export class ApplyFormComponent implements OnInit {
     this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
     this.checkLocalStorage();
     this.setupForm();
-    this.getUtmSource();
+    this.getUTM();
   }
 
-  public getUtmSource(): void {
+  public getUTM(): void {
     this.route.queryParams.subscribe((params) => {
       this.utmSource = params['utm_source'];
+      this.utmMedium = params['utm_medium'];
+      this.utmCampaign = params['utm_campaign'];
     });
   }
 
@@ -398,6 +402,27 @@ export class ApplyFormComponent implements OnInit {
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
         relocation: encodeURIComponent(this.form.value.relocation),
+        codingAbility: encodeURIComponent(this.form.value.codingAbility),
+        yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
+        currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
+        ...(this.form.value.graduationMonth &&
+          this.form.value.graduationYear && {
+            graduationDate: encodeURIComponent(
+              `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
+            ),
+          }),
+        ...(this.form.value.degreeExpected && {
+          degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
+        }),
+        ...(this.form.value.highestDegree && {
+          highestDegree: encodeURIComponent(this.form.value.highestDegree),
+        }),
+        ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
+        militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
+        ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
+        ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+        ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
+        ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
       };
       if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
         let additionalRequestParams: any = {
