@@ -4,6 +4,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { SettingsService } from '../services/settings/settings.service';
 import { Router } from '@angular/router';
 import { TranslateService } from 'chomsky';
+import { forkJoin } from 'rxjs';
+import { CORPORATION, CORP_TYPE } from '../typings/corporation';
 
 @Component({
   selector: 'app-job-list',
@@ -22,26 +24,28 @@ export class JobListComponent implements OnChanges {
   public title: string;
   public _loading: boolean = true;
   public moreAvailable: boolean = true;
+  public moreSAAvailable: boolean = true;
   public total: number | '...' = '...';
-  public jobInfoChips: [string|any]  = SettingsService.settings.service.jobInfoChips;
-  public showCategory: boolean  = SettingsService.settings.service.showCategory;
   private start: number = 0;
+  private saStart: number = 0;
 
-  constructor(private http: SearchService, private titleService: Title, private meta: Meta, private router: Router) {
-   }
+  constructor(private http: SearchService, private titleService: Title, private meta: Meta, private router: Router) {}
 
   public ngOnChanges(changes: SimpleChanges): any {
     this.getData();
   }
 
   public getData(loadMore: boolean = false): void {
-    this.start = loadMore ? (this.start + 30) : 0;
+    this.start = loadMore && this.moreAvailable ? this.start + 30 : 0;
+    this.saStart = loadMore && this.moreSAAvailable ? this.saStart + 30 : 0;
     this.titleService.setTitle(`${SettingsService.settings.companyName} - Careers`);
     let description: string = TranslateService.translate('PAGE_DESCRIPTION');
     this.meta.updateTag({ name: 'og:description', content: description });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
-    this.http.getjobs(this.filter, { start: this.start }).subscribe(this.onSuccess.bind(this), this.onFailure.bind(this));
+    const jobCall = this.http.getJobs(this.filter, { start: this.start });
+    const saJobCall = this.http.getSAJobs(this.filter, { start: this.saStart });
+    forkJoin([jobCall, saJobCall]).subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
   }
 
   public loadMore(): void {
@@ -52,8 +56,9 @@ export class JobListComponent implements OnChanges {
     this.displaySidebar.emit(true);
   }
 
-  public loadJob(jobId: number): void {
-    this.router.navigate([`jobs/${jobId}`]);
+  public loadJob(jobId: number, corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP): void {
+    const jobUrl = `jobs/${SettingsService.settings[CORPORATION[corpType].serviceName].corpToken}/${jobId}`;
+    this.router.navigate([jobUrl]);
     this.loading = true;
   }
 
@@ -66,14 +71,27 @@ export class JobListComponent implements OnChanges {
     this._loading = value;
   }
 
-  private onSuccess(res: any): void {
-    if (this.start > 0) {
-      this.jobs = this.jobs.concat(res.data);
-    } else {
-      this.jobs = res.data;
-    }
-    this.total = res.total;
-    this.moreAvailable = (res.count === 30);
+  private onSuccess(results: any[]): void {
+    const appRes = results[0].data.map((r) => {
+      const corpType = CORP_TYPE.APPRENTICESHIP;
+      return {
+        ...r,
+        corpType,
+        corpId: CORPORATION[corpType].corpId,
+      };
+    });
+    const saRes = results[1].data.map((r) => {
+      const corpType = CORP_TYPE.STAFF_AUG;
+      return {
+        ...r,
+        corpType,
+        corpId: CORPORATION[corpType].corpId,
+      };
+    });
+    this.jobs = [...appRes, ...saRes];
+    this.total = this.jobs.length;
+    this.moreAvailable = appRes.count === 30;
+    this.moreSAAvailable = saRes.count === 30;
     this.loading = false;
   }
 
@@ -82,7 +100,7 @@ export class JobListComponent implements OnChanges {
     this.jobs = [];
     this.total = 0;
     this.moreAvailable = false;
+    this.moreSAAvailable = false;
     this.showError.emit(true);
   }
-
 }

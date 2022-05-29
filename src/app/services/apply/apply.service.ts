@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SettingsService } from '../settings/settings.service';
 import { Observable } from 'rxjs';
+import { CORPORATION, CORP_TYPE } from '../../../app/typings/corporation';
 
 @Injectable()
 export class ApplyService {
@@ -10,10 +11,10 @@ export class ApplyService {
     return 'https://0tz7ym4mad.execute-api.us-east-1.amazonaws.com/prod/careers';
   }
 
-  public apply(id: number, params: any, formData: FormData): Observable<any> {
+  public apply(id: number, params: any, formData: FormData, corpType: CORP_TYPE): Observable<any> {
     let applyParams: any = this.assembleParams(params);
-
-    return this.http.post(`${this.baseUrl}/${id}?${applyParams}`, formData);
+    const corpId = SettingsService.settings[CORPORATION[corpType].serviceName].corpToken;
+    return this.http.post(`${this.baseUrl}/${corpId}/${id}?${applyParams}`, formData);
   }
 
   private assembleParams(data: any): string {

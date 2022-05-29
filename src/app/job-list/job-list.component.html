@@ -3,20 +3,25 @@
   <span class="open-positions-text">{{ 'OPEN_POSITIONS' | translate }} ({{ total }})</span>
 </div>
 <novo-list direction="vertical" *ngIf="!loading && jobs.length > 0">
-  <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.id" (click)="loadJob(job.id)">
+  <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.corpId + '/' + job.id"
+    (click)="loadJob(job.id,job.corpType)">
     <novo-list-item>
       <item-content direction="vertical">
         <item-title>
-          <a class="job-title" [href]="'jobs/' + job.id" [routerLink]="'jobs/' + job.id"> {{ job.title }}</a>
+          <a class="job-title" [href]="'jobs/' + job.corpId + '/' + job.id"
+            [routerLink]="'jobs/' + job.corpId +  '/' + job.id ">
+            {{ job.title }}</a>
         </item-title>
       </item-content>
       <item-end>
-        <button theme="dialogue"><div class="apply-button-text">APPLY</div></button>
+        <button theme="dialogue">
+          <div class="apply-button-text">APPLY</div>
+        </button>
       </item-end>
     </novo-list-item>
   </div>
 </novo-list>
-<div class="load-more-button" *ngIf="!loading && moreAvailable">
+<div class="load-more-button" *ngIf="!loading && (moreAvailable || moreSAAvailable)">
   <button theme="secondary" (click)="loadMore()" inverse>Load More</button>
 </div>
 <div class="empty-list" *ngIf="!loading && jobs.length === 0">

@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 import { SuccessModal } from '../success-modal/success-modal.component';
+import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId } from '../typings/corporation';
 
 @Component({
   selector: 'app-apply-form',
@@ -54,9 +55,10 @@ export class ApplyFormComponent implements OnInit {
   public formControls: any[] = [];
   public applying: boolean = false;
   public alreadyApplied: boolean = false;
-  public showCategory: boolean = SettingsService.settings.service.showCategory;
+  public showCategory: boolean;
   private APPLIED_KEY: string = 'APPLIED_KEY';
   private utmSource: string;
+  private corpType: CORP_TYPE;
   private utmMedium: string;
   private utmCampaign: string;
 
@@ -70,6 +72,9 @@ export class ApplyFormComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    const corpId = this.route.snapshot.paramMap.get('corpId');
+    this.corpType = getCorpTypeByCorpId(corpId);
+    this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
     this.checkLocalStorage();
     this.setupForm();
     this.getUTM();
@@ -117,6 +122,32 @@ export class ApplyFormComponent implements OnInit {
       hidden: false,
       interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: false }],
     });
+    this.workAuthorization = new TilesControl({
+      key: 'workAuthorization',
+      label: 'Are you legally authorized to work in the U.S.?',
+      required: true,
+      options: [
+        { label: 'Yes - US Citizen', value: 'US Citizen' },
+        { label: 'Yes - Permanent Resident', value: 'Permanent Resident' },
+        { label: 'Yes - DACA', value: 'DACA' },
+        { label: 'Yes - H-1B', value: 'H-1B' },
+        { label: 'Yes - OPT/EAD', value: 'OPT/EAD' },
+        { label: 'Yes - EAD', value: 'EAD' },
+        { label: 'Yes - H-4/EAD', value: 'H-4/EAD' },
+        { label: 'Yes - Other', value: 'Other' },
+        { label: 'No', value: 'Not Authorized' },
+      ],
+    });
+    this.resume = new FileControl({
+      key: 'resume',
+      required: true,
+      hidden: false,
+      label: 'Upload Resume',
+      description: `${TranslateService.translate(
+        'ACCEPTED_RESUME'
+      )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
+    });
+
     this.city = new TextBoxControl({
       key: 'city',
       label: 'CITY',
@@ -137,32 +168,6 @@ export class ApplyFormComponent implements OnInit {
       required: true,
       hidden: false,
       interactions: [{ event: 'change', script: this.validateZip, invokeOnInit: false }],
-    });
-    this.workAuthorization = new TilesControl({
-      key: 'workAuthorization',
-      label: 'Are you legally authorized to work in the U.S.?',
-      required: true,
-      options: [
-        { label: 'Yes - US Citizen', value: 'US Citizen' },
-        { label: 'Yes - Permanent Resident', value: 'Permanent Resident' },
-        { label: 'Yes - DACA', value: 'DACA' },
-        { label: 'Yes - H-1B', value: 'H-1B' },
-        { label: 'Yes - OPT/EAD', value: 'OPT/EAD' },
-        { label: 'Yes - EAD', value: 'EAD' },
-        { label: 'Yes - H-4/EAD', value: 'H-4/EAD' },
-        { label: 'Yes - Other', value: 'Other' },
-        { label: 'No', value: 'Not Authorized' },
-      ],
-    });
-    this.relocation = new TilesControl({
-      key: 'relocation',
-      label: 'Willingness to Relocate',
-      required: true,
-      options: [
-        { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
-        { label: 'Would consider moving for the right role', value: 'Undecided' },
-        { label: 'Not an option', value: 'No' },
-      ],
     });
     this.codingAbility = new TilesControl({
       key: 'codingAbility',
@@ -249,40 +254,61 @@ export class ApplyFormComponent implements OnInit {
       hidden: true,
       options: ['Army', 'Air Force', 'Navy', 'Marine Corps', 'Coast Guard', 'Reserves', 'Other'],
     });
-    this.resume = new FileControl({
-      key: 'resume',
+
+    this.relocation = new TilesControl({
+      key: 'relocation',
+      label: 'Willingness to Relocate',
       required: true,
-      hidden: false,
-      label: 'Upload Resume',
-      description: `${TranslateService.translate(
-        'ACCEPTED_RESUME'
-      )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
+      options:
+        this.corpType === CORP_TYPE.APPRENTICESHIP
+          ? [
+              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
+              { label: 'Would consider moving for the right role', value: 'Undecided' },
+              { label: 'Not an option', value: 'No' },
+            ]
+          : [
+              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
+              { label: 'Not an option', value: 'No' },
+            ],
     });
 
-    this.formControls = [
-      this.firstName,
-      this.lastName,
-      this.nickName,
-      this.email,
-      this.phoneNumber,
-      this.city,
-      this.state,
-      this.zip,
-      this.workAuthorization,
-      this.relocation,
-      this.codingAbility,
-      this.yearsOfExperience,
-      this.currentlyStudent,
-      this.graduationMonth,
-      this.graduationYear,
-      this.degreeExpected,
-      this.highestDegree,
-      this.major,
-      this.isMilitary,
-      this.militaryStatus,
-      this.militaryBranch,
-      this.resume,
-    ];
+    if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
+      this.formControls = [
+        this.firstName,
+        this.lastName,
+        this.nickName,
+        this.email,
+        this.phoneNumber,
+        this.city,
+        this.state,
+        this.zip,
+        this.workAuthorization,
+        this.relocation,
+        this.codingAbility,
+        this.yearsOfExperience,
+        this.currentlyStudent,
+        this.graduationMonth,
+        this.graduationYear,
+        this.degreeExpected,
+        this.highestDegree,
+        this.major,
+        this.isMilitary,
+        this.militaryStatus,
+        this.militaryBranch,
+        this.resume,
+      ];
+    } else {
+      this.formControls = [
+        this.firstName,
+        this.lastName,
+        this.nickName,
+        this.email,
+        this.phoneNumber,
+        this.workAuthorization,
+        this.relocation,
+        this.resume,
+      ];
+    }
 
     this.form = this.formUtils.toFormGroup([...this.formControls]);
     this.loading = false;
@@ -366,7 +392,7 @@ export class ApplyFormComponent implements OnInit {
   public save(): void {
     if (this.form.valid) {
       this.applying = true;
-      this.analytics.trackEvent(`Apply to Job: ${this.job.id}`);
+      this.analytics.trackEvent(`Apply to corpId: ${this.job.corpId}, Job: ${this.job.id}`);
       let requestParams: any = {
         firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
         lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
@@ -374,9 +400,6 @@ export class ApplyFormComponent implements OnInit {
         email: encodeURIComponent(this.form.value.email.trim()),
         phone: encodeURIComponent(this.form.value.phone.trim()),
         format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
-        city: encodeURIComponent(this.form.value.city.trim()),
-        state: encodeURIComponent(this.form.value.state),
-        zip: encodeURIComponent(this.form.value.zip),
         workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
         relocation: encodeURIComponent(this.form.value.relocation),
         codingAbility: encodeURIComponent(this.form.value.codingAbility),
@@ -401,10 +424,38 @@ export class ApplyFormComponent implements OnInit {
         ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
         ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
       };
+      if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
+        let additionalRequestParams: any = {
+          city: encodeURIComponent(this.form.value.city.trim()),
+          state: encodeURIComponent(this.form.value.state),
+          zip: encodeURIComponent(this.form.value.zip),
+          codingAbility: encodeURIComponent(this.form.value.codingAbility),
+          yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
+          currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
+          ...(this.form.value.graduationMonth &&
+            this.form.value.graduationYear && {
+              graduationDate: encodeURIComponent(
+                `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
+              ),
+            }),
+          ...(this.form.value.degreeExpected && {
+            degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
+          }),
+          ...(this.form.value.highestDegree && {
+            highestDegree: encodeURIComponent(this.form.value.highestDegree),
+          }),
+          ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
+          militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
+          ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
+          ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+        };
+        Object.assign(requestParams, additionalRequestParams);
+      }
+
       let formData: FormData = new FormData();
       formData.append('resume', this.form.value.resume[0].file);
       this.applyService
-        .apply(this.job.id, requestParams, formData)
+        .apply(this.job.id, requestParams, formData, this.corpType)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
     }
   }
