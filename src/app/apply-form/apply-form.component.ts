@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 import { SuccessModal } from '../success-modal/success-modal.component';
-import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId } from '../typings/corporation';
+import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
 
 @Component({
   selector: 'app-apply-form',
@@ -127,32 +127,7 @@ export class ApplyFormComponent implements OnInit {
       key: 'workAuthorization',
       label: 'Are you legally authorized to work in the U.S.?',
       required: true,
-      options:
-        this.corpType === CORP_TYPE.APPRENTICESHIP
-          ? [
-              { label: 'Yes - US Citizen', value: 'US Citizen' },
-              { label: 'Yes - Permanent Resident', value: 'Permanent Resident' },
-              { label: 'Yes - DACA', value: 'DACA' },
-              { label: 'Yes - H-1B', value: 'H-1B' },
-              { label: 'Yes - OPT/EAD', value: 'OPT/EAD' },
-              { label: 'Yes - EAD', value: 'EAD' },
-              { label: 'Yes - H-4/EAD', value: 'H-4/EAD' },
-              { label: 'Yes - Other', value: 'Other' },
-              { label: 'No', value: 'Not Authorized' },
-            ]
-          : [
-              { label: 'Yes - US Citizen', value: 'US Citizen' },
-              { label: 'Yes - Permanent Resident', value: 'Permanent Resident' },
-              { label: 'Yes - DACA', value: 'DACA' },
-              { label: 'Yes - H-1B', value: 'H-1B' },
-              { label: 'Yes - GC/EAD', value: 'GC/EAD' },
-              { label: 'Yes - OPT/EAD', value: 'OPT/EAD' },
-              { label: 'Yes - EAD', value: 'EAD' },
-              { label: 'Yes - H-4/EAD', value: 'H-4/EAD' },
-              { label: 'Yes - TN Visa', value: 'TN Visa' },
-              { label: 'Yes - Other', value: 'Other' },
-              { label: 'No', value: 'Not Authorized' },
-            ],
+      options: workAuthorizationMap[this.corpType],
     });
     this.resume = new FileControl({
       key: 'resume',
