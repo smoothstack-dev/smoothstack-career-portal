@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 import { SuccessModal } from '../success-modal/success-modal.component';
-import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId } from '../typings/corporation';
+import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
 
 @Component({
   selector: 'app-apply-form',
@@ -39,6 +39,7 @@ export class ApplyFormComponent implements OnInit {
   public relocation: TilesControl = {} as any;
   public codingAbility: TilesControl = {} as any;
   public yearsOfExperience: TilesControl = {} as any;
+  public yearsOfProfessionalExperience: TilesControl = {} as any;
   public currentlyStudent: TilesControl = {} as any;
   public graduationMonth: SelectControl = {} as any;
   public graduationYear: TilesControl = {} as any;
@@ -126,17 +127,7 @@ export class ApplyFormComponent implements OnInit {
       key: 'workAuthorization',
       label: 'Are you legally authorized to work in the U.S.?',
       required: true,
-      options: [
-        { label: 'Yes - US Citizen', value: 'US Citizen' },
-        { label: 'Yes - Permanent Resident', value: 'Permanent Resident' },
-        { label: 'Yes - DACA', value: 'DACA' },
-        { label: 'Yes - H-1B', value: 'H-1B' },
-        { label: 'Yes - OPT/EAD', value: 'OPT/EAD' },
-        { label: 'Yes - EAD', value: 'EAD' },
-        { label: 'Yes - H-4/EAD', value: 'H-4/EAD' },
-        { label: 'Yes - Other', value: 'Other' },
-        { label: 'No', value: 'Not Authorized' },
-      ],
+      options: workAuthorizationMap[this.corpType],
     });
     this.resume = new FileControl({
       key: 'resume',
@@ -185,6 +176,25 @@ export class ApplyFormComponent implements OnInit {
         { label: '1-2 years', value: '1-2' },
         { label: '2-3 years', value: '2-3' },
         { label: '3+ years', value: '3+' },
+      ],
+    });
+    this.yearsOfProfessionalExperience = new TilesControl({
+      key: 'yearsOfProfessionalExperience',
+      label: 'Years of Professional Experience',
+      required: true,
+      hidden: false,
+      options: [
+        { label: '0', value: '0' },
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+        { label: '4', value: '4' },
+        { label: '5', value: '5' },
+        { label: '6', value: '6' },
+        { label: '7', value: '7' },
+        { label: '8', value: '8' },
+        { label: '9', value: '9' },
+        { label: '10+', value: '10+' },
       ],
     });
     this.currentlyStudent = new TilesControl({
@@ -259,17 +269,11 @@ export class ApplyFormComponent implements OnInit {
       key: 'relocation',
       label: 'Willingness to Relocate',
       required: true,
-      options:
-        this.corpType === CORP_TYPE.APPRENTICESHIP
-          ? [
-              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
-              { label: 'Would consider moving for the right role', value: 'Undecided' },
-              { label: 'Not an option', value: 'No' },
-            ]
-          : [
-              { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
-              { label: 'Not an option', value: 'No' },
-            ],
+      options: [
+        { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
+        { label: 'Would consider moving for the right role', value: 'Undecided' },
+        { label: 'Not an option', value: 'No' },
+      ],
     });
 
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
@@ -304,6 +308,10 @@ export class ApplyFormComponent implements OnInit {
         this.nickName,
         this.email,
         this.phoneNumber,
+        this.city,
+        this.state,
+        this.zip,
+        this.yearsOfProfessionalExperience,
         this.workAuthorization,
         this.relocation,
         this.resume,
@@ -393,39 +401,17 @@ export class ApplyFormComponent implements OnInit {
     if (this.form.valid) {
       this.applying = true;
       this.analytics.trackEvent(`Apply to corpId: ${this.job.corpId}, Job: ${this.job.id}`);
-      let requestParams: any = {
-        firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
-        lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
-        nickName: encodeURIComponent(this.form.value.nickName.trim()),
-        email: encodeURIComponent(this.form.value.email.trim()),
-        phone: encodeURIComponent(this.form.value.phone.trim()),
-        format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
-        workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
-        relocation: encodeURIComponent(this.form.value.relocation),
-        codingAbility: encodeURIComponent(this.form.value.codingAbility),
-        yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
-        currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
-        ...(this.form.value.graduationMonth &&
-          this.form.value.graduationYear && {
-            graduationDate: encodeURIComponent(
-              `${this.form.value.graduationMonth}/01/${this.form.value.graduationYear}`
-            ),
-          }),
-        ...(this.form.value.degreeExpected && {
-          degreeExpected: encodeURIComponent(this.form.value.degreeExpected),
-        }),
-        ...(this.form.value.highestDegree && {
-          highestDegree: encodeURIComponent(this.form.value.highestDegree),
-        }),
-        ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
-        militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
-        ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
-        ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
-        ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
-        ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
-      };
+      let requestParams: any = {};
       if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
-        let additionalRequestParams: any = {
+        requestParams = {
+          firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
+          lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
+          nickName: encodeURIComponent(this.form.value.nickName.trim()),
+          email: encodeURIComponent(this.form.value.email.trim()),
+          phone: encodeURIComponent(this.form.value.phone.trim()),
+          format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
+          workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
+          relocation: encodeURIComponent(this.form.value.relocation),
           city: encodeURIComponent(this.form.value.city.trim()),
           state: encodeURIComponent(this.form.value.state),
           zip: encodeURIComponent(this.form.value.zip),
@@ -448,8 +434,28 @@ export class ApplyFormComponent implements OnInit {
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
           ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+          ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
+          ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
         };
-        Object.assign(requestParams, additionalRequestParams);
+      }
+      if (this.corpType === CORP_TYPE.STAFF_AUG) {
+        requestParams = {
+          firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
+          lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
+          nickName: encodeURIComponent(this.form.value.nickName.trim()),
+          email: encodeURIComponent(this.form.value.email.trim()),
+          phone: encodeURIComponent(this.form.value.phone.trim()),
+          format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
+          city: encodeURIComponent(this.form.value.city.trim()),
+          state: encodeURIComponent(this.form.value.state),
+          zip: encodeURIComponent(this.form.value.zip),
+          workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
+          willRelocate: encodeURIComponent(this.form.value.relocation),
+          yearsOfProfessionalExperience: encodeURIComponent(this.form.value.yearsOfProfessionalExperience),
+          ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+          ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
+          ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
+        };
       }
 
       let formData: FormData = new FormData();
