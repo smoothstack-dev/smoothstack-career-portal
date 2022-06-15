@@ -452,9 +452,7 @@ export class ApplyFormComponent implements OnInit {
           workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
           willRelocate: encodeURIComponent(this.form.value.relocation),
           yearsOfProfessionalExperience: encodeURIComponent(this.form.value.yearsOfProfessionalExperience),
-          ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
-          ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
-          ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
+          jobName: this.job.title,
         };
       }
 
