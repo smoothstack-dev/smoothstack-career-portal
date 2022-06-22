@@ -39,10 +39,13 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { ApplyFormComponent } from './apply-form/apply-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessModal } from './success-modal/success-modal.component';
+import { SuccessPageComponent } from './success-page/success-page.component';
+import { SafeUrlPipe } from './utils/safeUrl.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'jobs/:corpId/:id', component: JobDetailsComponent, resolve: { message: JobResolver } },
+  { path: 'jobs/success', component: SuccessPageComponent },
   { path: 'jobs', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
 ];
@@ -63,9 +66,11 @@ export function initSettings(settings: SettingsService): any {
     SuccessModal,
     ErrorModalComponent,
     StripHtmlPipe,
+    SafeUrlPipe,
     SidebarFilterComponent,
     StructuredSeoComponent,
     PrivacyPolicyComponent,
+    SuccessPageComponent,
   ],
   entryComponents: [ApplyModalComponent, ErrorModalComponent, SuccessModal],
   imports: [

@@ -8,16 +8,14 @@ import {
   FieldInteractionApi,
   SelectControl,
   TilesControl,
-  NovoModalService,
 } from 'novo-elements';
 import { TranslateService } from 'chomsky';
 import { SettingsService } from '../services/settings/settings.service';
 import { AnalyticsService } from '../services/analytics/analytics.service';
 import { ApplyService } from '../services/apply/apply.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
-import { SuccessModal } from '../success-modal/success-modal.component';
 import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
 
 @Component({
@@ -69,7 +67,7 @@ export class ApplyFormComponent implements OnInit {
     private analytics: AnalyticsService,
     private toaster: NovoToastService,
     private route: ActivatedRoute,
-    private modalService: NovoModalService
+    private router: Router
   ) {}
 
   public ngOnInit(): void {
@@ -452,7 +450,6 @@ export class ApplyFormComponent implements OnInit {
           workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
           willRelocate: encodeURIComponent(this.form.value.relocation),
           yearsOfProfessionalExperience: encodeURIComponent(this.form.value.yearsOfProfessionalExperience),
-          jobName: this.job.title,
         };
       }
 
@@ -462,13 +459,6 @@ export class ApplyFormComponent implements OnInit {
         .apply(this.job.id, requestParams, formData, this.corpType)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
     }
-  }
-
-  private showSuccessModal(link: string) {
-    this.modalService.open(SuccessModal, {
-      schedulingLink: link,
-      jobTitle: this.job.title,
-    });
   }
 
   private applyOnSuccess(res: any): void {
@@ -482,8 +472,13 @@ export class ApplyFormComponent implements OnInit {
     };
     this.toaster.alert(toastOptions);
     this.storehasApplied();
-    this.showSuccessModal(res.schedulingLink);
     this.applying = false;
+    const state = {
+      jobTitle: this.job.title,
+      schedulingLink: res.schedulingLink,
+      challengeInfo: this.job.customTextBlock1,
+    };
+    this.router.navigate(['/jobs/success/'], { state });
   }
 
   private applyOnFailure(res: any): void {

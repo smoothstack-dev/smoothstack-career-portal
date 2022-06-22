@@ -81,6 +81,7 @@ export class JobListComponent implements OnChanges {
       };
     });
     const saRes = results[1].data.map((r) => {
+      console.log('jobs', r);
       const corpType = CORP_TYPE.STAFF_AUG;
       return {
         ...r,
