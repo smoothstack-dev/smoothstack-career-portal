@@ -1,14 +1,16 @@
 <div class="background">
   <div class="success-container">
     <div *ngIf="schedulingLink">
-        <h1>Success!</h1>
+        <h2>Based on your application, you are eligible to take the coding challenge! <br /> Please select a date/time that works best for you.</h2>
         <div class="success-content-container"> 
           <div class="iframe-div">
             <iframe class="success-iframe" [src]="schedulingLink | safeUrl"></iframe>
           </div>
           <div class="challenge-info" *ngIf="challengeInfo">
-            <h2>Challenge Information</h2>
-            <div [innerHTML]="challengeInfo"></div>
+            <div class="challenge-info-box">
+              <h3><strong>Coding Challenge Details</strong></h3>
+              <div class="coding-challenge-details" [innerHTML]="challengeInfo"></div>
+            </div>
             <br />
           </div>
         </div>

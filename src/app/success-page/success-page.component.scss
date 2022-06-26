@@ -7,6 +7,10 @@
     color: #818791;
   }
 
+  h2 {
+    color: #63666c;
+  }
+  
   .success-container {
     margin: 0% 3%;
     padding: 3%;
@@ -44,6 +48,16 @@
       order: 1;
     }
 
+    .challenge-info-box {
+      background-color: #fafafa;
+      border-radius: 2%;
+      padding: 1rem;
+    }
+
+    .coding-challenge-details {
+      font-size: 1.1rem;
+    }
+
     .back-btn {
       margin-top: 1rem;
       float: right;
@@ -67,10 +81,6 @@
 
   .thankyou-content-container {
     max-width: 1000px;
-
-    h2 {
-      color: #63666c;
-    }
 
     .back-btn {
       margin-top: 1rem;
