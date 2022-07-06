@@ -47,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'jobs/:corpId/:id', component: JobDetailsComponent, resolve: { message: JobResolver } },
   { path: 'jobs/success', component: SuccessPageComponent },
   { path: 'jobs', component: MainPageComponent },
+  { path: 'jobs/:corpType', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
 ];
 
