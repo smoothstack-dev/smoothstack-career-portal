@@ -12,6 +12,7 @@ import { JobBoardPost } from '@bullhorn/bullhorn-types';
 import { ServerResponseService } from '../services/server-response/server-response.service';
 import { TranslateService } from 'chomsky';
 import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId } from '../typings/corporation';
+import { PreviousRoute } from '../services/previouseRoute/previouseRoute.service';
 
 @Component({
   selector: 'app-job-details',
@@ -37,6 +38,7 @@ export class JobDetailsComponent implements OnInit {
     private shareService: ShareService,
     private route: ActivatedRoute,
     private router: Router,
+    private previousRoute: PreviousRoute,
     private analytics: AnalyticsService,
     private modalService: NovoModalService,
     private viewContainerRef: ViewContainerRef,
@@ -129,7 +131,9 @@ export class JobDetailsComponent implements OnInit {
   }
 
   public goToJobList(): void {
-    this.router.navigate(['/']);
+    const previous = this.previousRoute.getPreviousUrl();
+    if (previous) this.router.navigate([previous]);
+    else this.router.navigate(['/']);
   }
 
   private setJob(): void {

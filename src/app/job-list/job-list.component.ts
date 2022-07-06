@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from 'chomsky';
 import { forkJoin } from 'rxjs';
 import { CORPORATION, CORP_TYPE } from '../typings/corporation';
+import { JOBLIST_TYPE } from '../typings/jobList';
+import { PreviousRoute } from '../services/previouseRoute/previouseRoute.service';
 
 @Component({
   selector: 'app-job-list',
@@ -16,7 +18,7 @@ export class JobListComponent implements OnChanges {
   @Input() public filter: any;
   @Input() public filterCount: number;
   @Input() public sidebarVisible: boolean = false;
-  @Input() public corpType: any;
+  @Input() public jobListType: JOBLIST_TYPE;
   @Output() public displaySidebar: EventEmitter<any> = new EventEmitter();
   @Output() public showLoading: EventEmitter<boolean> = new EventEmitter();
   @Output() public showError: EventEmitter<boolean> = new EventEmitter();
@@ -35,10 +37,11 @@ export class JobListComponent implements OnChanges {
     private titleService: Title,
     private meta: Meta,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private previousRoute: PreviousRoute
   ) {
-    const corpType = this.route.snapshot.paramMap.get('corpType');
-    this.corpType = corpType ? corpType.toUpperCase() : undefined;
+    const jobListType = this.route.snapshot.routeConfig.path;
+    this.jobListType = jobListType ? (jobListType.toUpperCase() as JOBLIST_TYPE) : JOBLIST_TYPE.LAUNCH;
   }
 
   public ngOnChanges(changes: SimpleChanges): any {
@@ -55,12 +58,13 @@ export class JobListComponent implements OnChanges {
     this.meta.updateTag({ name: 'description', content: description });
     const jobCall = this.http.getJobs(this.filter, { start: this.start });
     const saJobCall = this.http.getSAJobs(this.filter, { start: this.saStart });
-    switch (this.corpType) {
-      case CORP_TYPE.STAFF_AUG:
+    const saCorpJobCall = this.http.getSAJobs({ saCorpFilter: 'employmentType:Corporate' }, { start: this.saStart });
+    switch (this.jobListType) {
+      case JOBLIST_TYPE.EXPERIENCED:
         saJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
         break;
-      case CORP_TYPE.APPRENTICESHIP:
-        jobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+      case JOBLIST_TYPE.CORPORATE:
+        saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
         break;
       default:
         forkJoin([jobCall, saJobCall]).subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
@@ -96,8 +100,9 @@ export class JobListComponent implements OnChanges {
       appRes = [];
     let saTotalCount = 0,
       appTotalCount = 0;
-    switch (this.corpType) {
-      case CORP_TYPE.STAFF_AUG: {
+    switch (this.jobListType) {
+      case JOBLIST_TYPE.CORPORATE:
+      case JOBLIST_TYPE.EXPERIENCED: {
         const corpType = CORP_TYPE.STAFF_AUG;
         saRes = results.data.map((r) => {
           return {
@@ -109,19 +114,7 @@ export class JobListComponent implements OnChanges {
         saTotalCount = results.count || 0;
         break;
       }
-      case CORP_TYPE.APPRENTICESHIP: {
-        const corpType = CORP_TYPE.APPRENTICESHIP;
-        appRes = results.data.map((r) => {
-          return {
-            ...r,
-            corpType,
-            corpId: CORPORATION[corpType].corpId,
-          };
-        });
-        appTotalCount = results.count || 0;
-        break;
-      }
-      default: {
+      case JOBLIST_TYPE.LAUNCH: {
         appRes = results[0].data.map((r) => {
           const corpType = CORP_TYPE.APPRENTICESHIP;
           return {
@@ -145,10 +138,12 @@ export class JobListComponent implements OnChanges {
     }
     this.jobs = [...appRes, ...saRes];
     if (this.jobs.length === 1) this.loadJob(this.jobs[0].id, this.jobs[0].corpType);
-    this.moreAvailable = appRes.length === 30;
-    this.moreSAAvailable = saRes.length === 30;
-    this.total = this.jobs.length;
-    this.loading = false;
+    else {
+      this.moreAvailable = appRes.length === 30;
+      this.moreSAAvailable = saRes.length === 30;
+      this.total = this.jobs.length;
+      this.loading = false;
+    }
   }
 
   private onFailure(res: any): void {

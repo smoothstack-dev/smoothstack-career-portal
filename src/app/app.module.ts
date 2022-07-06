@@ -10,6 +10,7 @@ import { AnalyticsService } from './services/analytics/analytics.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SearchService } from './services/search/search.service';
+import { PreviousRoute } from './services/previouseRoute/previouseRoute.service';
 import { ShareService } from './services/share/share.service';
 import { ApplyService } from './services/apply/apply.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -46,8 +47,9 @@ const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'jobs/:corpId/:id', component: JobDetailsComponent, resolve: { message: JobResolver } },
   { path: 'jobs/success', component: SuccessPageComponent },
-  { path: 'jobs', component: MainPageComponent },
-  { path: 'jobs/:corpType', component: MainPageComponent },
+  { path: 'launch', component: MainPageComponent },
+  { path: 'corporate', component: MainPageComponent },
+  { path: 'experienced', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
 ];
 
@@ -92,6 +94,7 @@ export function initSettings(settings: SettingsService): any {
     { provide: APP_INITIALIZER, useFactory: initSettings, deps: [SettingsService], multi: true },
     SettingsService,
     SearchService,
+    PreviousRoute,
     ShareService,
     FieldInteractionApi,
     NovoModalService,
