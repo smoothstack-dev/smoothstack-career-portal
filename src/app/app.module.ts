@@ -49,7 +49,7 @@ const appRoutes: Routes = [
   { path: 'jobs/success', component: SuccessPageComponent },
   { path: 'launch', component: MainPageComponent },
   { path: 'corporate', component: MainPageComponent },
-  { path: 'experienced', component: MainPageComponent },
+  { path: 'senior', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
 ];
 

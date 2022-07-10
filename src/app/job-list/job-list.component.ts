@@ -60,14 +60,17 @@ export class JobListComponent implements OnChanges {
     const saJobCall = this.http.getSAJobs(this.filter, { start: this.saStart });
     const saCorpJobCall = this.http.getSAJobs({ saCorpFilter: 'employmentType:Corporate' }, { start: this.saStart });
     switch (this.jobListType) {
-      case JOBLIST_TYPE.EXPERIENCED:
+      case JOBLIST_TYPE.SENIOR:
         saJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+        this.title = 'Senior Positions';
         break;
       case JOBLIST_TYPE.CORPORATE:
         saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+        this.title = 'Corporate Positions';
         break;
       default:
         forkJoin([jobCall, saJobCall]).subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+        this.title = 'Open Positions';
         break;
     }
   }
@@ -102,7 +105,7 @@ export class JobListComponent implements OnChanges {
       appTotalCount = 0;
     switch (this.jobListType) {
       case JOBLIST_TYPE.CORPORATE:
-      case JOBLIST_TYPE.EXPERIENCED: {
+      case JOBLIST_TYPE.SENIOR: {
         const corpType = CORP_TYPE.STAFF_AUG;
         saRes = results.data.map((r) => {
           return {
