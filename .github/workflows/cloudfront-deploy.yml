@@ -35,6 +35,4 @@ jobs:
       - name: Deploy
         shell: bash
         run: |
-          npx deploy-aws-s3-cloudfront@3.6.0 --non-interactive --bucket smoothstack-static-ui --source dist/browser --destination career-portal --cache-control *:no-cache 
-
-#--distribution EGTX9RMNUVKTR --invalidation-path "career-portal/*"
+          npx deploy-aws-s3-cloudfront@3.6.0 --non-interactive --bucket smoothstack-static-ui --source dist/browser --destination career-portal --cache-control *:no-cache --distribution EGTX9RMNUVKTR --invalidation-path "/*"
