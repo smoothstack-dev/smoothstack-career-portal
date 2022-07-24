@@ -6,9 +6,6 @@
     <div class="job-header">
       <span class="job-title">{{ job.title }}</span>
       <br />
-      <span class="category" *ngIf="job.publishedCategory && showCategory">
-        {{ job.publishedCategory?.name }}
-      </span>
       <div class="job-info-container">
         <span class="job-info" *ngIf="job.customText3 === '1' && (job.address.city || job.address.state)">
           <i class="bhi-location"></i>
@@ -19,7 +16,6 @@
           <i class="bhi-location"></i>
           United States
         </span>
-        <span class="job-info"> Level {{ job.customText2 }} </span>
       </div>
     </div>
     <div class="job-description-container">
