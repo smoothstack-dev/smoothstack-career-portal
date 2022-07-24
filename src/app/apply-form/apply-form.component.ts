@@ -60,6 +60,7 @@ export class ApplyFormComponent implements OnInit {
   private corpType: CORP_TYPE;
   private utmMedium: string;
   private utmCampaign: string;
+  private techSelection: TilesControl = {} as any;
 
   constructor(
     private formUtils: FormUtils,
@@ -245,7 +246,11 @@ export class ApplyFormComponent implements OnInit {
       key: 'isMilitary',
       label: 'Are you a veteran or currently serving in the military?',
       required: true,
-      options: ['Yes', 'No'],
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+        { label: 'Do not wish to specify', value: 'Undisclosed' },
+      ],
       interactions: [{ event: 'change', script: this.showMilitaryStatus }],
     });
     this.militaryStatus = new TilesControl({
@@ -273,6 +278,19 @@ export class ApplyFormComponent implements OnInit {
         { label: 'Not an option', value: 'No' },
       ],
     });
+    this.techSelection = new TilesControl({
+      key: 'techSelection',
+      label: 'If you had to choose one, which language would be your strongest?',
+      required: this.job.id == 1,
+      hidden: this.job.id !== 1,
+      options: [
+        { label: 'Java', value: 'java' },
+        { label: 'Python', value: 'python' },
+        { label: 'C/C++', value: 'c' },
+        { label: '.NET', value: 'dotNet' },
+        { label: 'Other', value: 'other' },
+      ],
+    });
 
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
       this.formControls = [
@@ -287,6 +305,7 @@ export class ApplyFormComponent implements OnInit {
         this.workAuthorization,
         this.relocation,
         this.codingAbility,
+        this.techSelection,
         this.yearsOfExperience,
         this.currentlyStudent,
         this.graduationMonth,
@@ -346,7 +365,7 @@ export class ApplyFormComponent implements OnInit {
         API.show('militaryStatus');
         API.show('militaryBranch');
         break;
-      case 'No':
+      default:
         API.hide('militaryStatus');
         API.hide('militaryBranch');
         break;
@@ -388,7 +407,14 @@ export class ApplyFormComponent implements OnInit {
   }
 
   private getMilitaryStatus = (): string => {
-    return this.form.value.isMilitary === 'No' ? 'Civilian' : this.form.value.militaryStatus;
+    switch (this.form.value.isMilitary) {
+      case 'Yes':
+        return this.form.value.militaryStatus;
+      case 'No':
+        return 'Civilian';
+      case 'Undisclosed':
+        return 'Undisclosed';
+    }
   };
 
   private toTitleCase = (str: string) => {
@@ -431,6 +457,7 @@ export class ApplyFormComponent implements OnInit {
           ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
           ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
+          ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
