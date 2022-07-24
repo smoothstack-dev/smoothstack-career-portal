@@ -2,7 +2,7 @@ name: Cloudfront Deploy
 
 on:
   push:
-    branches: [cloudfront-deploy]
+    branches: main
 
 jobs:
   build:
