@@ -43,7 +43,7 @@
           },
           "configurations": {
             "dev": {
-              "baseHref": "."
+              "baseHref": "/"
             },
             "static": {
               "optimization": true,
@@ -55,7 +55,7 @@
               "extractLicenses": false,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "baseHref": ".",
+              "baseHref": "/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
