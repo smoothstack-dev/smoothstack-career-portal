@@ -403,7 +403,7 @@ export class ApplyFormComponent implements OnInit {
   }
 
   private validateEmail(API: FieldInteractionApi): void {
-    if (EMAIL_TYPOS.some((typo) => API.getActiveValue().includes(typo))) {
+    if (EMAIL_TYPOS.some((typo) => API.getActiveValue().endsWith(typo))) {
       API.markAsInvalid(API.getActiveKey(), 'Invalid Email Address');
     }
   }
