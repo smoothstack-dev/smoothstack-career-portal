@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { states } from './util/states';
 import { months } from './util/months';
 import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
+import { EMAIL_TYPOS } from './util/email';
 
 @Component({
   selector: 'app-apply-form',
@@ -122,6 +123,7 @@ export class ApplyFormComponent implements OnInit {
       type: 'email',
       required: true,
       hidden: false,
+      interactions: [{ event: 'change', script: this.validateEmail, invokeOnInit: false }],
     });
     this.phoneNumber = new TextBoxControl({
       key: 'phone',
@@ -406,6 +408,12 @@ export class ApplyFormComponent implements OnInit {
     const phoneNumberPattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     if (!phoneNumberPattern.test(API.getActiveValue())) {
       API.markAsInvalid(API.getActiveKey(), 'Invalid Phone Number');
+    }
+  }
+
+  private validateEmail(API: FieldInteractionApi): void {
+    if (EMAIL_TYPOS.some((typo) => API.getActiveValue().endsWith(typo))) {
+      API.markAsInvalid(API.getActiveKey(), 'Invalid Email Address');
     }
   }
 
