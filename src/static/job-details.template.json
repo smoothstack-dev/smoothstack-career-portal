@@ -1,0 +1,102 @@
+{
+ "sectionOne":
+   [
+     {
+       "title":"Training & Career Opportunity for Entry Level Software Engineer",
+       "contentType":"PARAGRAPH",
+       "contents":[
+         "Are you looking to join an elite team of Software Developers, trained by the best, creating the products and services that transform our world for the better?",
+         "The path to a successful technology career can be confusing and unclear. You bring the talent and the motivation, and Smoothstack will provide the training, mentorship, network, and access to extremely desirable roles to launch your career!",
+         "Once selected and hired as a W-2 employee of Smoothstack, you will receive 14-20 weeks of paid, remote training in an Agile environment, complete with scrum masters, product owners, code reviewers, and more. Trainees will be paid a biweekly stipend (plus benefits) to train and will start with a salary of $60,000+/year while working on client projects."
+       ]
+     }
+   ],
+   "sectionTwo":[
+     {
+       "title": "Successful Applicants Must:",
+       "contentType":"LIST",
+       "contents": [
+         "Pass a Coding Challenge",
+         "Be legally authorized to work in the U.S., without employer sponsorship",
+         "Be willing to relocate",
+         "Have the ability to obtain Interim Secret Clearance"
+       ]
+     },
+     {
+       "title": "Qualifications:",
+       "contentType":"LIST",
+       "contents": [
+         "Must have hands-on coding experience, equivalent training or course work.",
+         "No prior professional experience required.",
+         "Excitement, eagerness, and ability to learn new technologies quickly."
+       ]
+     },
+     {
+      "title": "Test:",
+      "contentType":"LIST",
+      "contents": [
+        "Must have hands-on coding experience, equivalent training or course work.",
+        "No prior professional experience required.",
+        "Excitement, eagerness, and ability to learn new technologies quickly.",
+        "Excitement, eagerness, and ability to learn new technologies quickly.",
+        "Excitement, eagerness, and ability to learn new technologies quickly."
+      ]
+    }
+   ],
+   "sectionThree":[
+     {
+       "title": "Benefits:",
+       "contentType":"LIST",
+       "contents": [
+         "Paid Training",
+         "Health Insurance including Vision and Dental",
+         "Matching 401K",
+         "Employee Assistance Program",
+         "Voluntary Life Insurance",
+         "Relocation Reimbursement",
+         "10 paid days off a year (Federal holidays)",
+         "Industry Certifications",
+         "Tuition Reimbursement assistance",
+         "Amazing company culture!"
+       ]
+     },
+     {
+       "title": "Entry Level Software Engineer Responsibilities:",
+       "contentType":"LIST",
+       "contents": [
+         "Development in Java, Spring Boot, Microservices, API while providing expertise in the full software development lifecycle, from concept and design to testing, designing, developing and delivering high-volume, low-latency applications for mission-critical systems.",
+         "Participate in technical solution and design discussions.",
+         "Perform proofs of concept and comprehensive solutions throughout the development lifecycle.",
+         "Add new features while improving efficiency, reliability, and scalability to address client needs."
+       ]
+     }
+   ],
+   "sectionFour":[
+    {
+      "title": "",
+      "contentType":"PARAGRAPH",
+      "contents": [
+        "Our internal training is designed to prepare you to get valuable hands-on field experience in simulated environments that mimic client environments.",
+        "Smoothstack is 100% technology-focused.  We specialize in Full Stack Java development, Cloud, DevSecOps, Networking, Cyber Security, Artificial Intelligence (AI), Business Intelligence (BI), Data Science, and Machine Learning related initiatives.",
+        "Smoothstack  is dedicated to removing bias in hiring and increasing representation and diversity in IT. Smoothstack is an equal opportunity employer. We celebrate diversity and are committed to creating an inclusive environment for all employees."
+      ]
+    },
+    {
+      "title": "Essential Duties:",
+      "contentType":"LIST",
+      "contents": [
+        "Must be be legally authorized to work in the U.S., without employer sponsorship.",
+        "Must pass background check and drug screening.",
+        "Must be vaccinated against Covid-19 unless you need a reasonable accommodation for religion or a health-related need."
+      ]
+    },
+    {
+      "title": "",
+      "contentType":"PARAGRAPH",
+      "contents": [
+        "Principles only. Recruiters please do not contact this job poster.",
+        "Do NOT contact us with unsolicited services or offers."
+      ]
+    }
+  ]
+ }

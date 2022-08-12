@@ -1,30 +1,33 @@
 <novo-loading *ngIf="loading"></novo-loading>
-<div class="open-positions">
-  <span class="open-positions-text">{{ title }} ({{ total }})</span>
-</div>
-<novo-list direction="vertical" *ngIf="!loading && jobs.length > 0">
-  <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.corpId + '/' + job.id"
-    (click)="loadJob(job.id,job.corpType)">
-    <novo-list-item>
-      <item-content direction="vertical">
-        <item-title>
-          <a class="job-title" [href]="'jobs/' + job.corpId + '/' + job.id"
-            [routerLink]="'jobs/' + job.corpId +  '/' + job.id ">
-            {{ job.title }}</a>
-        </item-title>
-      </item-content>
-      <item-end>
-        <button theme="dialogue">
-          <div class="apply-button-text">APPLY</div>
-        </button>
-      </item-end>
-    </novo-list-item>
+<div>
+  <div class="job-list-header-container header-background-style">
+    <span>{{ title }}</span>
   </div>
-</novo-list>
-<div class="load-more-button" *ngIf="!loading && (moreAvailable || moreSAAvailable)">
-  <button theme="secondary" (click)="loadMore()" inverse>Load More</button>
-</div>
-<div class="empty-list" *ngIf="!loading && jobs.length === 0">
-  <i class="bhi-search-question"></i>
-  {{ 'NO_MATCHING_JOBS' | translate }}
+  <novo-list direction="vertical" *ngIf="!loading && jobs.length > 0">
+    <div *ngFor="let job of jobs" class="job-card" [routerLink]="'jobs/' + job.corpId + '/' + job.id"
+      (click)="loadJob(job.id,job.corpType)">
+      <novo-list-item>
+        <item-content direction="vertical">
+          <item-title>
+            <a class="job-title" [href]="'jobs/' + job.corpId + '/' + job.id"
+              [routerLink]="'jobs/' + job.corpId +  '/' + job.id ">
+              {{ job.title }}</a>
+          </item-title>
+        </item-content>
+        <item-end>
+          <button theme="secondary" class="apply-btn">
+            <div class="apply-button-text">APPLY NOW</div>
+          </button>
+        </item-end>
+      </novo-list-item>
+    </div>
+  </novo-list>
+  <div class="load-more-button" *ngIf="!loading && (moreAvailable || moreSAAvailable)">
+    <button theme="secondary" (click)="loadMore()" inverse>Load More</button>
+  </div>
+  <div class="empty-list" *ngIf="!loading && jobs.length === 0">
+    <i class="bhi-search-question"></i>
+    {{ 'NO_MATCHING_JOBS' | translate }}
+  </div>  
+  <app-footer></app-footer>
 </div>

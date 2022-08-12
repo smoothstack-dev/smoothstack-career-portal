@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~novo-elements/novo-elements";
 
+html {
+  color: black
+}
+
+.header-background-style {
+  background-image: url("./app/utils/resources/header-background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 app-job-list {
   novo-loading {
   position: absolute;
@@ -172,4 +182,14 @@ app-apply-modal {
   }
 }
 
-
+@media print {
+  body, html, #wrapper {
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,78 @@
+:host {
+    // /deep/novo-card {
+    //   .novo-card {
+    //     header {
+    //       display: none;
+    //     }
+    //   }
+    // }
+    /deep/novo-form {
+        novo-tiles {
+            padding-left:12px;
+        }
+        novo-control {
+            font-size: 1.2em;
+        }
+        novo-control.tiles {
+            label.novo-control-label {
+            width: auto !important;
+            transform: translateY(-125%) !important;
+            white-space: normal !important;
+            overflow-x: visible !important;
+            color:#606060 !important; // form field label color
+            }
+        }
+    
+        .novo-control-inner-input-container {
+            color: #606060;
+            input:not([class='tiles-input']) {
+                border: 1px solid #606060 !important;
+                margin-left: 6px !important;
+                color: #606060 !important;
+                padding-left: 5px !important;
+                height: 2.5em !important
+            }
+            input[id="nickName"], input[id="comment"]{
+                margin-left: 5px !important;
+            }
+            textarea {
+                border: 1px solid #606060 !important;
+                margin-left: 6px !important;
+                margin-top: -25px !important;
+                margin-bottom: -30px !important;
+                color: #606060 !important;
+                padding-left: 5px !important;
+            }
+            div.file-item{ // resume once uploaded
+                margin-left: 6px !important;
+                margin-bottom: 30px !important;
+                width: auto !important;
+            }
+            section {
+                margin-left: 5px !important;
+                margin-top: -15px;
+            }
+            [type="button"]:not([class='ng-star-inserted']) { // for dropdown list
+                border: 1px solid #606060 !important;
+                margin-left: 6px !important;
+                margin-top: -5px !important;
+                color: #606060 !important;
+                padding-left: 5px !important;
+                height: 2.5em !important;
+                width: auto !important;
+            }
+            i[class~='required-indicator'] {
+                visibility: hidden !important;
+                width:1px !important;
+                margin:0px;
+                padding:0px;
+            }
+        }
+
+        .novo-control-outer-container {
+            label {
+                margin-top: 4px;
+            }
+        }
+    }
+}

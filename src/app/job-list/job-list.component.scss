@@ -1,18 +1,31 @@
 :host {
-  div.open-positions {
-    font-weight: 600;
-    font-size: 1.5em;
-    margin: 30px 34px 22px 35px;
+  div.job-list-header-container {
+    font-weight: 700;
+    font-size: 4em;
+    padding: 1.5em;
+    text-align: center;
+    color:#f4f4f4;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   div.mobile-filter-container {
     margin: 30px 34px 22px 35px;
   }
 }
 
+
+.job-list-container {
+  min-height: 80%;
+}
+
 novo-list {
   overflow: auto;
   min-height: 61.3vh;
-  max-width: 50%;
+  padding:2em 10%;
+  text-align: center;
+  app-share {
+    margin: 12px 35px;
+  }
   .list-item {
     display: flex;
     flex-direction: row;
@@ -20,9 +33,15 @@ novo-list {
   }
   .job-card {
     margin: 12px 35px;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
-    padding-bottom: 10px;
+    // box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+    padding-bottom: 25px;
+    border-bottom-style: solid;
+    border-color: rgb(202, 201, 201);
+
     cursor: pointer;
+    .apply-btn {
+      padding: 0% 10%;
+    }
     .description {
       display: inline-block;
       word-wrap: break-word;
@@ -34,7 +53,7 @@ novo-list {
     }
     .category {
       padding: 0px 15px 10px 15px;
-      font-weight: 600;
+      font-weight: 500;
       display: inline-block;
       word-wrap: break-word;
       overflow: hidden;
@@ -45,6 +64,7 @@ novo-list {
       }
     }
     novo-list-item {
+      padding: 0px !important;
       item-content {
         span,
         b {
@@ -54,37 +74,40 @@ novo-list {
           color: #3399dd;
         }
       }
-      item-header-end {
-        flex-wrap: wrap;
-        display: block;
-        .mid-card {
-          color: #0b344f;
-          padding: 10px 10px;
-          margin-right: 5px;
-          background-color: #f4f4f4;
-          border-radius: 8px;
-          align-self: center;
-          i {
-            font-size: 1em;
-          }
-        }
-      }
       item-title {
         a {
-          font-size: 18pt;
-          color: #989898;
-          font-weight: 700;
+          font-size: 1.5em;
+          color: black;
+          font-weight: 500;
         }
+        text-align: left;
       }
       .apply-button-text {
-        font-size: 15pt;
+        font-size: 1.2em;
+        font-weight: 700;
         background: -webkit-linear-gradient(right, #7421a6, #3246dd);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
+
+      @media (max-width:800px) {
+        item-title {
+          a {
+            font-size: 1.2em;
+          }
+        }
+        .apply-button-text {
+          font-size: 0.8em;
+        }
+      } 
     }
   }
+  @media (max-width:800px) {
+    padding: 0.5em;
+  } 
+
 }
+
 @media only screen and (min-width: 768px) {
   :host {
     .mobile-filter-container {
@@ -97,10 +120,9 @@ novo-list {
     novo-list {
       max-width: none!important;
     }
-    div.open-positions {
+    div.job-list-header-container {
       font-weight: 600;
-      font-size: 1.5em;
-      margin: 30px 34px 22px 15px;
+      font-size: 2em;
     }
     div.mobile-filter-container {
       margin: 30px 34px 22px 15px;
@@ -108,7 +130,7 @@ novo-list {
     div.job-card {
       margin: 12px 15px;
       novo-list-item {
-        flex-direction: column;
+        flex-direction: row;
         item-header-end {
           display: flex;
           .mid-card {

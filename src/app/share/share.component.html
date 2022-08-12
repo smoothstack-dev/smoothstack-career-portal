@@ -1,0 +1,10 @@
+<div class="share-container no-print ">
+  <button class="share-icon" theme="icon" icon="email" (click)="emailLink()" *ngIf="showShareButtons"></button>
+  <button class="share-icon" theme="icon" icon="twitter" (click)="shareTwitter()" *ngIf="showShareButtons"></button>
+  <button class="share-icon" theme="icon" icon="facebook" (click)="shareFacebook()" *ngIf="showShareButtons"></button>
+  <button class="share-icon" theme="icon" icon="linkedin" (click)="shareLinkedin()" *ngIf="showShareButtons"></button>
+  <button class="share-btn" theme="dialogue" icon="share" (click)="toggleShareButtons()" *ngIf="!showShareButtons">
+    Share&nbsp;&nbsp;&nbsp;&nbsp;
+  </button>
+  <button class="share-btn" theme="icon" icon="print" (click)="print()">Print&nbsp;&nbsp;&nbsp;&nbsp;</button>
+</div>

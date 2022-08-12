@@ -3,9 +3,7 @@
   background-color: #f4f4f4;
   max-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
-  .job-container {
-    margin: 0% 3%;
-    padding: 3%;
+  position: relative;
     background-color: #ffffff;
     &.safari-scroll {
       height: 100%;
@@ -15,75 +13,231 @@
     > button[theme='dialogue'] {
       margin: -10px -15px 20px -15px;
     }
-    .job-description-container {
-      display: flex;
-      justify-content: space-between;
+    h1, h2, h3 {
+      font-weight: 700;
     }
-    .job-description-text {
-      display: block;
+    ul {
+      list-style: none;
+    }
+    li {
+      text-indent: -0.2em;
+      line-height: 2em;
+    }
+    li::before {
+      content:url("./../utils/resources/icon-bullet.png");
+      margin-right: 1em;
+      margin-left:-2em;
+      zoom: 0.8;
+    }
+    p, li {
+      font-weight: 400;
+      font-size: 1.2em;
+    }
+    p {
+      line-height: 1.5em;
+    }
+    .job-section {
+      padding: 3% 12%;
+      min-height:10em;
+    }
+    .job-section-container {
       max-width: 50%;
       word-break: break-word;
     }
+    // title and salary background color
+    .job-salary, .job-header{
+      background-color: #5532C0;
+    }
+    // section background color
+    .job-sectionOne, .job-sectionThree {
+      background-color: #F0F2FC;
+    }
+    .job-sectionOne, .job-sectionTwo, .job-sectionThree{
+      min-width: 40%;
+    }
+    .youtube-video {
+      margin-top: 20px;
+    }
+
+    .job-salary {
+      color: white;
+      font-size: 2.5em;
+      font-weight: 700;
+      min-height: 5rem;
+      padding-left:12%;
+      display: flex;
+      align-items: center; 
+      // justify-content: center; 
+    }
+    div.black-block {
+      background-color: black;
+      color:#ffffff;
+      min-height: 8rem;
+      display: flex;
+      align-items: flex-end;
+    }
+    .back-sign {
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer; 
+    }
     .job-header {
-      div.job-info-container {
-        margin: 30px 0px;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        .job-info {
-          color: #0b344f;
-          padding: 10px 10px;
-          margin: 5px;
-          background-color: #f4f4f4;
-          border-radius: 8px;
-          align-self: center;
-          i {
-            font-size: 1em;
-          }
+      .job-title {
+        font-size: 5em;
+        font-weight: 700;
+        max-width: 40%;
+        padding: 0 0;
+      }
+      .category {
+        font-weight: 600;
+        display: inline-block;
+        font-size: 1.6em;
+        word-wrap: break-word;
+        overflow: hidden;
+        padding-top: 15px;
+      }
+      color:#ffffff;
+    }
+    div.job-info-container {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      padding-bottom: 3%;
+      .job-info {
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 2px;
+        align-self: center;
+        i {
+          font-size: 1em;
         }
       }
-      .job-title {
-        font-size: 2em;
-        font-weight: 600;
-      }
-    }
-    .share {
-      display: flex;
-      margin-top: 50px;
-      margin-bottom: 100px;
-      button {
-        margin-right: 20px;
-      }
-    }
-    .category {
-      font-weight: 600;
-      display: inline-block;
-      font-size: 1.3em;
-      word-wrap: break-word;
-      overflow: hidden;
-      color: #4a89dc;
-      padding-top: 15px;
     }
     app-apply-form {
-      transform: translateY(-180px)
+      position:absolute;
+      top: calc(3%);
+      left:calc(50%);
+      margin: 2%;
     }
-  }
+    .youtube-video{
+      width:40%;
+      height: 35vh;
+    } 
+    .go-to-form-btm {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      font-size: 1em;
+      font-weight: 600;
+      border: none;
+      outline: none;
+      background-color: #5532C0;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 20px;
+    }
+    .hide-go-to-form-btm {
+      display: none;
+    }
+
+    @media (max-width:800px){
+      div.black-block {
+        min-height: 3rem;
+      }
+      .job-section {
+        padding:5%;
+      }
+      .go-to-form-btm {
+        display:block;
+      }
+      .job-header {
+        .job-title {
+          font-size: 3em;
+          max-width: 100%;
+        }
+      }
+      .youtube-video{
+        width:100%;
+      }
+      .job-section-container{
+        max-width: 100%;
+      }
+      .job-salary {
+        font-size: 1.5em;
+        padding:5%
+      }
+      p, li {
+        font-weight: 400;
+        font-size: 1em;
+      }
+    }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
   :host {
-    .job-description-container {
-      flex-direction: column-reverse;
-    }
-    .job-description-text {
+    .job-sectionOne-text {
       max-width: none!important;
     }
     .background > .job-container {
       margin: 0%;
     }
-    app-apply-form {
-      transform: none!important;
+  }
+
+  app-apply-form {
+    position: relative !important;
+    left:1% !important;
+    right:1% !important;
+    margin: 1%;
+  }
+}
+
+@media print {
+  .background {
+    overflow: visible !important;
+    width:100%;
+    height:100%;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    margin: 0px !important;
+    div {
+      padding: 3px !important;
+      margin: 0px !important;
+      min-height: 0px;
     }
+    h1, h2, h3, h4 {
+      font-size: 1.3rem !important;
+      font-weight: 600 !important;
+      padding: 2px !important;
+      margin: 0px !important;
+    }
+    .job-title {
+      font-size: 32px !important;
+      font-weight: 700 !important;
+      padding: 5px !important;
+    }
+    .job-section-container {
+      max-width: 100%;
+      line-height: 1.5rem;
+    }
+    .job-section, .job-salary {
+      padding: 3% !important;
+      font-size: 1rem;
+    }
+    .job-salary {
+      font-size: 1.6rem !important;
+      padding-left: 4% !important;
+    }
+    .category {
+      padding-left: 3px;
+    }
+  }
+  body, .background, .job-container{
+    width:100%;
+    height:100%;
+    display:block;
   }
 }
 

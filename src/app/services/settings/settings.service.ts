@@ -69,6 +69,7 @@ export class SettingsService {
         'salary',
         'salaryUnit',
         'customText3',
+        'customTextBlock2',
       ];
     }
 

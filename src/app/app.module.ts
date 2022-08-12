@@ -16,12 +16,16 @@ import { ApplyService } from './services/apply/apply.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarFilterComponent } from './sidebar/sidebar-filter/sidebar-filter.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
 import {
   NovoListModule,
   NovoElementsModule,
   NovoHeaderModule,
   NovoModalModule,
   NovoModalService,
+  NovoDropdownModule,
   FieldInteractionApi,
   NovoToastService,
 } from 'novo-elements';
@@ -38,9 +42,12 @@ import { ServerResponseService } from './services/server-response/server-respons
 import { environment } from '../environments/environment';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ApplyFormComponent } from './apply-form/apply-form.component';
+import { ApplyFormSalesforceComponent } from './apply-form-salesforce/apply-form-salesforce.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessModal } from './success-modal/success-modal.component';
 import { SuccessPageComponent } from './success-page/success-page.component';
+import { ContactPageComponent } from './contact-page/contact-page.component';
+import { ShareComponent } from './share/share.component';
 import { SafeUrlPipe } from './utils/safeUrl.pipe';
 
 const appRoutes: Routes = [
@@ -51,6 +58,7 @@ const appRoutes: Routes = [
   { path: 'corporate', component: MainPageComponent },
   { path: 'senior', component: MainPageComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
+  { path: 'contact-us', component: ContactPageComponent },
 ];
 
 export function initSettings(settings: SettingsService): any {
@@ -66,6 +74,7 @@ export function initSettings(settings: SettingsService): any {
     JobDetailsComponent,
     ApplyModalComponent,
     ApplyFormComponent,
+    ApplyFormSalesforceComponent,
     SuccessModal,
     ErrorModalComponent,
     StripHtmlPipe,
@@ -74,6 +83,10 @@ export function initSettings(settings: SettingsService): any {
     StructuredSeoComponent,
     PrivacyPolicyComponent,
     SuccessPageComponent,
+    HeaderComponent,
+    FooterComponent,
+    ShareComponent,
+    ContactPageComponent,
   ],
   entryComponents: [ApplyModalComponent, ErrorModalComponent, SuccessModal],
   imports: [
@@ -99,6 +112,7 @@ export function initSettings(settings: SettingsService): any {
     FieldInteractionApi,
     NovoModalService,
     NovoToastService,
+    NovoDropdownModule,
     ApplyService,
     AnalyticsService,
     DatePipe,

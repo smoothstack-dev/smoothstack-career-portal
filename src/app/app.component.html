@@ -1,6 +1,4 @@
-<header [title]="title" icon="job" theme="opportunity" condensed="true">
-  <div class="entity-header" novo-title></div>
-</header>
-<div>
+<main>
+  <app-header *ngIf="!this.isOnContactUsPage"></app-header>
   <router-outlet></router-outlet>
-</div>
+</main>

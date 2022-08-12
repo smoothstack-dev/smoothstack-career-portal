@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { defaultChallengeInfo } from './../../static/job-scheduler.template';
 
 @Component({
   selector: 'success-page',
@@ -10,17 +10,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SuccessPageComponent {
   @Input()
   schedulingLink: SafeResourceUrl;
-  challengeInfo: string;
+  challengeInfo: any;
   jobTitle: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor() {}
 
   public ngOnInit(): void {
-    const defaultChallengeInfo =
-      'Based on your application, you are eligible to move forward to the next step in the process, a coding challenge!<br />Please schedule your challenge below for a day and time that works best for you.<br />';
     const state = history.state;
     this.schedulingLink = state.schedulingLink;
-    this.challengeInfo = state.challengeInfo || defaultChallengeInfo;
+    // this.schedulingLink =
+    // 'https://app.squarespacescheduling.com/schedule.php?owner=23045512&appointmentType=33218120&firstName=Scarlett&lastName=Cobain&email=scarlettxcobain%40gmail.com&phone=631-834-8110&field:11569425=27873';
+    // this.challengeInfo = state.challengeInfo || defaultChallengeInfo;
+    this.challengeInfo = defaultChallengeInfo;
     this.jobTitle = state.jobTitle;
   }
 

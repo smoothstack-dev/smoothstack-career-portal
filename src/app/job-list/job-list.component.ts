@@ -7,7 +7,6 @@ import { TranslateService } from 'chomsky';
 import { forkJoin } from 'rxjs';
 import { CORPORATION, CORP_TYPE } from '../typings/corporation';
 import { JOBLIST_TYPE } from '../typings/jobList';
-import { PreviousRoute } from '../services/previouseRoute/previouseRoute.service';
 
 @Component({
   selector: 'app-job-list',
@@ -37,8 +36,7 @@ export class JobListComponent implements OnChanges {
     private titleService: Title,
     private meta: Meta,
     private router: Router,
-    private route: ActivatedRoute,
-    private previousRoute: PreviousRoute
+    private route: ActivatedRoute
   ) {
     const jobListType = this.route.snapshot.routeConfig.path;
     this.jobListType = jobListType ? (jobListType.toUpperCase() as JOBLIST_TYPE) : JOBLIST_TYPE.LAUNCH;
@@ -62,15 +60,15 @@ export class JobListComponent implements OnChanges {
     switch (this.jobListType) {
       case JOBLIST_TYPE.SENIOR:
         saJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'Senior Positions';
+        this.title = 'SENIOR POSITIONS';
         break;
       case JOBLIST_TYPE.CORPORATE:
         saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'Corporate Positions';
+        this.title = 'CORPORATE POSITIONS';
         break;
       default:
         forkJoin([jobCall, saJobCall]).subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'Open Positions';
+        this.title = 'OPEN POSITIONS';
         break;
     }
   }
