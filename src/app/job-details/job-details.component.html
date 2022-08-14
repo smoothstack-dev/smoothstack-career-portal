@@ -44,9 +44,10 @@
                 <p *ngFor="let sectionTwoContent of sectionTwoItem.contents">{{ sectionTwoContent }}</p>
               </div>
             </div>
-            <iframe class="youtube-video no-print"
-              src="https://www.youtube.com/embed/N8L9NDPYRyg" 
-              title="5 Reasons Why To Join Apprenticeship Programs" 
+            <iframe
+              *ngIf="job.details.video" 
+              class="youtube-video no-print"
+              [src]="job.details.video | safeUrl"
               frameborder="0" 
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
             </iframe>
