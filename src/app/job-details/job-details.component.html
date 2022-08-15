@@ -19,68 +19,36 @@
           <app-share [job]="job" [id]="id"></app-share>
         </div>
         <div *ngIf="job.details">
-          <div class="job-sectionOne job-section">
-            <div class="job-section-container" *ngFor="let sectionOneItem of job.details.sectionOne">
-              <h1>{{ sectionOneItem.title}}</h1>
-              <div *ngIf="sectionOneItem.contentType === 'PARAGRAPH'">
-                <p *ngFor="let sectionOneContent of sectionOneItem.contents">{{ sectionOneContent }}</p>
+          <div *ngFor="let sectionDetailList of job.details.sections; index as sectionIndex; first as isFirst; last as isLast; odd as isOdd">
+            <div [class.job-sectionOne]="isOdd" [class.job-sectionTwo]="!isOdd">
+              <div *ngFor="let sectionItem of sectionDetailList">
+                <div *ngIf="sectionItem.contentType !== 'SALARY'" class="job-section-container">
+                  <h1 *ngIf="isFirst">{{ sectionItem.title}} </h1>
+                  <h3 *ngIf="!isFirst">{{ sectionItem.title}} </h3>
+                  <div *ngIf="sectionItem.contentType === 'PARAGRAPH'">
+                    <p *ngFor="let sectionContent of sectionItem.contents">{{ sectionContent }}</p>
+                  </div>
+                  <div *ngIf="sectionItem.contentType === 'LIST'">
+                    <ul>
+                      <li *ngFor="let sectionContent of sectionItem.contents">{{ sectionContent }}</li>
+                    </ul>
+                  </div>
+                  <iframe
+                    *ngIf="sectionItem.contentType === 'VIDEO' && sectionItem.videoUrl"
+                    class="youtube-video no-print"
+                    [src]="sectionItem.videoUrl | safeUrl"
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                  </iframe>
+                </div>
+                <div *ngIf="job.salary && sectionItem.contentType === 'SALARY'" class="job-salary" >
+                  <span >Salary: ${{ numberWithCommas(job.salary) }}/year</span>
+                </div>
               </div>
-              <div *ngIf="sectionOneItem.contentType === 'LIST'">
-                <ul>
-                  <li *ngFor="let sectionOneContent of sectionOneItem.contents">{{ sectionOneContent }}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="job-sectionTwo job-section">
-            <div class="job-section-container" *ngFor="let sectionTwoItem of job.details.sectionTwo">
-              <h3>{{ sectionTwoItem.title}}</h3>
-              <div *ngIf="sectionTwoItem.contentType === 'LIST'">
-                <ul>
-                  <li *ngFor="let sectionTwoContent of sectionTwoItem.contents">{{ sectionTwoContent }}</li>
-                </ul>
-              </div>
-              <div *ngIf="sectionTwoItem.contentType === 'PARAGRAPH'">
-                <p *ngFor="let sectionTwoContent of sectionTwoItem.contents">{{ sectionTwoContent }}</p>
-              </div>
-            </div>
-            <iframe
-              *ngIf="job.details.video" 
-              class="youtube-video no-print"
-              [src]="job.details.video | safeUrl"
-              frameborder="0" 
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-            </iframe>
-          </div>
-          <div class="job-sectionThree job-section">
-            <div class="job-section-container" *ngFor="let sectionThreeItem of job.details.sectionThree">
-              <h3>{{ sectionThreeItem.title}}</h3>
-              <div *ngIf="sectionThreeItem.contentType === 'LIST'">
-                <ul>
-                  <li *ngFor="let sectionThreeContent of sectionThreeItem.contents">{{ sectionThreeContent }}</li>
-                </ul>
-              </div>
-              <div *ngIf="sectionThreeItem.contentType === 'PARAGRAPH'">
-                <p *ngFor="let sectionThreeContent of sectionThreeItem.contents">{{ sectionThreeContent }}</p>
+              <div class="job-section-container">
+                <app-share *ngIf="isLast"  [job]="job" [id]="id"></app-share>
               </div>
             </div>
-          </div>
-          <div class="job-salary" *ngIf="job.salary">
-            <span >Salary: ${{ numberWithCommas(job.salary) }}/year</span>
-          </div>
-          <div class="job-sectionFour job-section">
-            <div class="job-section-container" *ngFor="let sectionFourItem of job.details.sectionFour">
-              <h3>{{ sectionFourItem.title}}</h3>
-              <div *ngIf="sectionFourItem.contentType === 'LIST'">
-                <ul>
-                  <li *ngFor="let sectionFourContent of sectionFourItem.contents">{{ sectionFourContent }}</li>
-                </ul>
-              </div>
-              <div *ngIf="sectionFourItem.contentType === 'PARAGRAPH'">
-                <p *ngFor="let sectionFourContent of sectionFourItem.contents">{{ sectionFourContent }}</p>
-              </div>
-            </div>
-            <app-share [job]="job" [id]="id"></app-share>
           </div>
         </div>
         <app-apply-form #applyForm class="no-print" id="applyForm" [job]="job"></app-apply-form>
