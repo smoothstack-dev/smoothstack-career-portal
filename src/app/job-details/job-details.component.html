@@ -14,8 +14,8 @@
     </div>
     <div class="job-info-container black-block job-section header-background-style no-print"></div>
     <div>
-        <div *ngIf="!job.details" class="job-section-container job-section">
-          <div class="job-publicDescription" [innerHTML]="job.publicDescription"></div>
+        <div *ngIf="!job.details" class="job-section-container job-publicDescription">
+          <div [innerHTML]="job.publicDescription"></div>
           <app-share [job]="job" [id]="id"></app-share>
         </div>
         <div *ngIf="job.details">

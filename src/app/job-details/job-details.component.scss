@@ -36,6 +36,10 @@
     p {
       line-height: 1.5em;
     }
+    .job-publicDescription{
+      padding-top:20px;
+      min-height: 90em;
+    }
     .job-section{
       padding: 3% 12%;
       min-height:10em;
@@ -150,6 +154,9 @@
     @media (max-width:800px){
       div.black-block {
         min-height: 3rem;
+      }
+      .job-publicDescription{
+        min-height: auto;
       }
       .job-section-container {
         padding:5%;
