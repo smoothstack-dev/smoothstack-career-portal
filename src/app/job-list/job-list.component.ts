@@ -7,6 +7,7 @@ import { TranslateService } from 'chomsky';
 import { forkJoin } from 'rxjs';
 import { CORPORATION, CORP_TYPE } from '../typings/corporation';
 import { JOBLIST_TYPE } from '../typings/jobList';
+import { PreviousRoute } from '../services/previouseRoute/previouseRoute.service';
 
 @Component({
   selector: 'app-job-list',
@@ -36,7 +37,8 @@ export class JobListComponent implements OnChanges {
     private titleService: Title,
     private meta: Meta,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private previousRoute: PreviousRoute
   ) {
     const jobListType = this.route.snapshot.routeConfig.path;
     this.jobListType = jobListType ? (jobListType.toUpperCase() as JOBLIST_TYPE) : JOBLIST_TYPE.LAUNCH;
@@ -55,20 +57,25 @@ export class JobListComponent implements OnChanges {
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
     const jobCall = this.http.getJobs(this.filter, { start: this.start });
-    const saJobCall = this.http.getSAJobs(this.filter, { start: this.saStart });
+    const saJobCall = this.http.getSAJobs(
+      {
+        saJobFilter: 'employmentType:Contract OR employmentType:"Direct Hire" OR employmentType:"Contract To Hire"',
+      },
+      { start: this.saStart }
+    );
     const saCorpJobCall = this.http.getSAJobs({ saCorpFilter: 'employmentType:Corporate' }, { start: this.saStart });
     switch (this.jobListType) {
       case JOBLIST_TYPE.SENIOR:
         saJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'SENIOR POSITIONS';
+        this.title = 'OPEN SENIOR POSITIONS';
         break;
       case JOBLIST_TYPE.CORPORATE:
         saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'CORPORATE POSITIONS';
+        this.title = 'OPEN CORPORATE POSITIONS';
         break;
       default:
-        forkJoin([jobCall, saJobCall]).subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'OPEN POSITIONS';
+        jobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+        this.title = 'OPEN ENTRY LEVEL POSITIONS';
         break;
     }
   }
@@ -116,7 +123,7 @@ export class JobListComponent implements OnChanges {
         break;
       }
       case JOBLIST_TYPE.LAUNCH: {
-        appRes = results[0].data.map((r) => {
+        appRes = results.data.map((r) => {
           const corpType = CORP_TYPE.APPRENTICESHIP;
           return {
             ...r,
@@ -124,16 +131,7 @@ export class JobListComponent implements OnChanges {
             corpId: CORPORATION[corpType].corpId,
           };
         });
-        saRes = results[1].data.map((r) => {
-          const corpType = CORP_TYPE.STAFF_AUG;
-          return {
-            ...r,
-            corpType,
-            corpId: CORPORATION[corpType].corpId,
-          };
-        });
-        appTotalCount = results[0].data.count || 0;
-        saTotalCount = results[1].count || 0;
+        appTotalCount = results.data.count || 0;
         break;
       }
     }

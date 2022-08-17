@@ -34,7 +34,7 @@
                     </ul>
                   </div>
                   <iframe
-                    *ngIf="sectionItem.contentType === 'VIDEO' && sectionItem.videoUrl"
+                    *ngIf="sectionItem.contentType === 'VIDEO' && sectionItem.videoUrl && sectionItem.videoUrl !== ''"
                     class="youtube-video no-print"
                     [src]="sectionItem.videoUrl | safeUrl"
                     frameborder="0" 
