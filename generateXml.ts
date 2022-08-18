@@ -1,6 +1,5 @@
 import { get } from 'https';
 import { IncomingMessage } from 'http';
-import { JobBoardPost } from '@bullhorn/bullhorn-types';
 import * as jsonxml from 'jsontoxml';
 
 export function generateSitemap(appConfig: ISettings, res: any, req: any): any {
@@ -17,8 +16,8 @@ export function generateSitemap(appConfig: ISettings, res: any, req: any): any {
     });
 
     response.on('end', function (): any {
-      let jobs: JobBoardPost[] = JSON.parse(body).data;
-      jobs.forEach((job: JobBoardPost) => {
+      let jobs: any[] = JSON.parse(body).data;
+      jobs.forEach((job: any) => {
         let postDate: Date = new Date(job.dateLastPublished);
         sitemapUrls.push({
           name: 'url',
@@ -65,8 +64,8 @@ export function generateRss(appConfig: ISettings, res: any, req: any): any {
     });
 
     response.on('end', function (): any {
-      let jobs: JobBoardPost[] = JSON.parse(body).data;
-      jobs.forEach((job: JobBoardPost) => {
+      let jobs: any[] = JSON.parse(body).data;
+      jobs.forEach((job: any) => {
         let postDate: Date = new Date(job.dateLastPublished);
         jobListings.children.push({
           name: 'item',
