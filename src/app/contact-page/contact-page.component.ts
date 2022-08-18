@@ -41,8 +41,8 @@ export class ContactPageComponent {
     }
   }
 
-  public switchForm(selectedForm: CONTACT_FORM_TYPE): void {
-    this.selectedForm = selectedForm;
+  public switchForm(selectedForm: any): void {
+    this.selectedForm = selectedForm as CONTACT_FORM_TYPE;
   }
 
   public goTo(url: string) {

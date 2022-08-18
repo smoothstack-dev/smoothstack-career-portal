@@ -1,6 +1,5 @@
 import { get } from 'https';
 import { IncomingMessage } from 'http';
-import { JobBoardPost } from '@bullhorn/bullhorn-types';
 import * as jsonxml from 'jsontoxml';
 
 export function generateSitemap(appConfig: ISettings, res: any, req: any): any {
@@ -66,7 +65,7 @@ export function generateRss(appConfig: ISettings, res: any, req: any): any {
 
     response.on('end', function (): any {
       let jobs: JobBoardPost[] = JSON.parse(body).data;
-      jobs.forEach((job: JobBoardPost) => {
+      jobs.forEach((job: any) => {
         let postDate: Date = new Date(job.dateLastPublished);
         jobListings.children.push({
           name: 'item',
