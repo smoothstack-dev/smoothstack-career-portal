@@ -1,0 +1,9 @@
+<div class="header-container header-background-style">
+    <div class="header-logo">
+        <img *ngIf="isLogoContainsLink" src="{{ logoLink }}" class="header-logo header-logo-pointer" alt="Smoothstack Logo" (click)="goToSSWebsite()">
+        <img *ngIf="!isLogoContainsLink" src="{{ logoLink }}" class="header-logo" alt="Smoothstack Logo">
+        <br />
+    </div>
+    <div class="header-navbar">
+    </div>
+</div>

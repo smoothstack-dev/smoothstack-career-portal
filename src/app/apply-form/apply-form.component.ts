@@ -22,10 +22,12 @@ import { EMAIL_TYPOS } from './util/email';
 @Component({
   selector: 'app-apply-form',
   templateUrl: './apply-form.component.html',
-  styleUrls: ['./apply-form.component.scss'],
+  styleUrls: ['./apply-form.component.scss', './../utils/apply-form-overwrite.component.scss'],
 })
 export class ApplyFormComponent implements OnInit {
   @Input() job: any;
+  @Input() isContactUs: boolean = false;
+  public formTitle: string = '';
   public firstName: TextBoxControl = {} as any;
   public lastName: TextBoxControl = {} as any;
   public nickName: TextBoxControl = {} as any;
@@ -73,12 +75,19 @@ export class ApplyFormComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    const corpId = this.route.snapshot.paramMap.get('corpId');
+    const corpId = this.route.snapshot.paramMap.get('corpId') || this.job.corpId;
     this.corpType = getCorpTypeByCorpId(corpId);
     this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
+    this.formTitle = this.isContactUs ? 'Apply to Join Our Team' : 'Quick Apply';
     this.checkLocalStorage();
     this.setupForm();
     this.getUTM();
+
+    // remove hidden attribue from the page
+    let listItem = document.getElementsByTagName('i');
+    for (let i = 0; i < listItem.length; i++) {
+      listItem[i].removeAttribute('hidden');
+    }
   }
 
   public getUTM(): void {
@@ -92,13 +101,13 @@ export class ApplyFormComponent implements OnInit {
   public setupForm(): void {
     this.firstName = new TextBoxControl({
       key: 'firstName',
-      label: TranslateService.translate('FIRST_NAME'),
+      label: `${TranslateService.translate('FIRST_NAME')}*`,
       required: true,
       hidden: false,
     });
     this.lastName = new TextBoxControl({
       key: 'lastName',
-      label: TranslateService.translate('LAST_NAME'),
+      label: `${TranslateService.translate('LAST_NAME')}*`,
       required: true,
       hidden: false,
     });
@@ -110,7 +119,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.email = new TextBoxControl({
       key: 'email',
-      label: TranslateService.translate('EMAIL'),
+      label: `${TranslateService.translate('EMAIL')}*`,
       type: 'email',
       required: true,
       hidden: false,
@@ -118,7 +127,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.phoneNumber = new TextBoxControl({
       key: 'phone',
-      label: TranslateService.translate('PHONE'),
+      label: `${TranslateService.translate('PHONE')}*`,
       type: 'tel',
       required: true,
       hidden: false,
@@ -126,7 +135,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.workAuthorization = new TilesControl({
       key: 'workAuthorization',
-      label: 'Are you legally authorized to work in the U.S.?',
+      label: 'Are you legally authorized to work in the U.S.?*',
       required: true,
       options: workAuthorizationMap[this.corpType],
     });
@@ -134,7 +143,7 @@ export class ApplyFormComponent implements OnInit {
       key: 'resume',
       required: true,
       hidden: false,
-      label: 'Upload Resume',
+      label: 'Upload Resume*',
       description: `${TranslateService.translate(
         'ACCEPTED_RESUME'
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
@@ -142,20 +151,20 @@ export class ApplyFormComponent implements OnInit {
 
     this.city = new TextBoxControl({
       key: 'city',
-      label: 'CITY',
+      label: 'CITY*',
       required: true,
       hidden: false,
     });
     this.state = new SelectControl({
       key: 'state',
-      label: 'STATE',
+      label: 'STATE*',
       required: true,
       hidden: false,
       options: states,
     });
     this.zip = new TextBoxControl({
       key: 'zip',
-      label: 'ZIP CODE',
+      label: 'ZIP CODE*',
       type: 'number',
       required: true,
       hidden: false,
@@ -163,13 +172,13 @@ export class ApplyFormComponent implements OnInit {
     });
     this.codingAbility = new TilesControl({
       key: 'codingAbility',
-      label: 'How would you rank your coding ability? (0 - lowest, 10 - highest)',
+      label: 'How would you rank your coding ability? (0 - lowest, 10 - highest)*',
       required: true,
       options: Array.from(Array(11).keys()).map((r) => r.toString()),
     });
     this.yearsOfExperience = new TilesControl({
       key: 'yearsOfExperience',
-      label: 'Years of Experience (Including Personal/Educational Projects)',
+      label: 'Years of Experience (Including Personal/Educational Projects)*',
       required: true,
       hidden: false,
       options: [
@@ -181,7 +190,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.yearsOfProfessionalExperience = new TilesControl({
       key: 'yearsOfProfessionalExperience',
-      label: 'Years of Professional Experience',
+      label: 'Years of Professional Experience*',
       required: true,
       hidden: false,
       options: [
@@ -200,21 +209,21 @@ export class ApplyFormComponent implements OnInit {
     });
     this.currentlyStudent = new TilesControl({
       key: 'currentlyStudent',
-      label: 'Are you currently a student?',
+      label: 'Are you currently a student?*',
       required: true,
       options: ['Yes', 'No'],
       interactions: [{ event: 'change', script: this.showEducationFields }],
     });
     this.graduationMonth = new SelectControl({
       key: 'graduationMonth',
-      label: 'Expected Graduation Month',
+      label: 'Expected Graduation Month*',
       required: true,
       hidden: true,
       options: months.map((label, i) => ({ label, value: `${i + 1}`.padStart(2, '0') })),
     });
     this.graduationYear = new TilesControl({
       key: 'graduationYear',
-      label: 'Expected Graduation Year',
+      label: 'Expected Graduation Year*',
       required: true,
       hidden: true,
       options: Array.from(Array(4)).map((v, i) => {
@@ -224,7 +233,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.degreeExpected = new TilesControl({
       key: 'degreeExpected',
-      label: 'Degree Expected',
+      label: 'Degree Expected*',
       required: true,
       hidden: true,
       options: ['High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
@@ -232,7 +241,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.highestDegree = new TilesControl({
       key: 'highestDegree',
-      label: 'Highest Degree Achieved',
+      label: 'Highest Degree Achieved*',
       required: true,
       hidden: true,
       options: ['None', 'GED', 'High School', "Associate's", "Bachelor's", "Master's", 'PhD'],
@@ -240,13 +249,13 @@ export class ApplyFormComponent implements OnInit {
     });
     this.major = new TextBoxControl({
       key: 'major',
-      label: 'MAJOR',
+      label: 'MAJOR*',
       required: true,
       hidden: true,
     });
     this.isMilitary = new TilesControl({
       key: 'isMilitary',
-      label: 'Are you a veteran or currently serving in the military?',
+      label: 'Are you a veteran or currently serving in the military?*',
       required: true,
       options: [
         { label: 'Yes', value: 'Yes' },
@@ -257,14 +266,14 @@ export class ApplyFormComponent implements OnInit {
     });
     this.militaryStatus = new TilesControl({
       key: 'militaryStatus',
-      label: 'Military Status',
+      label: 'Military Status*',
       required: true,
       hidden: true,
       options: ['Veteran', 'Active'],
     });
     this.militaryBranch = new TilesControl({
       key: 'militaryBranch',
-      label: 'Military Branch',
+      label: 'Military Branch*',
       required: true,
       hidden: true,
       options: ['Army', 'Air Force', 'Navy', 'Marine Corps', 'Coast Guard', 'Reserves', 'Other'],
@@ -272,7 +281,7 @@ export class ApplyFormComponent implements OnInit {
 
     this.relocation = new TilesControl({
       key: 'relocation',
-      label: 'Willingness to Relocate',
+      label: 'Willingness to Relocate*',
       required: true,
       options: [
         { label: 'Absolutely! Up for a new adventure', value: 'Yes' },
@@ -282,7 +291,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.techSelection = new TilesControl({
       key: 'techSelection',
-      label: 'If you had to choose one, which language would be your strongest?',
+      label: 'If you had to choose one, which language would be your strongest?*',
       required: this.job.id == 1,
       hidden: this.job.id !== 1,
       options: [
@@ -497,23 +506,27 @@ export class ApplyFormComponent implements OnInit {
   }
 
   private applyOnSuccess(res: any): void {
-    let toastOptions: any = {
-      theme: 'success',
-      icon: 'check',
-      title: TranslateService.translate('THANK_YOU'),
-      message: TranslateService.translate('YOU_WILL_BE_CONTACTED'),
-      position: 'growlTopRight',
-      hideDelay: 3000,
-    };
-    this.toaster.alert(toastOptions);
-    this.storehasApplied();
-    this.applying = false;
-    const state = {
-      jobTitle: this.job.title,
-      schedulingLink: res.schedulingLink,
-      challengeInfo: this.job.customTextBlock1,
-    };
-    this.router.navigate(['/jobs/success/'], { state });
+    if (this.isContactUs) {
+      window.location.href = 'https://smoothstack.com/contact-smoothstack/thank-you-build-your-team/';
+    } else {
+      let toastOptions: any = {
+        theme: 'success',
+        icon: 'check',
+        title: TranslateService.translate('THANK_YOU'),
+        message: TranslateService.translate('YOU_WILL_BE_CONTACTED'),
+        position: 'growlTopRight',
+        hideDelay: 3000,
+      };
+      this.toaster.alert(toastOptions);
+      this.storehasApplied();
+      this.applying = false;
+      const state = {
+        jobTitle: this.job.title,
+        schedulingLink: res.schedulingLink,
+        challengeInfo: this.job.customTextBlock1,
+      };
+      this.router.navigate(['/jobs/success/'], { state });
+    }
   }
 
   private applyOnFailure(res: any): void {
@@ -523,5 +536,9 @@ export class ApplyFormComponent implements OnInit {
 
   private storehasApplied(): void {
     localStorage.setItem(this.APPLIED_KEY, 'true');
+  }
+
+  public handleEdit(e: any) {
+    console.log('This is an Edit Action!', e); // tslint:disable-line
   }
 }

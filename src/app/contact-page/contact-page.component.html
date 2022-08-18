@@ -1,0 +1,48 @@
+<div class="contact-us-background">
+    <div class="contact-page-banner">
+        <span class="section-overlay" style="background-color: rgba(0, 0, 0, 0.42);"></span>
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="{{ logoLink }}" class="header-logo" alt="Smoothstack Logo" (click)="goTo('https://smoothstack.com/')"><br />
+            </div>
+            <div class="header-navbar">
+                <novo-dropdown side="default">
+                    <button type="button" theme="secondary" icon="collapse" inverse>TECH TALENT</button>
+                      <novo-list (click)="goTo('https://smoothstack.com/tech-talent/')">Tech Talent Overview</novo-list>
+                      <novo-list (click)="goTo('https://smoothstack.com/tech-talent/college-students-graduates/')">College Grads and Students</novo-list>
+                      <novo-list (click)="goTo('https://smoothstack.com/tech-talent/active-military-veterans-reserves/')">Active Military and Veterans</novo-list>
+                      <novo-list (click)="goTo('https://jobs.smoothstack.com/')">Job Openings</novo-list>
+                </novo-dropdown>
+                <button type="button" theme="secondary" inverse (click)="goTo('https://smoothstack.com/say-goodbye-to-traditional-it-staffing/')" >CLIENTS</button>
+                <button type="button" theme="secondary" inverse (click)="goTo('https://smoothstack.com/universities-career-development/')" >UNIVERSITIES</button>
+                <novo-dropdown side="default">
+                    <button type="button" theme="secondary" icon="collapse" inverse>ABOUT</button>
+                    <novo-list (click)="goTo('https://smoothstack.com/it-talent-ecosystem/')">Overview</novo-list>
+                    <novo-list (click)="goTo('https://smoothstack.com/it-talent-ecosystem/smoothstack-leadership/')">Leadership</novo-list>
+                    <novo-list (click)="goTo('https://smoothstack.com/it-talent-ecosystem/news/')">News</novo-list>
+                    <novo-list (click)="goTo('https://smoothstack.com/it-talent-ecosystem/events/')">Events</novo-list>
+                </novo-dropdown>
+                <button type="button" theme="secondary" inverse (click)="goTo('https://smoothstack.com/resources/')">RESOURCES</button>
+                <button type="button" theme="secondary" class="contact-us-btn" inverse >CONTACT US</button>
+            </div>
+        </div>
+        <div class="banner-title">
+            <h1> GET IN TOUCH.</h1> 
+            <h3>We want to hear from you!</h3> 
+        </div>
+    </div>
+    <div class="contact-page-container">
+        <div>
+            <h2> How Can We Help You?</h2>
+        </div>
+        <div class="form-btn-container">
+            <button class="form-btn form-btn-unselected" [ngClass]="{'form-btn-selected' : selectedForm === 'JOIN'}" (click)="switchForm('JOIN')">Join Our Team</button>
+            <button class="form-btn form-btn-unselected" [ngClass]="{'form-btn-selected' : selectedForm === 'BUILD'}" (click)="switchForm('BUILD')">Build Your Team</button>
+            <button  class="form-btn form-btn-unselected" [ngClass]="{'form-btn-selected' : selectedForm === 'RECRUIT'}" (click)="switchForm('RECRUIT')">Become A Partner</button>
+        </div>
+                <app-apply-form [job]="job" *ngIf="selectedForm==='JOIN'" [isContactUs]=true></app-apply-form>
+                <app-apply-form-salesforce *ngIf="selectedForm === 'BUILD'" formType="BUILD"></app-apply-form-salesforce>
+                <app-apply-form-salesforce *ngIf="selectedForm==='RECRUIT'" formType="RECRUIT"></app-apply-form-salesforce>
+    </div>
+    <app-footer></app-footer>
+</div>

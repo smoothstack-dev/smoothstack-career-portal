@@ -1,0 +1,23 @@
+.share-container {
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    button {
+      margin-right: 20px;
+    }
+    .share-btn {
+      width: 12em;
+      background-color: #5532C0;
+      color: white;
+      justify-content: center;
+      border-radius: 0px;
+      font-weight: 700;
+    }
+    .share-icon:hover{
+      width: 3em;
+      background-color: #5532C0;
+      color: white;
+      justify-content: center;
+      border-radius: 0px;
+    }
+  }

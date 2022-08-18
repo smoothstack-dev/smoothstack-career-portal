@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { tryParseJSONObject } from '../utils/helpers';
+import { defaultChallengeInfo } from './../../static/job-scheduler.template';
 
 @Component({
   selector: 'success-page',
@@ -10,17 +11,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SuccessPageComponent {
   @Input()
   schedulingLink: SafeResourceUrl;
-  challengeInfo: string;
+  challengeInfo: any;
   jobTitle: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor() {}
 
   public ngOnInit(): void {
-    const defaultChallengeInfo =
-      'Based on your application, you are eligible to move forward to the next step in the process, a coding challenge!<br />Please schedule your challenge below for a day and time that works best for you.<br />';
     const state = history.state;
     this.schedulingLink = state.schedulingLink;
-    this.challengeInfo = state.challengeInfo || defaultChallengeInfo;
+    this.challengeInfo = tryParseJSONObject(state.challengeInfo)
+      ? JSON.parse(state.challengeInfo)
+      : defaultChallengeInfo;
     this.jobTitle = state.jobTitle;
   }
 

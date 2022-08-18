@@ -1,0 +1,216 @@
+.contact-us-background {
+    overflow-x: hidden;
+    background-color: #f4f4f4;
+    max-height: 100vh;
+    position: relative;
+    &.safari-scroll {
+        height: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
+    .contact-page-banner{
+        background-image: url('https://smoothstack.com/wp-content/uploads/2018/07/contact-sp-1920x800.jpg');
+        background-color: #262624;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        color: white;
+        .section-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .banner-title{
+            padding: 8% 3% 2% 10%;
+            position: relative;
+            h1{
+            color: white;
+            font-size: 5vw;
+            font-weight: 600;
+            }
+            h3{
+                color: white;
+                font-size: 2vw;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .header-container {
+        position:relative;
+        background-color: transparent;
+        font-size: 1em;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        padding: 1% 12%;
+
+        .header-logo {
+            height:2.5vw;
+            flex-grow: 1;
+        }
+        .header-logo:hover {
+            cursor: pointer;
+        }
+
+        .header-navbar {
+            margin-left:1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 0.5px #f4f4f4 solid;
+            padding-right:5%;
+              
+            .contact-us-btn {
+                color:#5532C0 !important;
+                font-weight:500 !important;
+
+            }
+            novo-dropdown, button{
+                border-style: none;
+                background-color: transparent;
+                margin-left: 0.2vw;
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+                font-weight:300;
+                font-size:1.2rem;
+            }
+            novo-dropdown:hover, button:hover{
+                border-style: none;
+                box-shadow:none;
+                font-weight:400;
+                color:#5532C0;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .contact-page-container{
+        padding: 5% 10%;
+        h2 {
+            margin-bottom: 20px;
+        }
+        .form-div {
+            padding-left:2em;
+            margin-top: 0px;
+            padding-bottom: 0px;
+        }
+        .form-btn-container {
+            max-width: 600px;
+        }
+        .form-btn-unselected {
+            color: #303030;
+            background: #F8F8F8 !important;
+            border:#FEFEFE;
+        }
+
+        .form-btn {
+            // margin: 1%;
+            padding: 1% 1.2%;
+            font-size: 1.4em;
+            text-align: center;
+            font-weight: 500;
+            width: 200px;
+        }
+
+        .form-btn-selected {
+            box-shadow: 0 0 5px rgba(0, 0, 0 , 0.15);
+            background-color: #ffffff !important;
+            border-color:#FEFEFE;
+            color:#5532C0!important;
+            position: relative;
+            font-weight: 600;
+        }
+        .form-btn:hover {
+            box-shadow: 0 0 5px #7621a8;
+            position: relative;
+            border-color:#FEFEFE;
+        }
+
+        .join-form{
+            min-height: 20em;
+            overflow: scroll;
+        }
+
+    }
+
+    @media (max-width:750px){
+        .contact-page-container {
+            padding: 2% 2%;
+            .form-btn, .form-btn:hover, .form-btn-selected {
+                font-size: 1.1em;
+                padding: 1% 2%;
+                font-weight: 500;
+                width: auto;
+                min-width: 30%;
+            }
+        } 
+        .contact-page-banner{
+            padding: 1% 2%;
+            .banner-title, .header-container {
+                padding: 1% 2%;
+                h1 {
+                    font-size: 2.5rem;
+                }
+                h3 {
+                    font-size: 1rem;
+                }
+            }
+        }           
+        .header-container {
+            padding-top: 2%;
+            .header-navbar {
+                display:none;
+            }
+            .header-logo {
+                height:5vw;
+                flex-grow: 1;
+            }
+
+        }
+        a.buttonForm{
+            display:block;
+            margin:0.4em auto;
+        }
+    }
+}
+
+novo-list {
+    padding: 0.5rem 1em 0.5rem;
+    font-size: 1.1rem;
+}
+novo-list:hover {
+    background-color: rgb(246, 245, 245);
+    padding: 0.5rem 1em 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+// TO hide apply form's header sectino
+:host {
+    /deep/novo-card {
+      .novo-card {
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0 , 0.15);
+        header {
+            display: none;
+            min-height: 30px;
+            .title{
+                h3 {
+                    display: none;
+                }
+            }
+        }
+      }
+    }
+
+    /deep/novo-form {
+        max-width:100%;
+    }
+}
+

@@ -1,0 +1,72 @@
+.footer-container {
+    min-height: 3rem;
+    background-color: black;
+    color:white;
+    font-size: 1em;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2% 10%;
+    h2 {
+        font-weight: bold;
+        font-size: 2em;
+    }
+    span {
+        font-weight: 350;
+        font-size: 1.2em;
+        line-height: 1.5em;
+    }
+    .title, .about, .location {
+        padding: 0 1.5em;
+    }
+    .title {
+        color: white;
+        font-size: 2em;
+    }
+    .about {
+        flex: 30%;
+        min-height: 5em;
+    }
+    .location {
+        flex: 30%;
+        min-height: 5em;
+    }
+    .contact {
+        flex: 40%;
+        min-height: 5em;
+    }
+    .copyright {
+        flex: 100%;
+        min-height: 5em;
+        display: flex;
+        align-items: flex-end; 
+        justify-content: center; 
+        overflow: hidden;
+    }
+    .footer-logo {
+        width: 25em;
+        padding: 1.5em 0em;
+    }
+
+    @media (max-width:900px) {
+        padding: 2% 2%;
+        h2 {
+            font-size: 1.5em;
+        }
+        .title, span {
+            font-size: 1em;
+        }
+        .about, .location, .contact {
+            flex: 100%;
+        }
+        .footer-logo {
+            width: 15em;
+        }
+        .contact {
+            padding: 0 1.5em;
+        }
+    }
+}
+
+
+

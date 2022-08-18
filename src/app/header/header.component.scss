@@ -1,0 +1,25 @@
+.header-container {
+    min-height: 55px;
+    font-size: 1em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding: 1% 10%;
+    .title {
+        color: white;
+        font-size: 2em;
+    }
+    .header-logo {
+        height:3em;
+    }
+    .header-logo-pointer {
+        cursor: pointer;
+    }
+
+    @media (max-width:800px) {
+        padding: 2%;
+        .header-logo {
+            height:2em;
+        }
+    }
+}

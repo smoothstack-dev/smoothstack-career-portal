@@ -1,34 +1,45 @@
 .background {
   overflow-x: hidden;
   background-color: #f4f4f4;
-  max-height: calc(100vh - 55px);
+  min-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
-  h1 {
-    color: #818791;
+  .flex-div{
+    display:flex;
+    justify-content: center;
   }
 
-  h2 {
-    color: #63666c;
-  }
-  
   .success-container {
-    margin: 0% 3%;
-    padding: 3%;
+    min-height: 70%;
+
+    .success-header-container, .thankyou-header-container {
+      background-color: black;
+      display:flex;
+      justify-content: center;
+      min-height: 15em;
+      padding: 2% 8%;
+      p {
+        margin-top: 3%;
+        color: white;
+        font-weight: 700;
+        font-size:3.5em;
+      }
+    }
 
     .success-content-container {
       display: flex;
-      justify-content: flex-start;
+      justify-content:center;
       margin-bottom: 2rem;
     }
 
     .iframe-div {
       display: block;
       flex: 0 0 65%;
-      width: 100%;
+      width: 98%;
       height: 100%;
       position: relative;
       overflow-x: scroll;
       order: 1;
+      max-width: 1000px;
     }
     
     .success-iframe {
@@ -37,31 +48,40 @@
       height: 75vh;
     }
 
-    .challenge-info {
+    .challenge-info-container {
       display: block;
       word-break: break-word;
       flex: 0 0 25%;
-      width: 100%;
-      padding-left: 2rem;
+      width: 98%;
+      margin-top: 2em;
+      margin-left:0.5em;
       order: 1;
     }
 
     .challenge-info-box {
       background-color: #fafafa;
       border-radius: 2%;
-      padding: 1rem;
+      box-shadow: 5px 5px 5px rgb(234, 232, 232);
+      h4 {
+        background-color: #5532C0;
+        color: white;
+        text-align: center;
+      }
+      .coding-challenge-details {
+        padding: 0.5em;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+      }
+      .challenge-list-title {
+        color: #5532C0;
+      }
+      .challenge-list-content {
+        padding-left:5px;
+      }
     }
 
-    .coding-challenge-details {
-      font-size: 1.1rem;
-    }
-
-    .back-btn {
-      margin-top: 1rem;
-      float: right;
-    }
-
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
       .challenge-info {
         flex: 0 0 100%;
         padding: 1rem;
@@ -74,17 +94,46 @@
       .success-content-container {
         flex-direction: column;
       }
+      .success-header-container, .thankyou-header-container{
+        min-height: 8em;
+        padding:2%;
+        p {
+          font-size:1.5em;
+        }
+      }
     }
   }
 
   .thankyou-content-container {
-    max-width: 1000px;
+    min-height:20em;
+    justify-content: center;
 
-    .back-btn {
-      margin-top: 1rem;
-      margin-right: 2rem;
-      float: right;
+    p {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top:4em;
+      margin-bottom:2em;
+      width: 60%;
       font-size: 1.5rem;
+      font-weight: 500;
+      text-align: center
+    }
+    .back-btn {
+      background-color: #5532C0;
+      font-size: 1.5rem;
+      padding: 0 20px;
+      border-radius: 0%;
+      margin-bottom:2em;
+    }
+    @media (max-width: 850px) {
+      height: 8em;
+      p {
+        margin:1em;
+        width: 90%;
+      }
+      .back-btn {
+        left:0%;
+      }
     }
   }
 }

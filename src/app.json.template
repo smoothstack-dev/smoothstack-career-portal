@@ -47,6 +47,7 @@
       "isPublic",
       "isDeleted",
       "publishedZip",
+      "customTextBlock2",
       "salary",
       "salaryUnit"
     ],

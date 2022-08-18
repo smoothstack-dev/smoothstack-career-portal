@@ -1,38 +1,59 @@
 <novo-loading *ngIf="loading"></novo-loading>
 <app-structured-seo *ngIf="!loading" [jobData]="job"></app-structured-seo>
-<div class="background" *ngIf="!loading">
+<div class="background" id="job-details-container" *ngIf="!loading">
   <div class="job-container" [ngClass]="{ 'safari-scroll': isSafariAgent }">
-    <button theme="dialogue" (click)="goToJobList()" icon="previous" side="left">{{ 'BACK' | translate }}</button>
-    <div class="job-header">
-      <span class="job-title">{{ job.title }}</span>
+    <div class="black-block job-section header-background-style no-print" >
+      <span class="back-sign" (click)="goToJobList()" icon="previous" side="left">{{ '< BACK' | translate }}</span>
+    </div>
+    <div class="job-header job-section">
+      <h1 class="job-title">{{ job.title }}</h1>
       <br />
-      <div class="job-info-container">
-        <span class="job-info" *ngIf="job.customText3 === '1' && (job.address.city || job.address.state)">
-          <i class="bhi-location"></i>
-          {{ job.address.city }}<span *ngIf="job.address?.city && job.address?.state">,&nbsp;</span
-          >{{ job.address.state }}
-        </span>
-        <span class="job-info" *ngIf="job.customText3 === '0'">
-          <i class="bhi-location"></i>
-          United States
-        </span>
-      </div>
+      <span class="category" *ngIf="job.publishedCategory && showCategory">
+        {{ job.publishedCategory?.name }}
+      </span>
     </div>
-    <div class="job-description-container">
-      <div class="job-description-text" [innerHTML]="job.publicDescription"></div>
-      <app-apply-form [job]="job"></app-apply-form>
-    </div>
-    <div class="share">
-      <!-- <button theme="primary" *ngIf="!alreadyApplied" (click)="apply()">{{ 'APPLY_NOW' | translate }}</button>
-      <button theme="primary" *ngIf="alreadyApplied" disabled="true">{{ 'ALREADY_APPLIED' | translate }}</button> -->
-      <button theme="icon" icon="email" (click)="emailLink()" *ngIf="showShareButtons"></button>
-      <button theme="icon" icon="twitter" (click)="shareTwitter()" *ngIf="showShareButtons"></button>
-      <button theme="icon" icon="facebook" (click)="shareFacebook()" *ngIf="showShareButtons"></button>
-      <button theme="icon" icon="linkedin" (click)="shareLinkedin()" *ngIf="showShareButtons"></button>
-      <button theme="dialogue" icon="share" (click)="toggleShareButtons()" *ngIf="!showShareButtons">
-        {{ 'SHARE_POST' | translate }}
-      </button>
-      <button theme="icon" icon="print" (click)="print()"></button>
+    <div class="job-info-container black-block job-section header-background-style no-print"></div>
+    <div>
+        <div *ngIf="!job.details" class="job-section-container job-publicDescription">
+          <div [innerHTML]="job.publicDescription"></div>
+          <app-share [job]="job" [id]="id"></app-share>
+        </div>
+        <div *ngIf="job.details">
+          <div *ngFor="let sectionDetailList of job.details.sections; index as sectionIndex; first as isFirst; last as isLast; odd as isOdd">
+            <div [class.job-sectionOne]="isOdd" [class.job-sectionTwo]="!isOdd">
+              <div *ngFor="let sectionItem of sectionDetailList">
+                <div *ngIf="sectionItem.contentType !== 'SALARY'" class="job-section-container">
+                  <h1 *ngIf="isFirst">{{ sectionItem.title}} </h1>
+                  <h3 *ngIf="!isFirst">{{ sectionItem.title}} </h3>
+                  <div *ngIf="sectionItem.contentType === 'PARAGRAPH'">
+                    <p *ngFor="let sectionContent of sectionItem.contents">{{ sectionContent }}</p>
+                  </div>
+                  <div *ngIf="sectionItem.contentType === 'LIST'">
+                    <ul>
+                      <li *ngFor="let sectionContent of sectionItem.contents">{{ sectionContent }}</li>
+                    </ul>
+                  </div>
+                  <iframe
+                    *ngIf="sectionItem.contentType === 'VIDEO' && sectionItem.videoUrl && sectionItem.videoUrl !== ''"
+                    class="youtube-video no-print"
+                    [src]="sectionItem.videoUrl | safeUrl"
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                  </iframe>
+                </div>
+                <div *ngIf="job.salary && sectionItem.contentType === 'SALARY'" class="job-salary" >
+                  <span >Salary: ${{ numberWithCommas(job.salary) }}/year</span>
+                </div>
+              </div>
+              <div class="job-section-container">
+                <app-share *ngIf="isLast"  [job]="job" [id]="id"></app-share>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-apply-form #applyForm class="no-print" id="applyForm" [job]="job"></app-apply-form>
+        <button (click)="goToApplyForm()" [className]="scrollBtmClassName" title="Go to application form">Apply</button>
     </div>
   </div>
+  <app-footer></app-footer>
 </div>

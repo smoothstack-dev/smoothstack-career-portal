@@ -1,0 +1,5 @@
+export enum JOBLIST_TYPE {
+  LAUNCH = 'LAUNCH',
+  CORPORATE = 'CORPORATE',
+  SENIOR = 'SENIOR',
+}

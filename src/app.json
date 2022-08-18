@@ -40,6 +40,7 @@
       "salary",
       "salaryUnit",
       "customTextBlock1",
+      "customTextBlock2",
       "customText3",
       "customText2"
     ],
@@ -76,7 +77,8 @@
       "salary",
       "salaryUnit",
       "customText3",
-      "customText2"
+      "customText2",
+      "customTextBlock2"
     ],
     "jobInfoChips": [
       "employmentType",

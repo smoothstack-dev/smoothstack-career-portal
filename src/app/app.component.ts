@@ -11,11 +11,20 @@ import { NovoToastService, NovoModalService } from 'novo-elements';
 })
 export class AppComponent implements OnInit {
   public title: string = SettingsService.settings.companyName;
+  public isOnContactUsPage: boolean = false;
 
-  constructor(private router: Router, private meta: Meta, private ref: ViewContainerRef, private toastService: NovoToastService, private modalService: NovoModalService) {
-
+  constructor(
+    private router: Router,
+    private meta: Meta,
+    private ref: ViewContainerRef,
+    private toastService: NovoToastService,
+    private modalService: NovoModalService
+  ) {
     if (SettingsService.settings.integrations.googleSiteVerification) {
-      this.meta.updateTag({ name: 'google-site-verification', content: SettingsService.settings.integrations.googleSiteVerification.verificationCode });
+      this.meta.updateTag({
+        name: 'google-site-verification',
+        content: SettingsService.settings.integrations.googleSiteVerification.verificationCode,
+      });
     }
     let trackingId: string = '';
     if (SettingsService.settings.integrations.googleAnalytics) {
@@ -30,12 +39,17 @@ export class AppComponent implements OnInit {
         }
       });
     }
+
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.isOnContactUsPage = this.router.url.includes('/contact-us');
+      }
+    });
   }
   public ngOnInit(): void {
     this.toastService.parentViewContainer = this.ref;
     this.modalService.parentViewContainer = this.ref;
   }
 
-  public action(): void {
-  }
+  public action(): void {}
 }

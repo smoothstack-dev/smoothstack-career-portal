@@ -3,8 +3,9 @@
   /deep/novo-card {
     .novo-card {
       header {
-        background: #662255;
+        background: #E54F6D;
       }
+      border-radius: 0em !important;
     }
   }
   section {
@@ -18,21 +19,20 @@
   }
   /deep/novo-form {
     novo-tiles {
-      color: #662255;
+      color: #5532C0;
       .tile-container {
         flex-wrap: wrap;
         border: hidden;
         .tile:not(.disabled).active {
-          background: #662255;
+          background: #5532C0;
           color: whitesmoke;
         }
         .tile:not(.disabled):hover {
-          background-color: #662255;
+          background-color: #5532C0;
           color: whitesmoke;
         }
         .tile {
-          border: solid thin #662255;
-          border-radius: 3px;
+          border: solid thin #5532C0;
           margin: 3px;
           padding: 10px;
         }
@@ -73,7 +73,9 @@
       flex-flow: column;
       align-items: center;
       .apply-button {
-        width: 95%;
+        font-size: 1.2em;
+        background-color: #5532C0;
+        width: 98%;
       }
       .applied-text {
         color: #da4453;
@@ -86,7 +88,7 @@
   }
 }
 
-@media only screen and (max-width: 768px), (max-height: 700px) {
+@media only screen and (max-width: 700px), (max-height: 700px) {
   :host {
     max-width: 90vw;
     min-width: unset;
