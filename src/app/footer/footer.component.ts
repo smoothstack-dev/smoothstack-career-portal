@@ -12,12 +12,14 @@ export class FooterComponent {
   public privacyWPLink: string;
   public infoEMailAddress: string;
   public logoLink: string;
+  public currentYear: string;
 
   constructor() {
     this.learnMoreWPLink = LINKS.learnMoreWPLink;
     this.privacyWPLink = LINKS.privacyWPLink;
     this.infoEMailAddress = LINKS.infoEMailAddress;
     this.logoLink = LINKS.logoLink;
+    this.currentYear = new Date().getFullYear().toString();
   }
 
   public shareLinks(mediaDestination: string): void {
