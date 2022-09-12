@@ -123,22 +123,24 @@ export class JobListComponent implements OnChanges {
         break;
       }
       case JOBLIST_TYPE.LAUNCH: {
-        appRes = results.data.map((r) => {
-          const corpType = CORP_TYPE.APPRENTICESHIP;
-          return {
-            ...r,
-            corpType,
-            corpId: CORPORATION[corpType].corpId,
-          };
-        });
-        appTotalCount = results.data.count || 0;
+        appRes = results.data
+          .map((r) => {
+            const corpType = CORP_TYPE.APPRENTICESHIP;
+            return {
+              ...r,
+              corpType,
+              corpId: CORPORATION[corpType].corpId,
+            };
+          })
+          .flatMap((i) => Array.from({ length: 10 }).fill(i));
+        appTotalCount = appRes.length;
         break;
       }
     }
     this.jobs = [...appRes, ...saRes];
     if (this.jobs.length === 1) this.loadJob(this.jobs[0].id, this.jobs[0].corpType);
     else {
-      this.moreAvailable = appRes.length === 30;
+      this.moreAvailable = false;
       this.moreSAAvailable = saRes.length === 30;
       this.total = this.jobs.length;
       this.loading = false;
