@@ -291,7 +291,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.techSelection = new TilesControl({
       key: 'techSelection',
-      label: 'If you could choose, which language would you prefer your coding challenge to be in?*',
+      label: 'If you had to choose one, which language would be your strongest?*',
       required: true,
       options: [
         { label: 'Java', value: 'java' },
