@@ -505,27 +505,23 @@ export class ApplyFormComponent implements OnInit {
   }
 
   private applyOnSuccess(res: any): void {
-    if (this.isContactUs) {
-      window.location.href = 'https://smoothstack.com/contact-smoothstack/thank-you-build-your-team/';
-    } else {
-      let toastOptions: any = {
-        theme: 'success',
-        icon: 'check',
-        title: TranslateService.translate('THANK_YOU'),
-        message: TranslateService.translate('YOU_WILL_BE_CONTACTED'),
-        position: 'growlTopRight',
-        hideDelay: 3000,
-      };
-      this.toaster.alert(toastOptions);
-      this.storehasApplied();
-      this.applying = false;
-      const state = {
-        jobTitle: this.job.title,
-        schedulingLink: res.schedulingLink,
-        challengeInfo: this.job.customTextBlock1,
-      };
-      this.router.navigate(['/jobs/success/'], { state });
-    }
+    let toastOptions: any = {
+      theme: 'success',
+      icon: 'check',
+      title: TranslateService.translate('THANK_YOU'),
+      message: TranslateService.translate('YOU_WILL_BE_CONTACTED'),
+      position: 'growlTopRight',
+      hideDelay: 3000,
+    };
+    this.toaster.alert(toastOptions);
+    this.storehasApplied();
+    this.applying = false;
+    const state = {
+      jobTitle: this.job.title,
+      schedulingLink: res.schedulingLink,
+      challengeInfo: this.job.customTextBlock1,
+    };
+    this.router.navigate(['/jobs/success/'], { state });
   }
 
   private applyOnFailure(res: any): void {
