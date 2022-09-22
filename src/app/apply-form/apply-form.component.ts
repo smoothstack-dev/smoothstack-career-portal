@@ -141,9 +141,9 @@ export class ApplyFormComponent implements OnInit {
     });
     this.resume = new FileControl({
       key: 'resume',
-      required: true,
+      required: this.corpType !== CORP_TYPE.APPRENTICESHIP,
       hidden: false,
-      label: 'Upload Resume*',
+      label: 'Upload Resume' + (this.corpType !== CORP_TYPE.APPRENTICESHIP ? '*' : ' (Optional)'),
       description: `${TranslateService.translate(
         'ACCEPTED_RESUME'
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
@@ -449,7 +449,6 @@ export class ApplyFormComponent implements OnInit {
           nickName: encodeURIComponent(this.form.value.nickName.trim()),
           email: encodeURIComponent(this.form.value.email.trim()),
           phone: encodeURIComponent(this.form.value.phone.trim()),
-          format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
           workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
           relocation: encodeURIComponent(this.form.value.relocation),
           city: encodeURIComponent(this.form.value.city.trim()),
@@ -497,7 +496,9 @@ export class ApplyFormComponent implements OnInit {
       }
 
       let formData: FormData = new FormData();
-      formData.append('resume', this.form.value.resume[0].file);
+      if (this.form.value.resume[0]) {
+        formData.append('resume', this.form.value.resume[0].file);
+      }
       this.applyService
         .apply(this.job.id, requestParams, formData, this.corpType)
         .subscribe(this.applyOnSuccess.bind(this), this.applyOnFailure.bind(this));
