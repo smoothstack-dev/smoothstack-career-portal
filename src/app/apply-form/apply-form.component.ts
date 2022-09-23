@@ -18,6 +18,7 @@ import { states } from './util/states';
 import { months } from './util/months';
 import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
 import { EMAIL_TYPOS } from './util/email';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-apply-form',
@@ -71,7 +72,8 @@ export class ApplyFormComponent implements OnInit {
     private analytics: AnalyticsService,
     private toaster: NovoToastService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) {}
 
   public ngOnInit(): void {
@@ -141,9 +143,11 @@ export class ApplyFormComponent implements OnInit {
     });
     this.resume = new FileControl({
       key: 'resume',
-      required: this.corpType !== CORP_TYPE.APPRENTICESHIP,
+      required: this.corpType !== CORP_TYPE.APPRENTICESHIP || !this.deviceService.isMobile(),
       hidden: false,
-      label: 'Upload Resume' + (this.corpType !== CORP_TYPE.APPRENTICESHIP ? '*' : ' (Optional)'),
+      label:
+        'Upload Resume' +
+        (this.corpType !== CORP_TYPE.APPRENTICESHIP || !this.deviceService.isMobile() ? '*' : ' (Optional)'),
       description: `${TranslateService.translate(
         'ACCEPTED_RESUME'
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,

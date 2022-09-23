@@ -49,6 +49,7 @@ import { SuccessPageComponent } from './success-page/success-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { ShareComponent } from './share/share.component';
 import { SafeUrlPipe } from './utils/safeUrl.pipe';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -118,6 +119,7 @@ export function initSettings(settings: SettingsService): any {
     DatePipe,
     JobResolver,
     ServerResponseService,
+    DeviceDetectorService
   ],
   bootstrap: [AppComponent],
 })
