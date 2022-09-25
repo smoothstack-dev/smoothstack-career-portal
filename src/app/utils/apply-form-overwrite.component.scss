@@ -16,11 +16,12 @@
         }
         novo-control.tiles {
             label.novo-control-label {
-            width: auto !important;
-            transform: translateY(-125%) !important;
-            white-space: normal !important;
-            overflow-x: visible !important;
-            color:#606060 !important; // form field label color
+                width: auto !important;
+                transform: translateY(-125%) !important;
+                white-space: normal !important;
+                overflow-x: visible !important;
+                color:#606060 !important; // form field label color
+                padding-bottom: 27px !important;
             }
         }
     
