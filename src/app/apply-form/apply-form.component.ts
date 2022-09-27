@@ -81,9 +81,9 @@ export class ApplyFormComponent implements OnInit {
     this.corpType = getCorpTypeByCorpId(corpId);
     this.showCategory = SettingsService.settings[CORPORATION[this.corpType].serviceName].showCategory;
     this.formTitle = this.isContactUs ? 'Apply to Join Our Team' : 'Quick Apply';
+    this.getUTM();
     this.checkLocalStorage();
     this.setupForm();
-    this.getUTM();
 
     // remove hidden attribue from the page
     let listItem = document.getElementsByTagName('i');
@@ -143,11 +143,9 @@ export class ApplyFormComponent implements OnInit {
     });
     this.resume = new FileControl({
       key: 'resume',
-      required: this.corpType !== CORP_TYPE.APPRENTICESHIP || !this.deviceService.isMobile(),
+      required: this.isResumeRequired(),
       hidden: false,
-      label:
-        'Upload Resume' +
-        (this.corpType !== CORP_TYPE.APPRENTICESHIP || !this.deviceService.isMobile() ? '*' : ' (Optional)'),
+      label: 'Upload Resume' + (this.isResumeRequired() ? '*' : ' (Optional)'),
       description: `${TranslateService.translate(
         'ACCEPTED_RESUME'
       )} ${SettingsService.settings.acceptedResumeTypes.toString()}`,
@@ -403,7 +401,9 @@ export class ApplyFormComponent implements OnInit {
 
   private checkLocalStorage(): void {
     if (!SettingsService.isServer) {
-      this.alreadyApplied = JSON.parse(localStorage.getItem(this.APPLIED_KEY));
+      this.alreadyApplied =
+        JSON.parse(localStorage.getItem(this.APPLIED_KEY)) &&
+        (this.utmSource !== 'phone' || this.corpType === CORP_TYPE.STAFF_AUG);
     }
   }
 
@@ -540,5 +540,12 @@ export class ApplyFormComponent implements OnInit {
 
   public handleEdit(e: any) {
     console.log('This is an Edit Action!', e); // tslint:disable-line
+  }
+
+  private isResumeRequired() {
+    return (
+      (this.corpType !== CORP_TYPE.APPRENTICESHIP || !this.deviceService.isMobile()) &&
+      (this.corpType !== CORP_TYPE.APPRENTICESHIP || this.utmSource !== 'phone')
+    );
   }
 }
