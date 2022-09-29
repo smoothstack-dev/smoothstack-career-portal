@@ -306,7 +306,7 @@ export class ApplyFormComponent implements OnInit {
     });
 
     this.hardwareDesign = new TilesControl({
-      key: 'hardwareDesigna',
+      key: 'hardwareDesign',
       label: 'Do you have basic understanding and/or interest in digital hardware design/architecture?*',
       required: true,
       options: [
