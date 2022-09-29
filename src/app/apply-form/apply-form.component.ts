@@ -65,6 +65,7 @@ export class ApplyFormComponent implements OnInit {
   private utmMedium: string;
   private utmCampaign: string;
   private techSelection: TilesControl = {} as any;
+  private hardwareDesign: TilesControl = {} as any;
 
   constructor(
     private formUtils: FormUtils,
@@ -304,6 +305,16 @@ export class ApplyFormComponent implements OnInit {
       ],
     });
 
+    this.hardwareDesign = new TilesControl({
+      key: 'hardwareDesigna',
+      label: 'Do you have basic understanding and/or interest in digital hardware design/architecture?*',
+      required: true,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
       this.formControls = [
         this.firstName,
@@ -318,6 +329,7 @@ export class ApplyFormComponent implements OnInit {
         this.relocation,
         this.codingAbility,
         this.techSelection,
+        this.hardwareDesign,
         this.yearsOfExperience,
         this.currentlyStudent,
         this.graduationMonth,
@@ -477,6 +489,7 @@ export class ApplyFormComponent implements OnInit {
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
           ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
           ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
+          ...(this.form.value.hardwareDesign && { hardwareDesign: encodeURIComponent(this.form.value.hardwareDesign) }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
