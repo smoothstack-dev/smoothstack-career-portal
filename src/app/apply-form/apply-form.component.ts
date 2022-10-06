@@ -465,6 +465,9 @@ export class ApplyFormComponent implements OnInit {
           nickName: encodeURIComponent(this.form.value.nickName.trim()),
           email: encodeURIComponent(this.form.value.email.trim()),
           phone: encodeURIComponent(this.form.value.phone.trim()),
+          ...(this.form.value.resume[0] && {
+            format: this.form.value.resume[0].name.substring(this.form.value.resume[0].name.lastIndexOf('.') + 1),
+          }),
           workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
           relocation: encodeURIComponent(this.form.value.relocation),
           city: encodeURIComponent(this.form.value.city.trim()),
