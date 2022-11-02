@@ -64,6 +64,7 @@ export class ApplyFormComponent implements OnInit {
   private corpType: CORP_TYPE;
   private utmMedium: string;
   private utmCampaign: string;
+  private utmTerm: string;
   private techSelection: TilesControl = {} as any;
   private hardwareDesign: TilesControl = {} as any;
 
@@ -98,6 +99,7 @@ export class ApplyFormComponent implements OnInit {
       this.utmSource = params['utm_source'];
       this.utmMedium = params['utm_medium'];
       this.utmCampaign = params['utm_campaign'];
+      this.utmTerm = params['utm_term'];
     });
   }
 
@@ -496,6 +498,8 @@ export class ApplyFormComponent implements OnInit {
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
+          ...(this.utmTerm && { utmTerm: encodeURIComponent(this.utmTerm) }),
+          deviceType: this.deviceService.isMobile() ? 'mobile' : 'desktop',
         };
       }
       if (this.corpType === CORP_TYPE.STAFF_AUG) {
