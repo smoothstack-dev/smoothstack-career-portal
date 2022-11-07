@@ -67,6 +67,8 @@ export class ApplyFormComponent implements OnInit {
   private utmTerm: string;
   private techSelection: TilesControl = {} as any;
   private hardwareDesign: TilesControl = {} as any;
+  public linkedin: TextBoxControl = {} as any;
+  public instagram: TextBoxControl = {} as any;
 
   constructor(
     private formUtils: FormUtils,
@@ -317,6 +319,20 @@ export class ApplyFormComponent implements OnInit {
       ],
     });
 
+    this.linkedin = new TextBoxControl({
+      key: 'linkedin',
+      label: `LinkedIn`,
+      required: false,
+      hidden: false,
+    });
+
+    this.instagram = new TextBoxControl({
+      key: 'instagram',
+      label: `Instagram`,
+      required: false,
+      hidden: false,
+    });
+
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
       this.formControls = [
         this.firstName,
@@ -342,6 +358,8 @@ export class ApplyFormComponent implements OnInit {
         this.isMilitary,
         this.militaryStatus,
         this.militaryBranch,
+        this.linkedin,
+        this.instagram,
         this.resume,
       ];
     } else {
@@ -357,6 +375,8 @@ export class ApplyFormComponent implements OnInit {
         this.yearsOfProfessionalExperience,
         this.workAuthorization,
         this.relocation,
+        this.linkedin,
+        this.instagram,
         this.resume,
       ];
     }
@@ -499,6 +519,8 @@ export class ApplyFormComponent implements OnInit {
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
           ...(this.utmTerm && { utmTerm: encodeURIComponent(this.utmTerm) }),
+          ...(this.linkedin && { linkedin: encodeURIComponent(this.form.value.linkedin.trim()) }),
+          ...(this.instagram && { instagram: encodeURIComponent(this.form.value.instagram.trim()) }),
           deviceType: this.deviceService.isMobile() ? 'mobile' : 'desktop',
         };
       }
