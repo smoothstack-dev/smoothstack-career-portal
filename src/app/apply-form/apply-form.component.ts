@@ -321,14 +321,14 @@ export class ApplyFormComponent implements OnInit {
 
     this.linkedin = new TextBoxControl({
       key: 'linkedin',
-      label: `LinkedIn`,
+      label: `LINKEDIN URL (OPTIONAL)`,
       required: false,
       hidden: false,
     });
 
     this.instagram = new TextBoxControl({
       key: 'instagram',
-      label: `Instagram`,
+      label: `INSTAGRAM HANDLE (OPTIONAL)`,
       required: false,
       hidden: false,
     });
@@ -375,8 +375,6 @@ export class ApplyFormComponent implements OnInit {
         this.yearsOfProfessionalExperience,
         this.workAuthorization,
         this.relocation,
-        this.linkedin,
-        this.instagram,
         this.resume,
       ];
     }
