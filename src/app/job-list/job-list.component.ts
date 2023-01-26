@@ -133,7 +133,6 @@ export class JobListComponent implements OnChanges {
             };
           })
           .flatMap((i) => {
-            console.log(i)
             return i.id === 1 ? Array.from({ length: 10 }).fill(i) : [];
           });
         appTotalCount = appRes.length;
