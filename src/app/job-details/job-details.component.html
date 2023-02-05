@@ -42,7 +42,7 @@
                   </iframe>
                 </div>
                 <div *ngIf="job.salary && sectionItem.contentType === 'SALARY'" class="job-salary" >
-                  <span >Salary: ${{ numberWithCommas(job.salary) }}/year</span>
+                  <span >${{ numberWithCommas(job.salary) }}/year</span>
                 </div>
               </div>
               <div class="job-section-container">
