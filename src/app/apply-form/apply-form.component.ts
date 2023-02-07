@@ -440,13 +440,20 @@ export class ApplyFormComponent implements OnInit {
       case 'python':
       case 'c':
         API.show('hardwareDesign');
+        console.log(this.form.value.hardwareDesign)
+        if(this.form.value.hardwareDesign === 'Yes'){
+          API.show('hardwareSkillsLabel');
+          API.show('hardwareSkills1');
+          API.show('hardwareSkills2');
+          API.show('hardwareSkills3');
+        }
         break;
       default:
-        API.hide('hardwareDesign');
+        API.hide('hardwareDesign', false);
         API.hide('hardwareSkillsLabel');
-        API.hide('hardwareSkills1');
-        API.hide('hardwareSkills2');
-        API.hide('hardwareSkills3');
+        API.hide('hardwareSkills1', false);
+        API.hide('hardwareSkills2', false);
+        API.hide('hardwareSkills3', false);
         break;
     }
   };
@@ -462,9 +469,9 @@ export class ApplyFormComponent implements OnInit {
         break;
       case 'No':
         API.hide('hardwareSkillsLabel');
-        API.hide('hardwareSkills1');
-        API.hide('hardwareSkills2');
-        API.hide('hardwareSkills3');
+        API.hide('hardwareSkills1', false);
+        API.hide('hardwareSkills2', false);
+        API.hide('hardwareSkills3', false);
         break;
     }
   };
