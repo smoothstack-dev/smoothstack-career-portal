@@ -67,6 +67,10 @@ export class ApplyFormComponent implements OnInit {
   private utmTerm: string;
   private techSelection: TilesControl = {} as any;
   private hardwareDesign: TilesControl = {} as any;
+  private hardwareSkillsLabel: TilesControl = {} as any;
+  private hardwareSkills1: TilesControl = {} as any;
+  private hardwareSkills2: TilesControl = {} as any;
+  private hardwareSkills3: TilesControl = {} as any;
   public linkedin: TextBoxControl = {} as any;
   public instagram: TextBoxControl = {} as any;
 
@@ -185,7 +189,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.yearsOfExperience = new TilesControl({
       key: 'yearsOfExperience',
-      label: 'Years of Experience (Including Personal/Educational Projects)*',
+      label: 'Years of Coding Experience (Including Personal/Educational Projects)*',
       required: true,
       hidden: false,
       options: [
@@ -307,12 +311,55 @@ export class ApplyFormComponent implements OnInit {
         { label: '.NET', value: 'dotNet' },
         { label: 'Other', value: 'other' },
       ],
+      interactions: [{ event: 'change', script: this.showHardwareDesign }],
     });
 
     this.hardwareDesign = new TilesControl({
       key: 'hardwareDesign',
-      label: 'Do you have basic understanding and/or interest in digital hardware design/architecture?*',
+      label: 'Do you have basic understanding & interest in digital hardware architecture/design?*',
+      hidden: true,
       required: true,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+      interactions: [{ event: 'change', script: this.showHardwareSkills }],
+    });
+
+    this.hardwareSkillsLabel = new TilesControl({
+      key: 'hardwareSkillsLabel',
+      label: 'Do you have any knowledge or experience with:',
+      required: false,
+      hidden: true,
+    });
+
+    this.hardwareSkills1 = new TilesControl({
+      key: 'hardwareSkills1',
+      label: '-> OS internals, Libraries, Linux/Windows, Drivers, Compilers',
+      required: true,
+      hidden: true,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
+    this.hardwareSkills2 = new TilesControl({
+      key: 'hardwareSkills2',
+      label: '-> Computer Architecture, System Design, Simulation, Modeling, Verification',
+      required: true,
+      hidden: true,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
+    this.hardwareSkills3 = new TilesControl({
+      key: 'hardwareSkills3',
+      label: '-> CAD/EDA development (tools/flows for Silicon design)',
+      required: true,
+      hidden: true,
       options: [
         { label: 'Yes', value: 'Yes' },
         { label: 'No', value: 'No' },
@@ -348,13 +395,17 @@ export class ApplyFormComponent implements OnInit {
         this.codingAbility,
         this.techSelection,
         this.hardwareDesign,
-        this.yearsOfExperience,
+        this.hardwareSkillsLabel,
+        this.hardwareSkills1,
+        this.hardwareSkills2,
+        this.hardwareSkills3,
         this.currentlyStudent,
         this.graduationMonth,
         this.graduationYear,
         this.degreeExpected,
         this.highestDegree,
         this.major,
+        this.yearsOfExperience,
         this.isMilitary,
         this.militaryStatus,
         this.militaryBranch,
@@ -382,6 +433,37 @@ export class ApplyFormComponent implements OnInit {
     this.form = this.formUtils.toFormGroup([...this.formControls]);
     this.loading = false;
   }
+
+  private showHardwareDesign = (API: FieldInteractionApi) => {
+    const activeValue = API.getActiveValue();
+    switch (activeValue) {
+      case 'python':
+      case 'c':
+        API.show('hardwareDesign');
+        break;
+      default:
+        API.hide('hardwareDesign');
+        break;
+    }
+  };
+
+  private showHardwareSkills = (API: FieldInteractionApi) => {
+    const activeValue = API.getActiveValue();
+    switch (activeValue) {
+      case 'Yes':
+        API.show('hardwareSkillsLabel');
+        API.show('hardwareSkills1');
+        API.show('hardwareSkills2');
+        API.show('hardwareSkills3');
+        break;
+      case 'No':
+        API.hide('hardwareSkillsLabel');
+        API.hide('hardwareSkills1');
+        API.hide('hardwareSkills2');
+        API.hide('hardwareSkills3');
+        break;
+    }
+  };
 
   private showEducationFields = (API: FieldInteractionApi) => {
     const activeValue = API.getActiveValue();
@@ -469,6 +551,14 @@ export class ApplyFormComponent implements OnInit {
     }
   };
 
+  private getHardwareSkills = () => {
+    return this.form.value.hardwareSkills1 === 'Yes' ||
+      this.form.value.hardwareSkills2 == 'Yes' ||
+      this.form.value.hardwareSkills3 === 'Yes'
+      ? 'Yes'
+      : 'No';
+  };
+
   private toTitleCase = (str: string) => {
     return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
   };
@@ -512,7 +602,12 @@ export class ApplyFormComponent implements OnInit {
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
           ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
           ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
-          ...(this.form.value.hardwareDesign && { hardwareDesign: encodeURIComponent(this.form.value.hardwareDesign) }),
+          ...(this.form.value.hardwareDesign && {
+            hardwareDesign: encodeURIComponent(this.form.value.hardwareDesign),
+          }),
+          ...(this.form.value.hardwareDesign === 'Yes' && {
+            hardwareSkills: this.getHardwareSkills(),
+          }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
