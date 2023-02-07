@@ -8,7 +8,7 @@ import { CORPORATION, CORP_TYPE } from '../../../app/typings/corporation';
 export class ApplyService {
   public constructor(private http: HttpClient, public settings: SettingsService) {}
   get baseUrl(): string {
-    return 'http://localhost:3000/local/careers';
+    return 'https://1syp4w9c5h.execute-api.us-east-1.amazonaws.com/prod/careers';
   }
 
   public apply(id: number, params: any, formData: FormData, corpType: CORP_TYPE): Observable<any> {
