@@ -443,6 +443,10 @@ export class ApplyFormComponent implements OnInit {
         break;
       default:
         API.hide('hardwareDesign');
+        API.hide('hardwareSkillsLabel');
+        API.hide('hardwareSkills1');
+        API.hide('hardwareSkills2');
+        API.hide('hardwareSkills3');
         break;
     }
   };
