@@ -15,6 +15,10 @@ export class SearchService {
     return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
   }
 
+  get sfdcBaseUrl(): string {
+    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs';
+  }
+
   get staffAugBaseUrl(): string {
     // for staffing, using service 2
     let service: IServiceSettings = SettingsService.settings.staffAugService;
@@ -23,24 +27,17 @@ export class SearchService {
     return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
   }
 
-  public getJobs(filter?: any, params: any = {}, count: number = 30): Observable<any> {
-    let queryArray: string[] = [];
-    //  Note: job id 1 should not be display on the dashboard
-    params.query = `(isOpen:1) AND (isDeleted:0)${this.formatAdditionalCriteria(true)}${this.formatFilter(
-      filter,
-      true
-    )}`;
-    params.fields = SettingsService.settings.service.fields;
-    params.count = count;
-    params.sort = SettingsService.settings.additionalJobCriteria.sort;
-    params.showTotalMatched = true;
+  public getJobs(): Observable<any> {
+    const params: any = {};
+    const queryArray: string[] = [];
+    params.active = 'true';
 
     for (let key in params) {
       queryArray.push(`${key}=${params[key]}`);
     }
-    let queryString: string = queryArray.join('&');
+    const queryString: string = queryArray.join('&');
 
-    return this.http.get(`${this.baseUrl}/search/JobOrder?${queryString}`);
+    return this.http.get(`${this.sfdcBaseUrl}?${queryString}`);
   }
 
   public getSAJobs(filter?: any, params: any = {}, count: number = 30): Observable<any> {
@@ -64,9 +61,13 @@ export class SearchService {
   }
 
   public openJob(id: string | number, corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP): Observable<any> {
-    const { service: assignService, baseUrl: url } = this.getServiceAndUrl(corpType);
+    const { service: assignService, baseUrl } = this.getServiceAndUrl(corpType);
 
-    return this.http.get(`${url}/query/JobBoardPost?where=(id=${id})&fields=${assignService.fields}`);
+    const url =
+      corpType === CORP_TYPE.APPRENTICESHIP
+        ? `${baseUrl}/${id}`
+        : `${baseUrl}/query/JobBoardPost?where=(id=${id})&fields=${assignService.fields}`;
+    return this.http.get(url);
   }
 
   public getCurrentJobIds(
@@ -177,7 +178,7 @@ export class SearchService {
   private getServiceAndUrl(corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP) {
     switch (corpType) {
       case CORP_TYPE.APPRENTICESHIP:
-        return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.baseUrl };
+        return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.sfdcBaseUrl };
       case CORP_TYPE.STAFF_AUG:
         return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.staffAugBaseUrl };
     }

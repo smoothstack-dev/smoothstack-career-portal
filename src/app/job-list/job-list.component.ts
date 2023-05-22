@@ -56,7 +56,7 @@ export class JobListComponent implements OnChanges {
     this.meta.updateTag({ name: 'og:description', content: description });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
-    const jobCall = this.http.getJobs(this.filter, { start: this.start });
+    const jobCall = this.http.getJobs();
     const saJobCall = this.http.getSAJobs(
       {
         saJobFilter: 'employmentType:Contract OR employmentType:"Direct Hire" OR employmentType:"Contract To Hire"',
@@ -123,17 +123,19 @@ export class JobListComponent implements OnChanges {
         break;
       }
       case JOBLIST_TYPE.LAUNCH: {
-        appRes = results.data
+        appRes = results
           .map((r) => {
             const corpType = CORP_TYPE.APPRENTICESHIP;
             return {
               ...r,
+              id: r.Job_ID__c,
               corpType,
               corpId: CORPORATION[corpType].corpId,
+              title: r.Job_Title__c,
             };
           })
           .flatMap((i) => {
-            return i.id === 1 ? Array.from({ length: 10 }).fill(i) : [];
+            return i.Job_ID__c === 1 ? Array.from({ length: 10 }).fill(i) : [];
           });
         appTotalCount = appRes.length;
         break;

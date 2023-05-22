@@ -1,22 +1,11 @@
 {
-  "acceptedResumeTypes": [
-    "html",
-    "text",
-    "txt",
-    "pdf",
-    "doc",
-    "docx",
-    "rtf",
-    "odt"
-  ],
+  "acceptedResumeTypes": ["pdf"],
   "companyName": "Smoothstack",
   "companyLogoPath": "",
   "companyUrl": "",
   "careersUrl": "",
   "defaultLocale": "en-US",
-  "supportedLocales": [
-    "en-US"
-  ],
+  "supportedLocales": ["en-US"],
   "minUploadSize": 4096,
   "maxRelatedJobs": 5,
   "maxUploadSize": 5242880,
@@ -52,10 +41,7 @@
       }
     ],
     "showCategory": true,
-    "keywordSearchFields": [
-      "publicDescription",
-      "title"
-    ]
+    "keywordSearchFields": ["publicDescription", "title"]
   },
   "staffAugService": {
     "batchSize": 500,
@@ -88,16 +74,11 @@
       }
     ],
     "showCategory": true,
-    "keywordSearchFields": [
-      "publicDescription",
-      "title"
-    ]
+    "keywordSearchFields": ["publicDescription", "title"]
   },
   "additionalJobCriteria": {
     "field": "[ FILTER FIELD HERE ]",
-    "values": [
-      "[ FILTER VALUE HERE ]"
-    ],
+    "values": ["[ FILTER VALUE HERE ]"],
     "sort": "-dateLastPublished"
   },
   "integrations": {

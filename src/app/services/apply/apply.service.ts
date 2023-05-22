@@ -11,10 +11,15 @@ export class ApplyService {
     return 'https://1syp4w9c5h.execute-api.us-east-1.amazonaws.com/prod/careers';
   }
 
+  get sfdcBaseUrl(): string {
+    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs/apply';
+  }
+
   public apply(id: number, params: any, formData: FormData, corpType: CORP_TYPE): Observable<any> {
     let applyParams: any = this.assembleParams(params);
     const corpId = SettingsService.settings[CORPORATION[corpType].serviceName].corpToken;
-    return this.http.post(`${this.baseUrl}/${corpId}/${id}?${applyParams}`, formData);
+    const url = corpType === CORP_TYPE.APPRENTICESHIP ? this.sfdcBaseUrl : `${this.baseUrl}/${corpId}/${id}`;
+    return this.http.post(`${url}?${applyParams}`, formData);
   }
 
   private assembleParams(data: any): string {
