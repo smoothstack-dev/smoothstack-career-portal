@@ -80,15 +80,9 @@ export class JobDetailsComponent implements OnInit {
 
   public getRelatedJobs(): any {
     if (this.job && this.job.publishedCategory) {
-      this.service
-        .getJobs(
-          { 'publishedCategory.id': [this.job.publishedCategory.id] },
-          {},
-          SettingsService.settings[CORPORATION[this.corpType].serviceName].batchSize
-        )
-        .subscribe((res: any) => {
-          this.relatedJobs = res.data;
-        });
+      this.service.getJobs().subscribe((res: any) => {
+        this.relatedJobs = res.data;
+      });
     }
   }
 
@@ -116,28 +110,52 @@ export class JobDetailsComponent implements OnInit {
 
   private setJob(): void {
     let res: any = this.route.snapshot.data.message;
-    if (res.data && res.data.length > 0) {
-      this.job = res.data[0];
-      this.job.details = tryParseJSONObject(this.job.customTextBlock2)
-        ? JSON.parse(this.job.customTextBlock2)
-        : undefined;
-      this.titleService.setTitle(this.job.title);
-      this.meta.updateTag({ name: 'og:title', content: this.job.title });
-      this.meta.updateTag({ name: 'titter:title', content: this.job.title });
-      this.meta.updateTag({ name: 'og:image', content: SettingsService.settings.companyLogoPath });
-      this.meta.updateTag({ name: 'og:url', content: `${SettingsService.urlRoot}${this.router.url}` });
-      this.meta.updateTag({ name: 'og:description', content: this.job.publicDescription });
-      this.meta.updateTag({ name: 'twitter:description', content: this.job.publicDescription });
-      this.meta.updateTag({ name: 'description', content: this.job.publicDescription });
-      this.loading = false;
+    if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
+      if (res) {
+        this.job = {
+          title: res.Job_Title__c,
+          details: tryParseJSONObject(res.Job_Details_JSON__c) ? JSON.parse(res.Job_Details_JSON__c) : undefined,
+          salary: res.Year_1_Salary__c,
+        };
+        this.titleService.setTitle(res.Job_Title__c);
+        this.meta.updateTag({ name: 'og:title', content: res.Job_Title__c });
+        this.meta.updateTag({ name: 'titter:title', content: res.Job_Title__c });
+        this.meta.updateTag({ name: 'og:image', content: SettingsService.settings.companyLogoPath });
+        this.meta.updateTag({ name: 'og:url', content: `${SettingsService.urlRoot}${this.router.url}` });
+        this.loading = false;
+      } else {
+        this.serverResponse.setNotFound();
+        this.modalService
+          .open(ErrorModalComponent, {
+            title: TranslateService.translate('ERROR'),
+            message: TranslateService.translate('MISSING_JOB_ERROR'),
+          })
+          .onClosed.then(this.goToJobList.bind(this));
+      }
     } else {
-      this.serverResponse.setNotFound();
-      this.modalService
-        .open(ErrorModalComponent, {
-          title: TranslateService.translate('ERROR'),
-          message: TranslateService.translate('MISSING_JOB_ERROR'),
-        })
-        .onClosed.then(this.goToJobList.bind(this));
+      if (res.data && res.data.length > 0) {
+        this.job = res.data[0];
+        this.job.details = tryParseJSONObject(this.job.customTextBlock2)
+          ? JSON.parse(this.job.customTextBlock2)
+          : undefined;
+        this.titleService.setTitle(this.job.title);
+        this.meta.updateTag({ name: 'og:title', content: this.job.title });
+        this.meta.updateTag({ name: 'titter:title', content: this.job.title });
+        this.meta.updateTag({ name: 'og:image', content: SettingsService.settings.companyLogoPath });
+        this.meta.updateTag({ name: 'og:url', content: `${SettingsService.urlRoot}${this.router.url}` });
+        this.meta.updateTag({ name: 'og:description', content: this.job.publicDescription });
+        this.meta.updateTag({ name: 'twitter:description', content: this.job.publicDescription });
+        this.meta.updateTag({ name: 'description', content: this.job.publicDescription });
+        this.loading = false;
+      } else {
+        this.serverResponse.setNotFound();
+        this.modalService
+          .open(ErrorModalComponent, {
+            title: TranslateService.translate('ERROR'),
+            message: TranslateService.translate('MISSING_JOB_ERROR'),
+          })
+          .onClosed.then(this.goToJobList.bind(this));
+      }
     }
   }
 
