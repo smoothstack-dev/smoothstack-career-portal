@@ -613,6 +613,7 @@ export class ApplyFormComponent implements OnInit {
             hardwareSkills: this.getHardwareSkills(),
           }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
+          ...(this.isContactUs && { utmSource: encodeURIComponent('contact_us') }),
           ...(this.utmMedium && { utmMedium: encodeURIComponent(this.utmMedium) }),
           ...(this.utmCampaign && { utmCampaign: encodeURIComponent(this.utmCampaign) }),
           ...(this.utmTerm && { utmTerm: encodeURIComponent(this.utmTerm) }),
