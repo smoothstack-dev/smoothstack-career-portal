@@ -70,23 +70,23 @@ export class ApplyFormSalesforceComponent implements OnInit {
     });
     this.phoneNumber = new TextBoxControl({
       key: 'phoneNumber',
-      label: 'PHONE*',
+      label: this.formType === 'BUILD' ? 'PHONE' : 'PHONE*',
       type: 'tel',
-      required: true,
+      required: this.formType === 'BUILD' ? false : true,
       hidden: false,
       interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: false }],
     });
     this.location = new SelectControl({
       key: 'location',
-      label: 'Location*',
-      required: true,
+      label: this.formType === 'BUILD' ? 'Location' : 'Location*',
+      required: this.formType === 'BUILD' ? false : true,
       hidden: false,
       options: states,
     });
     this.title = new TextBoxControl({
       key: 'title',
-      label: 'Title*',
-      required: true,
+      label: this.formType === 'BUILD' ? 'Title' : 'Title*',
+      required: this.formType === 'BUILD' ? false : true,
       hidden: false,
     });
     this.company = new TextBoxControl({
