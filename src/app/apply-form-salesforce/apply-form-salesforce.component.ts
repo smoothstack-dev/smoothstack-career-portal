@@ -70,23 +70,23 @@ export class ApplyFormSalesforceComponent implements OnInit {
     });
     this.phoneNumber = new TextBoxControl({
       key: 'phoneNumber',
-      label: this.formType === 'BUILD' ? 'PHONE' : 'PHONE*',
+      label: 'PHONE*',
       type: 'tel',
-      required: this.formType === 'BUILD' ? false : true,
+      required: true,
       hidden: false,
       interactions: [{ event: 'change', script: this.validatePhone, invokeOnInit: false }],
     });
     this.location = new SelectControl({
       key: 'location',
-      label: this.formType === 'BUILD' ? 'Location' : 'Location*',
-      required: this.formType === 'BUILD' ? false : true,
+      label: 'Location*',
+      required: true,
       hidden: false,
       options: states,
     });
     this.title = new TextBoxControl({
       key: 'title',
-      label: this.formType === 'BUILD' ? 'Title' : 'Title*',
-      required: this.formType === 'BUILD' ? false : true,
+      label: 'Title*',
+      required: true,
       hidden: false,
     });
     this.company = new TextBoxControl({
@@ -115,16 +115,7 @@ export class ApplyFormSalesforceComponent implements OnInit {
     });
 
     if (this.formType === 'BUILD')
-      this.formControls = [
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.phoneNumber,
-        this.title,
-        this.company,
-        this.location,
-        this.comment,
-      ];
+      this.formControls = [this.firstName, this.lastName, this.email, this.company, this.comment];
     else if (this.formType === 'RECRUIT')
       this.formControls = [
         this.firstName,
@@ -169,10 +160,7 @@ export class ApplyFormSalesforceComponent implements OnInit {
             first_name: this.toTitleCase(this.form.value.firstName.trim()),
             last_name: this.toTitleCase(this.form.value.lastName.trim()),
             email: this.form.value.email.trim(),
-            phone: this.form.value.phoneNumber.trim(),
-            title: this.form.value.title.trim(),
             company: this.form.value.company.trim(),
-            state: this.form.value.location,
             Comments__c: this.form.value.comment.trim(),
           };
           break;
