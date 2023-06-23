@@ -121,11 +121,8 @@ export class ApplyFormSalesforceComponent implements OnInit {
         this.firstName,
         this.lastName,
         this.email,
-        this.phoneNumber,
-        this.title,
         this.organizationName,
         this.typeOfOrganization,
-        this.location,
         this.comment,
       ];
 
@@ -173,11 +170,8 @@ export class ApplyFormSalesforceComponent implements OnInit {
             first_name: this.toTitleCase(this.form.value.firstName.trim()),
             last_name: this.toTitleCase(this.form.value.lastName.trim()),
             email: this.form.value.email.trim(),
-            phone: this.form.value.phoneNumber.trim(),
-            title: this.form.value.title.trim(),
             organizationName: this.form.value.organizationName,
             Organization_Type__c: this.form.value.typeOfOrganization,
-            state: this.form.value.location,
             Comments__c: this.form.value.comment.trim(),
           };
           break;
