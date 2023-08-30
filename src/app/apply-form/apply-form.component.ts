@@ -124,7 +124,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.nickName = new TextBoxControl({
       key: 'nickName',
-      label: 'NICKNAME (OPTIONAL)',
+      label: 'Preferred Name (OPTIONAL)',
       required: false,
       hidden: false,
     });
