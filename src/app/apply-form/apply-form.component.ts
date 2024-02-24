@@ -19,6 +19,8 @@ import { months } from './util/months';
 import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } from '../typings/corporation';
 import { EMAIL_TYPOS } from './util/email';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { TilesControlExt } from './util/TilesControlExt';
+import { ethnicity_tooltip } from './util/tooltips';
 
 @Component({
   selector: 'app-apply-form',
@@ -48,7 +50,10 @@ export class ApplyFormComponent implements OnInit {
   public degreeExpected: TilesControl = {} as any;
   public highestDegree: TilesControl = {} as any;
   public major: TextBoxControl = {} as any;
-  public isMilitary: TilesControl = {} as any;
+  public gender: TilesControl = {} as any;
+  public race: TilesControlExt = {} as any;
+  public disability: TilesControlExt = {} as any;
+  public isMilitary: TilesControlExt = {} as any;
   public militaryStatus: TilesControl = {} as any;
   public militaryBranch: TilesControl = {} as any;
   public form: NovoFormGroup;
@@ -264,9 +269,61 @@ export class ApplyFormComponent implements OnInit {
       required: true,
       hidden: true,
     });
-    this.isMilitary = new TilesControl({
+    this.gender = new TilesControl({
+      key: 'gender',
+      label: 'Gender*',
+      required: true,
+      options: [
+        { label: 'Male', value: 'Male' },
+        { label: 'Female', value: 'Female' },
+        { label: 'Opt Out', value: 'Opt Out' },
+      ],
+    });
+    this.race = new TilesControlExt({
+      key: 'race',
+      extLabel: 'Race*',
+      extToolTip: {
+        icon: 'question',
+        color: 'negative',
+        content: ethnicity_tooltip,
+      },
+      required: true,
+      options: [
+        { label: 'Hispanic or Latino', value: 'Hispanic or Latino' },
+        { label: 'American Indian', value: 'American Indian' },
+        { label: 'Alaska Native', value: 'Alaska Native' },
+        { label: 'Asian', value: 'Asian' },
+        { label: 'Black or African American', value: 'Black or African American' },
+        { label: 'Native Hawaiian', value: 'Native Hawaiian' },
+        { label: 'Other Pacific Islander', value: 'Other Pacific Islander' },
+        { label: 'Two or More Races', value: 'Two or More Races' },
+        { label: 'White', value: 'White' },
+        { label: 'Opt Out', value: 'Opt Out' },
+      ],
+    });
+    this.disability = new TilesControlExt({
+      key: 'disability',
+      extLabel: 'Disability*',
+      extToolTip: {
+        icon: 'question',
+        content: 'Race EXT Tooltip',
+        color: 'negative',
+      },
+      required: true,
+      options: [
+        { label: 'No', value: 'No' },
+        { label: 'Yes', value: 'Yes' },
+        { label: 'Opt Out', value: 'Opt Out' },
+      ],
+    });
+    this.isMilitary = new TilesControlExt({
       key: 'isMilitary',
-      label: 'Are you a veteran or currently serving in the military?*',
+      extLabel: 'Are you a veteran or currently serving in the military?*',
+      extToolTip: {
+        icon: 'question',
+        content: 'Race EXT Tooltip',
+        color: 'negative',
+      },
       required: true,
       options: [
         { label: 'Yes', value: 'Yes' },
@@ -406,6 +463,9 @@ export class ApplyFormComponent implements OnInit {
         this.highestDegree,
         this.major,
         this.yearsOfExperience,
+        this.gender,
+        this.race,
+        this.disability,
         this.isMilitary,
         this.militaryStatus,
         this.militaryBranch,
@@ -603,6 +663,9 @@ export class ApplyFormComponent implements OnInit {
             highestDegree: encodeURIComponent(this.form.value.highestDegree),
           }),
           ...(this.form.value.major && { major: encodeURIComponent(this.form.value.major.trim()) }),
+          gender: encodeURIComponent(this.form.value.gender),
+          race: encodeURIComponent(this.form.value.race),
+          disability: encodeURIComponent(this.form.value.disability),
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
           ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
           ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
