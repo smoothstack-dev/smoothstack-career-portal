@@ -20,7 +20,7 @@ import { CORPORATION, CORP_TYPE, getCorpTypeByCorpId, workAuthorizationMap } fro
 import { EMAIL_TYPOS } from './util/email';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { TilesControlExt } from './util/TilesControlExt';
-import { ethnicity_tooltip } from './util/tooltips';
+import { disability_tooltip, ethnicity_tooltip, veteran_tooltip } from './util/tooltips';
 
 @Component({
   selector: 'app-apply-form',
@@ -284,6 +284,7 @@ export class ApplyFormComponent implements OnInit {
       extLabel: 'Race*',
       extToolTip: {
         icon: 'question',
+        size: 'large',
         color: 'negative',
         content: ethnicity_tooltip,
       },
@@ -306,7 +307,8 @@ export class ApplyFormComponent implements OnInit {
       extLabel: 'Disability*',
       extToolTip: {
         icon: 'question',
-        content: 'Race EXT Tooltip',
+        size: 'extra-large',
+        content: disability_tooltip,
         color: 'negative',
       },
       required: true,
@@ -321,7 +323,8 @@ export class ApplyFormComponent implements OnInit {
       extLabel: 'Are you a veteran or currently serving in the military?*',
       extToolTip: {
         icon: 'question',
-        content: 'Race EXT Tooltip',
+        size: 'extra-large',
+        content: veteran_tooltip,
         color: 'negative',
       },
       required: true,

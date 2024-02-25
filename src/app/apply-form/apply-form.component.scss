@@ -79,6 +79,9 @@
     .ext-icon > i {
       font-size: 1em !important;
     }
+    .ext-tooltip {
+      white-space: pre-line;
+    }
   }
   span.error {
     color: #da4453;

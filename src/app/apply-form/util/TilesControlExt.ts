@@ -4,6 +4,7 @@ export type ToolTipConfig = {
   // https://bullhorn.github.io/novo-elements/docs/#/design/iconography
   icon: string;
   // https://bullhorn.github.io/novo-elements/docs/#/design/colors
+  size: string;
   color: string;
   content: any;
 };

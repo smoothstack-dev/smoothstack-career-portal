@@ -9,7 +9,10 @@
             {{ control.__config.extLabel }}
             <span 
               *ngIf="control.__config.extToolTip" 
+              class="ext-tooltip"
               [tooltip]="control.__config.extToolTip.content"
+              [tooltipSize]="control.__config.extToolTip.size"
+              tooltipPreline="true"
               tooltipPosition="right"
               >
               <novo-icon
