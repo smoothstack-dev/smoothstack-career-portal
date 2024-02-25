@@ -285,7 +285,6 @@ export class ApplyFormComponent implements OnInit {
       extToolTip: {
         icon: 'question',
         size: 'large',
-        color: 'negative',
         content: ethnicity_tooltip,
       },
       required: true,
@@ -309,7 +308,6 @@ export class ApplyFormComponent implements OnInit {
         icon: 'question',
         size: 'extra-large',
         content: disability_tooltip,
-        color: 'negative',
       },
       required: true,
       options: [
@@ -325,7 +323,6 @@ export class ApplyFormComponent implements OnInit {
         icon: 'question',
         size: 'extra-large',
         content: veteran_tooltip,
-        color: 'negative',
       },
       required: true,
       options: [
