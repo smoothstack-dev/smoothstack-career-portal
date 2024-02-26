@@ -7,18 +7,10 @@
         >
           <label class="ext-label" >
             {{ control.__config.extLabel }}
-            <span 
-              *ngIf="control.__config.extToolTip" 
-              class="ext-tooltip"
-              [tooltip]="control.__config.extToolTip.content"
-              [tooltipSize]="control.__config.extToolTip.size"
-              tooltipPreline="true"
-              tooltipPosition="bottom"
-              >
-              <novo-icon class="ext-icon">
-                {{ control.__config.extToolTip.icon }}
-              </novo-icon>
-            </span>
+            <tooltip-modal 
+              [icon]="control.__config.extToolTip.icon"
+              [modal]="control.__config.extToolTip.content"
+            ></tooltip-modal>
           </label>
         </div>
         <novo-control [form]="form" [control]="control" (edit)="handleEdit($event)" >

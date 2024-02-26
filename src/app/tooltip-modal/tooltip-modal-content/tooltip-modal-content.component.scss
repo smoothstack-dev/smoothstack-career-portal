@@ -1,0 +1,16 @@
+:host {
+    novo-notification > section i.indicator {
+        display:none;
+    }
+
+    novo-modal > section {
+        font-size: 1.2em;
+        line-height: 1.5em;
+        padding-top: 0px;
+    }
+
+    novo-modal > header {
+        text-align: right;
+        padding: 0px;
+    }
+}

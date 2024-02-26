@@ -45,6 +45,12 @@ import { ApplyFormComponent } from './apply-form/apply-form.component';
 import { ApplyFormSalesforceComponent } from './apply-form-salesforce/apply-form-salesforce.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SuccessModal } from './success-modal/success-modal.component';
+import { TooltipModal } from './tooltip-modal/tooltip-modal.component';
+import {
+  TooltipModalContentRace,
+  TooltipModalContentDisability,
+  TooltipModalContentVeteran,
+} from './tooltip-modal/tooltip-modal-content/tooltip-modal-content.component';
 import { SuccessPageComponent } from './success-page/success-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { ShareComponent } from './share/share.component';
@@ -77,6 +83,10 @@ export function initSettings(settings: SettingsService): any {
     ApplyFormComponent,
     ApplyFormSalesforceComponent,
     SuccessModal,
+    TooltipModal,
+    TooltipModalContentRace,
+    TooltipModalContentDisability,
+    TooltipModalContentVeteran,
     ErrorModalComponent,
     StripHtmlPipe,
     SafeUrlPipe,
@@ -89,7 +99,14 @@ export function initSettings(settings: SettingsService): any {
     ShareComponent,
     ContactPageComponent,
   ],
-  entryComponents: [ApplyModalComponent, ErrorModalComponent, SuccessModal],
+  entryComponents: [
+    ApplyModalComponent,
+    ErrorModalComponent,
+    SuccessModal,
+    TooltipModalContentRace,
+    TooltipModalContentDisability,
+    TooltipModalContentVeteran,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
@@ -119,7 +136,7 @@ export function initSettings(settings: SettingsService): any {
     DatePipe,
     JobResolver,
     ServerResponseService,
-    DeviceDetectorService
+    DeviceDetectorService,
   ],
   bootstrap: [AppComponent],
 })
