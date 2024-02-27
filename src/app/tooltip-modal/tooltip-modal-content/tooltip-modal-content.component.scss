@@ -5,8 +5,23 @@
 
     novo-modal > section {
         font-size: 1.2em;
+        color: black !important;
         line-height: 1.5em;
         padding-top: 0px;
+
+        div > h2 {
+            font-weight: 700;
+            font-size: 1.7em;
+            line-height: 1.2em;
+            color: black !important;
+        }
+
+        div > h3 {
+            font-weight: 500;
+            font-size: 1.4em;
+            line-height: 1.2em;
+            color: black !important;
+        }
     }
 
     novo-modal > header {
