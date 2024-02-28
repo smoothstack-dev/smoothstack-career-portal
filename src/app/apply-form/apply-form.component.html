@@ -2,7 +2,7 @@
   <section *ngIf="!loading">
     <novo-form [form]="form" layout="vertical">
       <div *ngFor="let control of formControls" class="novo-form-row">
-        <novo-control [form]="form" [control]="control" (edit)="handleEdit($event)" ></novo-control>
+        <novo-control [form]="form" [control]="control" (edit)="handleEdit($event)"></novo-control>
       </div>
     </novo-form>
     <span *ngIf="hasError" class="error">{{ 'ERROR_WHILE_APPLYING' | translate }}</span>
@@ -12,16 +12,12 @@
       class="apply-button"
       theme="primary"
       color="pulse"
-      [disabled]="alreadyApplied || !form.valid"
+      [disabled]="!form.valid"
       (click)="save()"
       data-automation-id="create-modal-save"
       [loading]="applying"
     >
-      {{ (!alreadyApplied ? 'APPLY' : 'ALREADY_APPLIED') | translate }}
+      {{ 'APPLY' | translate }}
     </button>
-    <p class="applied-text" *ngIf="alreadyApplied">
-      You can only submit one application. <br />
-      You will be considered for multiple positions.
-    </p>
   </div>
 </novo-card>
