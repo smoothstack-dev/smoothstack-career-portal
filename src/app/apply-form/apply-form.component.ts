@@ -280,6 +280,7 @@ export class ApplyFormComponent implements OnInit {
       options: [
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
+        { label: 'Nonbinary', value: 'Nonbinary' },
         { label: 'Opt Out', value: 'Opt Out' },
       ],
     });

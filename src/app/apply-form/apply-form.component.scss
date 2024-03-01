@@ -3,7 +3,7 @@
   /deep/novo-card {
     .novo-card {
       header {
-        background: #E54F6D;
+        background: #e54f6d;
       }
       border-radius: 0em !important;
     }
@@ -19,20 +19,20 @@
   }
   /deep/novo-form {
     novo-tiles {
-      color: #5532C0;
+      color: #5532c0;
       .tile-container {
         flex-wrap: wrap;
         border: hidden;
         .tile:not(.disabled).active {
-          background: #5532C0;
+          background: #5532c0;
           color: whitesmoke;
         }
         .tile:not(.disabled):hover {
-          background-color: #5532C0;
+          background-color: #5532c0;
           color: whitesmoke;
         }
         .tile {
-          border: solid thin #5532C0;
+          border: solid thin #5532c0;
           margin: 3px;
           padding: 10px;
         }
@@ -48,7 +48,7 @@
         white-space: normal !important;
         overflow-x: visible !important;
       }
-      div:has(> div[data-automation-id="hardwareSkillsLabel"] ) {
+      div:has(> div[data-automation-id='hardwareSkillsLabel']) {
         display: none !important;
       }
     }
@@ -63,7 +63,7 @@
     .eeoc-form h2 {
       padding-bottom: 10px;
     }
-    .ext-container{
+    .ext-container {
       left: 22px;
       margin-left: 22px;
       margin-right: 6px;
@@ -76,11 +76,12 @@
       font-weight: 500;
     }
     .ext-icon > i {
-      color: #5532C0 !important;
+      color: #5532c0 !important;
       font-size: 1em !important;
+      cursor: pointer;
     }
     .ext-label .ext-tooltip {
-      color: #5532C0 !important;
+      color: #5532c0 !important;
       background-color: white !important;
     }
   }
@@ -97,7 +98,7 @@
       align-items: center;
       .apply-button {
         font-size: 1.2em;
-        background-color: #5532C0;
+        background-color: #5532c0;
         width: 98%;
       }
       .applied-text {
@@ -118,7 +119,7 @@
     align-self: start;
     padding-bottom: 30px;
     novo-form {
-      overflow-x:hidden;
+      overflow-x: hidden;
     }
   }
 }
