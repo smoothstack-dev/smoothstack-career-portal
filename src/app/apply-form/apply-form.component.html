@@ -2,7 +2,19 @@
   <section *ngIf="!loading">
     <novo-form [form]="form" layout="vertical">
       <div *ngFor="let control of formControls" class="novo-form-row">
-        <novo-control [form]="form" [control]="control" (edit)="handleEdit($event)"></novo-control>
+        <div *ngIf="control.__config.extLabel"
+              class="ext-container"
+        >
+          <label class="ext-label" >
+            {{ control.__config.extLabel }}
+            <tooltip-modal 
+              [icon]="control.__config.extToolTip.icon"
+              [modal]="control.__config.extToolTip.content"
+            ></tooltip-modal>
+          </label>
+        </div>
+        <novo-control [form]="form" [control]="control" (edit)="handleEdit($event)" >
+        </novo-control>
       </div>
     </novo-form>
     <span *ngIf="hasError" class="error">{{ 'ERROR_WHILE_APPLYING' | translate }}</span>
