@@ -12,7 +12,8 @@ export class ApplyService {
   }
 
   get sfdcBaseUrl(): string {
-    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs/apply';
+    // return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs/apply';
+    return 'http://localhost:3000/local/jobs/apply';
   }
 
   public apply(id: number, params: any, formData: FormData, corpType: CORP_TYPE): Observable<any> {

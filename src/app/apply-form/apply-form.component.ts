@@ -286,7 +286,7 @@ export class ApplyFormComponent implements OnInit {
     });
     this.race = new TilesControlExt({
       key: 'race',
-      extLabel: 'Race*',
+      extLabel: 'Race/Ethnicity*',
       extToolTip: {
         icon: 'question',
         content: TooltipModalContentRace,
@@ -466,8 +466,8 @@ export class ApplyFormComponent implements OnInit {
         this.major,
         this.yearsOfExperience,
         this.gender,
-        this.race,
         this.disability,
+        this.race,
         this.isMilitary,
         this.militaryStatus,
         this.militaryBranch,
