@@ -51,6 +51,9 @@
       div:has(> div[data-automation-id='hardwareSkillsLabel']) {
         display: none !important;
       }
+      div:has(> div[data-automation-id='voluntaryLabel']) {
+        display: none !important;
+      }
     }
     .novo-form-container {
       width: 98%;
