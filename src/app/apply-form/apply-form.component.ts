@@ -24,6 +24,7 @@ import {
   TooltipModalContentRace,
   TooltipModalContentDisability,
   TooltipModalContentVeteran,
+  TooltipModalContentVoluntary,
 } from '../tooltip-modal/tooltip-modal-content/tooltip-modal-content.component';
 
 @Component({
@@ -54,6 +55,7 @@ export class ApplyFormComponent implements OnInit {
   public degreeExpected: TilesControl = {} as any;
   public highestDegree: TilesControl = {} as any;
   public major: TextBoxControl = {} as any;
+  public voluntaryLabel: TilesControlExt = {} as any;
   public gender: TilesControl = {} as any;
   public race: TilesControlExt = {} as any;
   public disability: TilesControlExt = {} as any;
@@ -273,6 +275,15 @@ export class ApplyFormComponent implements OnInit {
       required: true,
       hidden: true,
     });
+    this.voluntaryLabel = new TilesControlExt({
+      key: 'voluntaryLabel',
+      extLabel: 'Voluntary Disclosures',
+      required: false,
+      extToolTip: {
+        icon: 'question',
+        content: TooltipModalContentVoluntary,
+      },
+    });
     this.gender = new TilesControl({
       key: 'gender',
       label: 'Gender*',
@@ -465,6 +476,7 @@ export class ApplyFormComponent implements OnInit {
         this.highestDegree,
         this.major,
         this.yearsOfExperience,
+        this.voluntaryLabel,
         this.gender,
         this.disability,
         this.race,

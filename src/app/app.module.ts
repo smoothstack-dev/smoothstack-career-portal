@@ -50,6 +50,7 @@ import {
   TooltipModalContentRace,
   TooltipModalContentDisability,
   TooltipModalContentVeteran,
+  TooltipModalContentVoluntary,
 } from './tooltip-modal/tooltip-modal-content/tooltip-modal-content.component';
 import { SuccessPageComponent } from './success-page/success-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
@@ -87,6 +88,7 @@ export function initSettings(settings: SettingsService): any {
     TooltipModalContentRace,
     TooltipModalContentDisability,
     TooltipModalContentVeteran,
+    TooltipModalContentVoluntary,
     ErrorModalComponent,
     StripHtmlPipe,
     SafeUrlPipe,
@@ -106,6 +108,7 @@ export function initSettings(settings: SettingsService): any {
     TooltipModalContentRace,
     TooltipModalContentDisability,
     TooltipModalContentVeteran,
+    TooltipModalContentVoluntary,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

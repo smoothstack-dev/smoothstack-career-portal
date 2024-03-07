@@ -36,3 +36,15 @@ export class TooltipModalContentVeteran {
     this.modalRef.close();
   }
 }
+
+@Component({
+  selector: 'tooltip-modal-content-voluntary-disclosure',
+  templateUrl: './voluntary.html',
+  styleUrls: ['./tooltip-modal-content.component.scss'],
+})
+export class TooltipModalContentVoluntary {
+  constructor(private modalRef: NovoModalRef) {}
+  close() {
+    this.modalRef.close();
+  }
+}
