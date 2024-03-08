@@ -476,6 +476,8 @@ export class ApplyFormComponent implements OnInit {
         this.highestDegree,
         this.major,
         this.yearsOfExperience,
+        this.linkedin,
+        this.instagram,
         this.voluntaryLabel,
         this.gender,
         this.disability,
@@ -483,8 +485,6 @@ export class ApplyFormComponent implements OnInit {
         this.isMilitary,
         this.militaryStatus,
         this.militaryBranch,
-        this.linkedin,
-        this.instagram,
         this.resume,
       ];
     } else {
