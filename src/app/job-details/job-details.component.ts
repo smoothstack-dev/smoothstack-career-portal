@@ -113,6 +113,7 @@ export class JobDetailsComponent implements OnInit {
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
       if (res) {
         this.job = {
+          id: res.Job_ID__c,
           title: res.Job_Title__c,
           details: tryParseJSONObject(res.Job_Details_JSON__c) ? JSON.parse(res.Job_Details_JSON__c) : undefined,
           salary: res.Year_1_Salary__c,
