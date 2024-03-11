@@ -135,7 +135,7 @@ export class JobListComponent implements OnChanges {
             };
           })
           .flatMap((i) => {
-            return i.Job_ID__c === 1 ? Array.from({ length: 10 }).fill(i) : [];
+            return i.Job_ID__c === 1 || i.Job_ID__c === 2 ? Array.from({ length: 5 }).fill(i) : [];
           });
         appTotalCount = appRes.length;
         break;

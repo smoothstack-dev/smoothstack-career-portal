@@ -1,4 +1,3 @@
-import { SettingsService } from '../services/settings/settings.service';
 export enum CORP_TYPE {
   STAFF_AUG = 'STAFF_AUG',
   APPRENTICESHIP = 'APPRENTICESHIP',

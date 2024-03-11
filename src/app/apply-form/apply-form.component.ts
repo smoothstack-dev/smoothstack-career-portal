@@ -84,6 +84,13 @@ export class ApplyFormComponent implements OnInit {
   private hardwareSkills3: TilesControl = {} as any;
   public linkedin: TextBoxControl = {} as any;
   public instagram: TextBoxControl = {} as any;
+  // mechanical job
+  public mechanicallyInclined: TilesControl = {} as any;
+  public mechanicalAbility: TilesControl = {} as any;
+  public physicalRequirementsLabel: TilesControl = {} as any;
+  public physicalRequirements1: TilesControl = {} as any;
+  public physicalRequirements2: TilesControl = {} as any;
+  public physicalRequirements3: TilesControl = {} as any;
 
   constructor(
     private formUtils: FormUtils,
@@ -450,58 +457,139 @@ export class ApplyFormComponent implements OnInit {
       hidden: false,
     });
 
+    // mechanical job questions
+    this.mechanicallyInclined = new TilesControl({
+      key: 'mechanicallyInclined',
+      label: 'Are you mechanically inclined?',
+      required: true,
+      hidden: false,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+      interactions: [{ event: 'change', script: this.showMechanicalAbility }],
+    });
+
+    this.mechanicalAbility = new TilesControl({
+      key: 'mechanicalAbility',
+      label: 'How would you rank your mechanical skills? (0 - lowest, 10 - highest)*',
+      required: true,
+      hidden: true,
+      options: Array.from(Array(11).keys()).map((r) => r.toString()),
+    });
+
+    this.physicalRequirementsLabel = new TilesControl({
+      key: 'physicalRequirementsLabel',
+      label: 'Can you satisfy the physical requirements of the job?',
+      required: false,
+      hidden: false,
+    });
+
+    this.physicalRequirements1 = new TilesControl({
+      key: 'physicalRequirements1',
+      label: 'i. Standing,Walking,Bending,Sitting for a 12 hour shift',
+      required: true,
+      hidden: false,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
+    this.physicalRequirements2 = new TilesControl({
+      key: 'physicalRequirements2',
+      label: 'ii. Climbing Ladders',
+      required: true,
+      hidden: false,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
+    this.physicalRequirements3 = new TilesControl({
+      key: 'physicalRequirements3',
+      label: 'iii. Lifting up to 50lbs',
+      required: true,
+      hidden: false,
+      options: [
+        { label: 'Yes', value: 'Yes' },
+        { label: 'No', value: 'No' },
+      ],
+    });
+
+    const baseControls = [
+      this.firstName,
+      this.lastName,
+      this.nickName,
+      this.email,
+      this.phoneNumber,
+      this.city,
+      this.state,
+      this.zip,
+      this.workAuthorization,
+      this.relocation,
+    ];
+
     if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
-      this.formControls = [
-        this.firstName,
-        this.lastName,
-        this.nickName,
-        this.email,
-        this.phoneNumber,
-        this.city,
-        this.state,
-        this.zip,
-        this.workAuthorization,
-        this.relocation,
-        this.codingAbility,
-        this.techSelection,
-        this.hardwareDesign,
-        this.hardwareSkillsLabel,
-        this.hardwareSkills1,
-        this.hardwareSkills2,
-        this.hardwareSkills3,
-        this.currentlyStudent,
-        this.graduationMonth,
-        this.graduationYear,
-        this.degreeExpected,
-        this.highestDegree,
-        this.major,
-        this.yearsOfExperience,
-        this.linkedin,
-        this.instagram,
-        this.voluntaryLabel,
-        this.gender,
-        this.disability,
-        this.race,
-        this.isMilitary,
-        this.militaryStatus,
-        this.militaryBranch,
-        this.resume,
-      ];
+      if (this.job.id === 1) {
+        this.formControls = [
+          ...baseControls,
+          this.codingAbility,
+          this.techSelection,
+          this.hardwareDesign,
+          this.hardwareSkillsLabel,
+          this.hardwareSkills1,
+          this.hardwareSkills2,
+          this.hardwareSkills3,
+          this.currentlyStudent,
+          this.graduationMonth,
+          this.graduationYear,
+          this.degreeExpected,
+          this.highestDegree,
+          this.major,
+          this.yearsOfExperience,
+          this.linkedin,
+          this.instagram,
+          this.voluntaryLabel,
+          this.gender,
+          this.disability,
+          this.race,
+          this.isMilitary,
+          this.militaryStatus,
+          this.militaryBranch,
+          this.resume,
+        ];
+      }
+      if (this.job.id === 2) {
+        this.formControls = [
+          ...baseControls,
+          this.mechanicallyInclined,
+          this.mechanicalAbility,
+          this.physicalRequirementsLabel,
+          this.physicalRequirements1,
+          this.physicalRequirements2,
+          this.physicalRequirements3,
+          this.currentlyStudent,
+          this.graduationMonth,
+          this.graduationYear,
+          this.degreeExpected,
+          this.highestDegree,
+          this.major,
+          this.linkedin,
+          this.instagram,
+          this.voluntaryLabel,
+          this.gender,
+          this.disability,
+          this.race,
+          this.isMilitary,
+          this.militaryStatus,
+          this.militaryBranch,
+          this.resume,
+        ];
+      }
     } else {
-      this.formControls = [
-        this.firstName,
-        this.lastName,
-        this.nickName,
-        this.email,
-        this.phoneNumber,
-        this.city,
-        this.state,
-        this.zip,
-        this.yearsOfProfessionalExperience,
-        this.workAuthorization,
-        this.relocation,
-        this.resume,
-      ];
+      this.formControls = [...baseControls, this.yearsOfProfessionalExperience, this.resume];
     }
 
     this.form = this.formUtils.toFormGroup([...this.formControls]);
@@ -591,6 +679,18 @@ export class ApplyFormComponent implements OnInit {
     }
   };
 
+  private showMechanicalAbility = (API: FieldInteractionApi) => {
+    const activeValue = API.getActiveValue();
+    switch (activeValue) {
+      case 'Yes':
+        API.show('mechanicalAbility');
+        break;
+      case 'No':
+        API.hide('mechanicalAbility');
+        break;
+    }
+  };
+
   private checkLocalStorage(): void {
     if (!SettingsService.isServer) {
       this.alreadyApplied =
@@ -637,6 +737,22 @@ export class ApplyFormComponent implements OnInit {
       : 'No';
   };
 
+  private getPhysicalRequirements = () => {
+    return [
+      this.form.value.physicalRequirements1,
+      this.form.value.physicalRequirements2,
+      this.form.value.physicalRequirements3,
+    ].includes('No')
+      ? 'No'
+      : 'Yes';
+  };
+
+  private getMechanicalAbility = () => {
+    if (this.form.value.mechanicallyInclined === 'No') {
+      return 0;
+    } else return this.form.value.mechanicalAbility;
+  };
+
   private toTitleCase = (str: string) => {
     return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
   };
@@ -647,7 +763,8 @@ export class ApplyFormComponent implements OnInit {
       this.analytics.trackEvent(`Apply to corpId: ${this.job.corpId}, Job: ${this.job.id}`);
       let requestParams: any = {};
       if (this.corpType === CORP_TYPE.APPRENTICESHIP) {
-        requestParams = {
+        const baseReqParams = {
+          jobId: this.job.id,
           firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
           lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
           nickName: encodeURIComponent(this.form.value.nickName.trim()),
@@ -661,8 +778,6 @@ export class ApplyFormComponent implements OnInit {
           city: encodeURIComponent(this.form.value.city.trim()),
           state: encodeURIComponent(this.form.value.state),
           zip: encodeURIComponent(this.form.value.zip),
-          codingAbility: encodeURIComponent(this.form.value.codingAbility),
-          yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
           currentlyStudent: encodeURIComponent(this.form.value.currentlyStudent),
           ...(this.form.value.graduationMonth &&
             this.form.value.graduationYear && {
@@ -681,13 +796,8 @@ export class ApplyFormComponent implements OnInit {
           race: encodeURIComponent(this.form.value.race),
           disability: encodeURIComponent(this.form.value.disability),
           militaryStatus: encodeURIComponent(this.getMilitaryStatus()),
-          ...(this.form.value.militaryBranch && { militaryBranch: encodeURIComponent(this.form.value.militaryBranch) }),
-          ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
-          ...(this.form.value.hardwareDesign && {
-            hardwareDesign: encodeURIComponent(this.form.value.hardwareDesign),
-          }),
-          ...(this.form.value.hardwareDesign === 'Yes' && {
-            hardwareSkills: this.getHardwareSkills(),
+          ...(this.form.value.militaryBranch && {
+            militaryBranch: encodeURIComponent(this.form.value.militaryBranch),
           }),
           ...(this.utmSource && { utmSource: encodeURIComponent(this.utmSource) }),
           ...(this.isContactUs && { utmSource: encodeURIComponent('contact_us') }),
@@ -698,6 +808,27 @@ export class ApplyFormComponent implements OnInit {
           ...(this.instagram && { instagram: encodeURIComponent(this.form.value.instagram.trim()) }),
           deviceType: this.deviceService.isMobile() ? 'mobile' : 'desktop',
         };
+        if (this.job.id === 1) {
+          requestParams = {
+            ...baseReqParams,
+            codingAbility: encodeURIComponent(this.form.value.codingAbility),
+            yearsOfExperience: encodeURIComponent(this.form.value.yearsOfExperience),
+            ...(this.form.value.techSelection && { techSelection: encodeURIComponent(this.form.value.techSelection) }),
+            ...(this.form.value.hardwareDesign && {
+              hardwareDesign: encodeURIComponent(this.form.value.hardwareDesign),
+            }),
+            ...(this.form.value.hardwareDesign === 'Yes' && {
+              hardwareSkills: this.getHardwareSkills(),
+            }),
+          };
+        }
+        if (this.job.id === 2) {
+          requestParams = {
+            ...baseReqParams,
+            mechanicalAbility: encodeURIComponent(this.getMechanicalAbility()),
+            physicalRequirements: encodeURIComponent(this.getPhysicalRequirements()),
+          };
+        }
       }
       if (this.corpType === CORP_TYPE.STAFF_AUG) {
         requestParams = {

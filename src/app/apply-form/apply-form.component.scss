@@ -54,6 +54,9 @@
       div:has(> div[data-automation-id='voluntaryLabel']) {
         display: none !important;
       }
+      div:has(> div[data-automation-id='physicalRequirementsLabel']) {
+        display: none !important;
+      }
     }
     .novo-form-container {
       width: 98%;
