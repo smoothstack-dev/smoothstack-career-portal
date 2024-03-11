@@ -13,6 +13,7 @@ export class SuccessPageComponent {
   schedulingLink: SafeResourceUrl;
   challengeInfo: any;
   jobTitle: string;
+  jobId: string;
 
   constructor() {}
 

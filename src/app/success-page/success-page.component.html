@@ -1,35 +1,37 @@
 <div class="background">
   <div class="success-container">
     <div *ngIf="schedulingLink">
-        <div class="success-header-container header-background-style">
-          <p>Based on your application, you are eligible to take the coding challenge!
-            <br />
-          Please select a date/time that works best for you.</p>
+      <div class="success-header-container header-background-style">
+        <p>
+          Based on your application, you are eligible to take {{jobId === 2 ? 'skills' : 'coding'}} the challenge!
+          <br />
+          Please select a date/time that works best for you.
+        </p>
+      </div>
+      <div class="success-content-container">
+        <div class="iframe-div">
+          <iframe class="success-iframe" [src]="schedulingLink | safeUrl"></iframe>
         </div>
-        <div class="success-content-container"> 
-          <div class="iframe-div">
-            <iframe class="success-iframe" [src]="schedulingLink | safeUrl"></iframe>
-          </div>
-          <div class="challenge-info-container" *ngIf="challengeInfo">
-            <div class="challenge-info-box">
-              <h4><strong>Coding Challenge Details</strong></h4>
-              <div class="coding-challenge-details" *ngFor="let detailItem of challengeInfo.details">
-                <div *ngIf="detailItem.contentType === 'PARAGRAPH'">
-                  <p *ngFor="let detailItemContent of detailItem.contents">{{ detailItemContent }}</p>
-                </div>
-                <div *ngIf="detailItem.contentType === 'LIST'">
-                  <table>
-                    <tr *ngFor="let detailItemContent of detailItem.contents">
-                      <td class="challenge-list-title">{{ detailItemContent.title }}</td>
-                      <td class="challenge-list-content">{{ detailItemContent.content }}</td>
-                    </tr>
-                  </table>
-                </div>
+        <div class="challenge-info-container" *ngIf="challengeInfo">
+          <div class="challenge-info-box">
+            <h4><strong>Challenge Details</strong></h4>
+            <div class="coding-challenge-details" *ngFor="let detailItem of challengeInfo.details">
+              <div *ngIf="detailItem.contentType === 'PARAGRAPH'">
+                <p *ngFor="let detailItemContent of detailItem.contents">{{ detailItemContent }}</p>
+              </div>
+              <div *ngIf="detailItem.contentType === 'LIST'">
+                <table>
+                  <tr *ngFor="let detailItemContent of detailItem.contents">
+                    <td class="challenge-list-title">{{ detailItemContent.title }}</td>
+                    <td class="challenge-list-content">{{ detailItemContent.content }}</td>
+                  </tr>
+                </table>
               </div>
             </div>
-            <br />
           </div>
+          <br />
         </div>
+      </div>
     </div>
     <div *ngIf="!schedulingLink">
       <div class="thankyou-header-container header-background-style">
@@ -37,9 +39,8 @@
       </div>
       <div class="thankyou-content-container">
         <p>
-            Thank you for applying to our <strong>{{ jobTitle }}</strong> position at Smoothstack! 
-            We have received your application and will get back to you after our team has a chance to review your
-            application.
+          Thank you for applying to our <strong>{{ jobTitle }}</strong> position at Smoothstack! We have received your
+          application and will get back to you after our team has a chance to review your application.
         </p>
         <br />
         <div class="flex-div">
@@ -50,4 +51,3 @@
   </div>
   <app-footer></app-footer>
 </div>
-
