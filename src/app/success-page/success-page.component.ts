@@ -13,7 +13,7 @@ export class SuccessPageComponent {
   schedulingLink: SafeResourceUrl;
   challengeInfo: any;
   jobTitle: string;
-  jobId: string;
+  jobId: number;
 
   constructor() {}
 
@@ -24,6 +24,7 @@ export class SuccessPageComponent {
       ? JSON.parse(state.challengeInfo)
       : defaultChallengeInfo;
     this.jobTitle = state.jobTitle;
+    this.jobId = state.jobId;
   }
 
   public goToSSWebsite(): void {
