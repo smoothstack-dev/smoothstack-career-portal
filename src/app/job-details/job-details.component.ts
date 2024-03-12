@@ -117,6 +117,7 @@ export class JobDetailsComponent implements OnInit {
           title: res.Job_Title__c,
           details: tryParseJSONObject(res.Job_Details_JSON__c) ? JSON.parse(res.Job_Details_JSON__c) : undefined,
           salary: res.Year_1_Salary__c,
+          codingChallengeInfo: res.Coding_Challenge_Info__c,
         };
         this.titleService.setTitle(res.Job_Title__c);
         this.meta.updateTag({ name: 'og:title', content: res.Job_Title__c });
