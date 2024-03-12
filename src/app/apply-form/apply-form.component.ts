@@ -872,7 +872,7 @@ export class ApplyFormComponent implements OnInit {
     const state = {
       jobTitle: this.job.title,
       schedulingLink: res ? res.schedulingLink : undefined,
-      challengeInfo: res && res.jobOrder ? res.jobOrder.Coding_Challenge_Info__c : this.job.codingChallengeInfo,
+      challengeInfo: res?.jobOrder?.Coding_Challenge_Info__c ?? this.job.codingChallengeInfo,
       jobId: this.job.id,
     };
     this.router.navigate(['/jobs/success/'], { state });
