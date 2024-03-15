@@ -1,6 +1,7 @@
 .background {
+  font-family: 'Space Grotesk', sans-serif;
   overflow-x: hidden;
-  background-color: #f4f4f4;
+  background-color: #f7f6fc;
   max-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
   position: relative;
@@ -19,41 +20,39 @@
     ul {
       list-style: none;
     }
-    li {
-      text-indent: -0.2em;
-      line-height: 2em;
-    }
+    
     li::before {
-      content:url("./../utils/resources/icon-bullet.png");
+      // content:url("./../utils/resources/icon-bullet.png");
+      content:"•";
+      color: #3122B3;
       margin-right: 1em;
-      margin-left:-2em;
+      margin-left:-2rem;
       zoom: 0.8;
     }
     p, li {
+      font-family: 'Inter', sans-serif;
       font-weight: 400;
-      font-size: 1.2em;
-    }
-    p {
-      line-height: 1.5em;
+      font-size: 1.2rem;
+      line-height: 2rem;
     }
     .job-publicDescription{
       padding-top:20px;
       min-height: 90em;
     }
     .job-section{
-      padding: 3% 12%;
+      padding: 3% 8%;
       min-height:10em;
     }
     .job-section-container {
       min-width: 45%;
       max-width: 50%;
-      padding-left: 12%;
-      padding-right: 12%;
+      padding-left: 8%;
+      padding-right: 8%;
       word-break: break-word;
     }
     // title and salary background color
     .job-salary, .job-header{
-      background-color: #5532C0;
+      background-color: #010147;
     }
     // section background color
     .job-sectionOne, .job-sectionTwo {
@@ -62,7 +61,7 @@
       min-height:10em;
     }
     .job-sectionOne {
-      background-color: #F0F2FC;
+      background-color: #f7f6fc;
     }
     .youtube-video {
       margin-top: 20px;
@@ -72,13 +71,13 @@
       font-size: 2.5em;
       font-weight: 700;
       min-height: 5rem;
-      padding-left:12%;
+      padding-left:8%;
       display: flex;
       align-items: center; 
       margin-top:3%;
     }
     div.black-block {
-      background-color: black;
+      background-color: #010147;
       color:#ffffff;
       min-height: 8rem;
       display: flex;
@@ -228,7 +227,7 @@
     }
     .job-section-container {
       max-width: 100%;
-      line-height: 1.5rem;
+      line-height: 2rem;
     }
     .job-sectionOne, .job-sectionTwo, .job-salary {
       padding: 3% !important;

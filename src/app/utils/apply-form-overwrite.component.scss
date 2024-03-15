@@ -20,17 +20,19 @@
                 transform: translateY(-125%) !important;
                 white-space: normal !important;
                 overflow-x: visible !important;
-                color:#606060 !important; // form field label color
+                color:#010147!important; // form field label color
                 padding-bottom: 27px !important;
             }
         }
     
         .novo-control-inner-input-container {
-            color: #606060;
+            color: #010147;
+            border-radius:5px !important;
             input:not([class='tiles-input']) {
-                border: 1px solid #606060 !important;
+                border: 1px solid #010147!important;
+                border-radius:5px !important;
                 margin-left: 6px !important;
-                color: #606060 !important;
+                color: #010147!important;
                 padding-left: 5px !important;
                 height: 3em !important
             }
@@ -38,11 +40,12 @@
                 margin-left: 5px !important;
             }
             textarea {
-                border: 1px solid #606060 !important;
+                border: 1px solid #010147!important;
+                border-radius:5px !important;
                 margin-left: 6px !important;
                 margin-top: -25px !important;
                 margin-bottom: -30px !important;
-                color: #606060 !important;
+                color: #010147!important;
                 padding-left: 5px !important;
             }
             div.file-item{ // resume once uploaded
@@ -52,13 +55,15 @@
             }
             section {
                 margin-left: 5px !important;
+                border-radius:5px !important;
                 margin-top: -15px;
             }
             [type="button"]:not([class='ng-star-inserted']) { // for dropdown list
-                border: 1px solid #606060 !important;
+                border: 1px solid #010147!important;
+                border-radius:5px !important;
                 margin-left: 6px !important;
                 margin-top: -5px !important;
-                color: #606060 !important;
+                color: #010147!important;
                 padding-left: 5px !important;
                 height: 3em !important;
                 width: auto !important;

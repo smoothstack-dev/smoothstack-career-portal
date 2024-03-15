@@ -18,7 +18,7 @@ export class FooterComponent {
     this.learnMoreWPLink = LINKS.learnMoreWPLink;
     this.privacyWPLink = LINKS.privacyWPLink;
     this.infoEMailAddress = LINKS.infoEMailAddress;
-    this.logoLink = LINKS.logoLink;
+    this.logoLink = LINKS.logoLinkLight;
     this.currentYear = new Date().getFullYear().toString();
   }
 

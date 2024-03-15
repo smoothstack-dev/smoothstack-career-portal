@@ -4,23 +4,26 @@
     }
 
     novo-modal > section {
+        font-family: "Inter",sans-serif;
         font-size: 1.2em;
-        color: black !important;
-        line-height: 1.5em;
+        color: #010147 !important;
+        line-height: 1.8em;
         padding-top: 0px;
 
         div > h2 {
-            font-weight: 700;
-            font-size: 1.7em;
-            line-height: 1.2em;
-            color: black !important;
+            font-family: "Space Grotesk",sans-serif;
+            font-weight: 800;
+            font-size: 1.8em;
+            line-height: 1.8em;
+            color: #010147 !important;
         }
 
         div > h3 {
+            font-family: "Space Grotesk",sans-serif;
             font-weight: 500;
             font-size: 1.4em;
-            line-height: 1.2em;
-            color: black !important;
+            line-height: 1.8em;
+            color: #010147 !important;
         }
     }
 

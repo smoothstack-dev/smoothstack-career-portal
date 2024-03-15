@@ -3,9 +3,9 @@
   /deep/novo-card {
     .novo-card {
       header {
-        background: #e54f6d;
+        background: #7857FF;
       }
-      border-radius: 0em !important;
+      border-radius: 1em !important;
     }
   }
   section {
@@ -19,20 +19,21 @@
   }
   /deep/novo-form {
     novo-tiles {
-      color: #5532c0;
+      color: #010147;
       .tile-container {
         flex-wrap: wrap;
         border: hidden;
         .tile:not(.disabled).active {
-          background: #5532c0;
-          color: whitesmoke;
+          background: #010147;
+          color: #fff;
         }
         .tile:not(.disabled):hover {
-          background-color: #5532c0;
-          color: whitesmoke;
+          background-color: #010147;
+          color: #fff;
         }
         .tile {
-          border: solid thin #5532c0;
+          border: solid thin #010147;
+          border-radius:5px !important;
           margin: 3px;
           padding: 10px;
         }
@@ -78,21 +79,21 @@
     .ext-label {
       text-transform: uppercase;
       font-size: 1.2em;
-      color: #606060 !important;
+      color: #010147!important;
       font-weight: 500;
     }
     .ext-icon > i {
-      color: #5532c0 !important;
+      color: #010147 !important;
       font-size: 1em !important;
       cursor: pointer;
     }
     .ext-label .ext-tooltip {
-      color: #5532c0 !important;
+      color: #010147 !important;
       background-color: white !important;
     }
   }
   span.error {
-    color: #da4453;
+    color: #010147;
     font-weight: 800;
   }
   .apply-card {
@@ -104,11 +105,15 @@
       align-items: center;
       .apply-button {
         font-size: 1.2em;
-        background-color: #5532c0;
+        background-color: #7857FF;
+        border-radius: 999px;
         width: 98%;
       }
+      .apply-button:hover {
+        background-color: #010147;
+      }
       .applied-text {
-        color: #da4453;
+        color: #010147;
         font-size: small;
         align-self: flex-start;
         padding-left: 20px;

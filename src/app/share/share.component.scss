@@ -7,17 +7,20 @@
     }
     .share-btn {
       width: 12em;
-      background-color: #5532C0;
       color: white;
+      background-color: #7857ff;
       justify-content: center;
-      border-radius: 0px;
       font-weight: 700;
+      border-radius: 999px;
+    }
+    .share-btn:hover {
+      background-color: #010147;
     }
     .share-icon:hover{
       width: 3em;
-      background-color: #5532C0;
       color: white;
+      background-color: #010147;
       justify-content: center;
-      border-radius: 0px;
+      border-radius: 999px;
     }
   }

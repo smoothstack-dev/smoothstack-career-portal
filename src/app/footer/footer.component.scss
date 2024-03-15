@@ -1,20 +1,25 @@
 .footer-container {
-    min-height: 3rem;
-    background-color: black;
+    font-family: "Space Grotesk",sans-serif;
+    min-height: 4rem;
+    background-color: #010147;
     color:white;
     font-size: 1em;
     font-weight: 500;
     display: flex;
     flex-wrap: wrap;
-    padding: 2% 10%;
+    padding: 3% 8%;
+    margin-top:4rem;
     h2 {
+        font-family: "Space Grotesk",sans-serif;
         font-weight: bold;
         font-size: 2em;
+        margin-bottom: 4px;
     }
     span {
+        font-family: "Inter",sans-serif;
         font-weight: 350;
         font-size: 1.2em;
-        line-height: 1.5em;
+        line-height: 1.8rem;
     }
     .title, .about, .location {
         padding: 0 1.5em;
@@ -38,6 +43,7 @@
     .copyright {
         flex: 100%;
         min-height: 5em;
+        margin-bottom: 2rem;
         display: flex;
         align-items: flex-end; 
         justify-content: center; 
@@ -46,6 +52,9 @@
     .footer-logo {
         width: 25em;
         padding: 1.5em 0em;
+    }
+    a {
+        color:#7857FF;
     }
 
     @media (max-width:900px) {

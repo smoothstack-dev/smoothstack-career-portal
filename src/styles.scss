@@ -2,13 +2,11 @@
 @import "~novo-elements/novo-elements";
 
 html {
-  color: black
+  color: #010147
 }
 
 .header-background-style {
-  background-image: url("./app/utils/resources/header-background.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color:#fff
 }
 
 app-job-list {
@@ -27,6 +25,7 @@ body {
 }
 
 novo-file-input {
+  border-radius: 5px;
   width: 100%;
 }
 
@@ -35,12 +34,13 @@ app-job-list {
     border-bottom: unset;
 
     div.list-item {
+      font-family: "Space Grotesk",sans-serif;
       item-content i{
-       color: #4a89dc;
+       color: #010147;
       }
       >item-header item-title {
         >h6 {
-          color: #4a89dc;
+          color: #010147;
         }
       }
     }
@@ -61,7 +61,7 @@ novo-search {
     .flex-wrapper {
       i {
         font-size: 1em;
-        line-height: 14px;
+        line-height: 1.8rem;
         padding: 0px;
       }
     }
