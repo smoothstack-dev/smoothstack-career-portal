@@ -22,6 +22,14 @@ export class FooterComponent {
     this.currentYear = new Date().getFullYear().toString();
   }
 
+  public sendUsMsgLink(): void {
+    window.open('https://smoothstack.com/contact-smoothstack', '_blank');
+  }
+
+  public goToSSWebsite(): void {
+    window.open('https://smoothstack.com/', '_blank');
+  }
+
   public shareLinks(mediaDestination: string): void {
     let destLink = '';
     switch (mediaDestination) {

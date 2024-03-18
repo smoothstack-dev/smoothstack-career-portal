@@ -75,7 +75,7 @@ export class JobListComponent implements OnChanges {
         break;
       default:
         jobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'OPEN ENTRY LEVEL POSITIONS';
+        this.title = 'Open Entry Level Positions';
         break;
     }
   }

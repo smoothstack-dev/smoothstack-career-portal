@@ -1,60 +1,107 @@
 .footer-container {
-    font-family: "Space Grotesk",sans-serif;
+    font-family: 'Inter', sans-serif;
     min-height: 4rem;
     background-color: #010147;
-    color:white;
     font-size: 1em;
-    font-weight: 500;
+    font-weight: 300;
     display: flex;
     flex-wrap: wrap;
-    padding: 3% 8%;
+    padding: 2.5rem 7rem;
     margin-top:4rem;
-    h2 {
-        font-family: "Space Grotesk",sans-serif;
-        font-weight: bold;
-        font-size: 2em;
-        margin-bottom: 4px;
-    }
-    span {
-        font-family: "Inter",sans-serif;
-        font-weight: 350;
-        font-size: 1.2em;
-        line-height: 1.8rem;
-    }
-    .title, .about, .location {
-        padding: 0 1.5em;
-    }
-    .title {
-        color: white;
-        font-size: 2em;
-    }
-    .about {
-        flex: 30%;
-        min-height: 5em;
-    }
-    .location {
-        flex: 30%;
-        min-height: 5em;
-    }
+
+    color:white;
+    font-size: 1.4rem;
+    font-weight:lighter;
+    line-height: 1.8rem;
+
     .contact {
-        flex: 40%;
-        min-height: 5em;
+        max-width: 30%;
+        padding: 1rem;
+        margin-right: 5rem;
+        .footer-logo {
+            width: 30rem;
+            padding: 1.5em 0em;
+            cursor: pointer;
+        }
+        .msg-btn {
+            font-size: 1rem;
+            font-weight: 800;
+            background-color: #7857FF;
+            border-radius: 999px !important;
+            padding: 1rem 3rem;
+            text-transform: none !important;
+        }
+        .msg-btn:hover {
+            background-color: #010147;
+        }
+        .share-icon:hover {
+            color: #7857FF;
+        }
+        p {
+            margin-bottom: 2rem;
+        }
+    }   
+
+    .footer-section {
+        flex: 12%;
+        margin-top: 2rem;
+        padding: 1.5rem;
+        font-size: 1.3rem;
+        font-weight: 300;
+        a:after {
+            color: #7857FF;
+            font-weight: 900 !important;      
+        }
+        strong {
+            color: #fff !important;
+            font-weight: 900;
+        }
+        ul.no-bullets {
+            margin-top: 3.5rem;
+            list-style-type: none; 
+            padding: 0; 
+            margin-right: 0;
+
+            li {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+
+                a:after {
+                    color: #fff !important;      
+                }
+            }
+        }
     }
+
     .copyright {
-        flex: 100%;
-        min-height: 5em;
-        margin-bottom: 2rem;
         display: flex;
+        flex: 100%;
+        margin-top: 10rem;
+        margin-bottom: 5rem;
+        padding-left: 2rem;
         align-items: flex-end; 
-        justify-content: center; 
+        justify-content: left; 
         overflow: hidden;
+        font-size: 1rem;
+        font-weight: 300;
     }
-    .footer-logo {
-        width: 25em;
-        padding: 1.5em 0em;
-    }
+
     a {
-        color:#7857FF;
+        color:rgba(255,255,255,.80);
+    }
+    a:hover {
+        color:rgba(255,255,255,1);
+        transform: translate(0, -10px);
+    }
+    a:after {
+        display: inline;
+        transition: 0.3s ease;
+        margin-left: 3px;
+        margin-right: 5px;
+        content: '  ›';
+    }
+    a:hover:after {
+        margin-left: 10px;
     }
 
     @media (max-width:900px) {

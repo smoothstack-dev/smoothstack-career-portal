@@ -1,5 +1,15 @@
+
+nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background-color: #7857FF  !important;
+}
+
 :host {
   min-width: 30%;
+  nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
+    font-family: 'Space Grotesk', sans-serif !important;
+    background-color: #7857FF  !important;
+  }
   /deep/novo-card {
     .novo-card {
       header {

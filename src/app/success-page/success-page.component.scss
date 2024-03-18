@@ -1,9 +1,20 @@
+nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
+  font-family: 'Space Grotesk', sans-serif !important;
+  background-color: #7857FF  !important;
+}
+
 .background {
   font-family: 'Space Grotesk', sans-serif;
   overflow-x: hidden;
   background-color: #FFFFFF;
   min-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
+
+  nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
+    font-family: 'Space Grotesk', sans-serif !important;
+    background-color: #7857FF  !important;
+  }
+  
   .flex-div{
     display:flex;
     justify-content: center;
@@ -13,15 +24,21 @@
     min-height: 70%;
 
     .success-header-container, .thankyou-header-container {
-      background-color: #010147;
-      display:flex;
+      color: #010147;
+      background-color: #fff;
+      display:grid;
       justify-content: center;
       min-height: 8em;
-      p {
+      margin-bottom: 2rem;
+      h1 {
         margin-top: 2%;
-        color: #fff;
-        font-weight: 700;
-        font-size:2.2em;
+        font-weight: 900;
+        font-size:3rem;
+      }
+      h3 {
+        padding-top: 0% !important;
+        font-weight: 500;
+        font-size:2.2rem;
       }
     }
 
@@ -59,16 +76,18 @@
     }
 
     .challenge-info-box {
-      background-color: #fafafa;
-      border-radius: 2%;
+      background-color: #F7F6FC;
+      border-radius:5px !important;
       box-shadow: 5px 5px 5px rgb(234, 232, 232);
-      h4 {
+      h3 {
         background-color: #010147;
+        border-top-left-radius:5px !important;
+        border-top-right-radius:5px !important;
         color: white;
         text-align: center;
       }
       .coding-challenge-details {
-        padding: 0.5em;
+        padding: 1em;
         font-size: 1.1rem;
         font-weight: 500;
         line-height: 1.8rem;
@@ -97,6 +116,7 @@
       .success-header-container, .thankyou-header-container{
         min-height: 8em;
         padding:2%;
+        margin-bottom: 1rem;
         p {
           font-size:1.5em;
         }
@@ -122,7 +142,8 @@
       background-color: #7857FF;
       border-radius: 999px;
       font-size: 1.5rem;
-      padding: 5px 20px;
+      padding: 1rem 3rem;
+      text-transform: none !important;
       margin-bottom:2em;
     }
     .back-btn:hover {
