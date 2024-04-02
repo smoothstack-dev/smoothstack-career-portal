@@ -2,16 +2,15 @@
   div.job-list-header-container {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 4em;
-    padding: 2em;
+    font-size: 5em;
+    padding: 1em;
     text-align: center;
-    color:#010147;
+    color: #010147;
   }
   div.mobile-filter-container {
     margin: 30px 34px 22px 35px;
   }
 }
-
 
 .job-list-container {
   min-height: 80%;
@@ -20,13 +19,13 @@
 novo-list {
   overflow: auto;
   min-height: 61.3vh;
-  padding:2em 10%;
+  padding: 2em 10%;
   text-align: center;
   app-share {
     margin: 12px 35px;
   }
   .list-item {
-    font-family: "Space Grotesk",sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -90,33 +89,33 @@ novo-list {
       }
 
       .apply-button-text {
-        font-family: "Inter",sans-serif;
+        font-family: 'Inter', sans-serif;
         font-size: 1.2em;
         font-weight: 700;
         color: #fff;
+        text-transform: capitalize !important;
       }
 
       .apply-button-text:hover {
         font-weight: 900;
       }
 
-      @media (max-width:800px) {
+      @media (max-width: 800px) {
         item-title {
           a {
             font-size: 1.2em;
           }
         }
         .apply-button-text {
-          font-family: "Inter",sans-serif;
+          font-family: 'Inter', sans-serif;
           font-size: 0.8em;
         }
-      } 
+      }
     }
   }
-  @media (max-width:800px) {
+  @media (max-width: 800px) {
     padding: 0.5em;
-  } 
-
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -129,7 +128,7 @@ novo-list {
 @media only screen and (max-width: 768px) {
   :host {
     novo-list {
-      max-width: none!important;
+      max-width: none !important;
     }
     div.job-list-header-container {
       font-weight: 800;

@@ -42,6 +42,9 @@ export class FooterComponent {
       case 'linkedin':
         destLink = LINKS.linkedinLink;
         break;
+      case 'youtube':
+        destLink = LINKS.youtubeLink;
+        break;
     }
     window.open(destLink, '_blank');
   }
