@@ -16,7 +16,7 @@
 
   .footer-left {
     width: 30%;
-
+    color: rgba(255, 255, 255, 0.85);
     .contact-section {
       width: 100%;
       padding: 1rem;
@@ -66,8 +66,10 @@
     }
   }
   .footer-right {
+    color: rgba(255, 255, 255, 0.85);
     width: 70%;
     display: flex;
+    padding-top: 1.3rem;
 
     .footer-section {
       width: 20%;
@@ -146,6 +148,12 @@
       text-align: center;
     }
   }
+
+  .copyright {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+  }
 }
 
 @media only screen and (max-width: 800px) {
@@ -156,9 +164,6 @@
     width: 100% !important;
     max-width: 100% !important;
     justify-content: center;
-    .footer-logo {
-      width: 100% !important;
-    }
 
     .contact-section {
       width: 100% !important;
@@ -177,6 +182,10 @@
     .footer-left {
       width: 100% !important;
       padding: 2rem;
+      text-align: center;
+      .footer-logo {
+        width: 85% !important;
+      }
       .msg-btn {
         width: 50% !important;
       }
@@ -200,8 +209,9 @@
     }
 
     .copyright {
-      margin-top: 5rem;
-      margin-bottom: 2rem;
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+      padding: 1rem !important;
       justify-content: center;
     }
   }
