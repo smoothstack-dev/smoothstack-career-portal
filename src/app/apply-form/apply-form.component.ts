@@ -589,7 +589,12 @@ export class ApplyFormComponent implements OnInit {
         ];
       }
     } else {
-      this.formControls = [...baseControls, this.yearsOfProfessionalExperience, this.resume];
+      this.formControls = [
+        ...baseControls,
+        { ...this.highestDegree, hidden: false, interactions: null },
+        this.yearsOfProfessionalExperience,
+        this.resume,
+      ];
     }
 
     this.form = this.formUtils.toFormGroup([...this.formControls]);
@@ -832,6 +837,7 @@ export class ApplyFormComponent implements OnInit {
       }
       if (this.corpType === CORP_TYPE.STAFF_AUG) {
         requestParams = {
+          jobId: this.job.id,
           firstName: encodeURIComponent(this.toTitleCase(this.form.value.firstName.trim())),
           lastName: encodeURIComponent(this.toTitleCase(this.form.value.lastName.trim())),
           nickName: encodeURIComponent(this.form.value.nickName.trim()),
@@ -843,6 +849,7 @@ export class ApplyFormComponent implements OnInit {
           zip: encodeURIComponent(this.form.value.zip),
           workAuthorization: encodeURIComponent(this.form.value.workAuthorization),
           willRelocate: encodeURIComponent(this.form.value.relocation),
+          educationLevel: encodeURIComponent(this.form.value.highestDegree),
           yearsOfProfessionalExperience: encodeURIComponent(this.form.value.yearsOfProfessionalExperience),
         };
       }

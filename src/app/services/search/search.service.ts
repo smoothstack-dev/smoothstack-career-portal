@@ -8,23 +8,13 @@ import { CORPORATION, CORP_TYPE } from '../../../app/typings/corporation';
 export class SearchService {
   public constructor(private http: HttpClient, public settings: SettingsService) {}
 
-  get baseUrl(): string {
-    let service: IServiceSettings = SettingsService.settings.service;
-    let port: number = service.port ? service.port : 443;
-    let scheme: string = `http${port === 443 ? 's' : ''}`;
-    return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
-  }
-
-  get sfdcBaseUrl(): string {
+  get htdBaseUrl(): string {
     return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs';
   }
 
   get staffAugBaseUrl(): string {
-    // for staffing, using service 2
-    let service: IServiceSettings = SettingsService.settings.staffAugService;
-    let port: number = service.port ? service.port : 443;
-    let scheme: string = `http${port === 443 ? 's' : ''}`;
-    return `${scheme}://public-rest${service.swimlane}.bullhornstaffing.com:${port}/rest-services/${service.corpToken}`;
+    // return 'http://localhost:3000/local/staffAug/jobs';
+    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/staffAug/jobs';
   }
 
   public getJobs(): Observable<any> {
@@ -37,36 +27,26 @@ export class SearchService {
     }
     const queryString: string = queryArray.join('&');
 
-    return this.http.get(`${this.sfdcBaseUrl}?${queryString}`);
+    return this.http.get(`${this.htdBaseUrl}?${queryString}`);
   }
 
-  public getSAJobs(filter?: any, params: any = {}, count: number = 30): Observable<any> {
-    let queryArray: string[] = [];
-    //  Note: job id 1 should not be display on the dashboard
-    params.query = `(isOpen:1) AND (isDeleted:0)${this.formatAdditionalCriteria(true)}${this.formatFilter(
-      filter,
-      true
-    )}`;
-    params.fields = SettingsService.settings.staffAugService.fields;
-    params.count = count;
-    params.sort = SettingsService.settings.additionalJobCriteria.sort;
-    params.showTotalMatched = true;
+  public getSAJobs(): Observable<any> {
+    const params: any = {};
+    const queryArray: string[] = [];
+    params.active = 'true';
 
     for (let key in params) {
       queryArray.push(`${key}=${params[key]}`);
     }
-    let queryString: string = queryArray.join('&');
+    const queryString: string = queryArray.join('&');
 
-    return this.http.get(`${this.staffAugBaseUrl}/search/JobOrder?${queryString}`);
+    return this.http.get(`${this.staffAugBaseUrl}?${queryString}`);
   }
 
   public openJob(id: string | number, corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP): Observable<any> {
-    const { service: assignService, baseUrl } = this.getServiceAndUrl(corpType);
+    const { baseUrl } = this.getServiceAndUrl(corpType);
 
-    const url =
-      corpType === CORP_TYPE.APPRENTICESHIP
-        ? `${baseUrl}/${id}`
-        : `${baseUrl}/query/JobBoardPost?where=(id=${id})&fields=${assignService.fields}`;
+    const url = `${baseUrl}/${id}`;
     return this.http.get(url);
   }
 
@@ -178,7 +158,7 @@ export class SearchService {
   private getServiceAndUrl(corpType: CORP_TYPE = CORP_TYPE.APPRENTICESHIP) {
     switch (corpType) {
       case CORP_TYPE.APPRENTICESHIP:
-        return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.sfdcBaseUrl };
+        return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.htdBaseUrl };
       case CORP_TYPE.STAFF_AUG:
         return { service: SettingsService.settings[CORPORATION[corpType].serviceName], baseUrl: this.staffAugBaseUrl };
     }

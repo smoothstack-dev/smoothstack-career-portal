@@ -116,6 +116,7 @@ export class JobDetailsComponent implements OnInit {
           id: res.Job_ID__c,
           title: res.Job_Title__c,
           details: tryParseJSONObject(res.Job_Details_JSON__c) ? JSON.parse(res.Job_Details_JSON__c) : undefined,
+          publicDescription: res.Public_Description__c,
           salary: res.Year_1_Salary__c,
           codingChallengeInfo: res.Coding_Challenge_Info__c,
         };
@@ -135,19 +136,18 @@ export class JobDetailsComponent implements OnInit {
           .onClosed.then(this.goToJobList.bind(this));
       }
     } else {
-      if (res.data && res.data.length > 0) {
-        this.job = res.data[0];
-        this.job.details = tryParseJSONObject(this.job.customTextBlock2)
-          ? JSON.parse(this.job.customTextBlock2)
-          : undefined;
-        this.titleService.setTitle(this.job.title);
-        this.meta.updateTag({ name: 'og:title', content: this.job.title });
-        this.meta.updateTag({ name: 'titter:title', content: this.job.title });
+      if (res) {
+        this.job = {
+          id: res.Requisition__c,
+          title: res.Job_Title__c,
+          details: tryParseJSONObject(res.Job_Details_JSON__c) ? JSON.parse(res.Job_Details_JSON__c) : undefined,
+          publicDescription: res.Published_Description__c,
+        };
+        this.titleService.setTitle(res.Job_Title__c);
+        this.meta.updateTag({ name: 'og:title', content: res.Job_Title__c });
+        this.meta.updateTag({ name: 'titter:title', content: res.Job_Title__c });
         this.meta.updateTag({ name: 'og:image', content: SettingsService.settings.companyLogoPath });
         this.meta.updateTag({ name: 'og:url', content: `${SettingsService.urlRoot}${this.router.url}` });
-        this.meta.updateTag({ name: 'og:description', content: this.job.publicDescription });
-        this.meta.updateTag({ name: 'twitter:description', content: this.job.publicDescription });
-        this.meta.updateTag({ name: 'description', content: this.job.publicDescription });
         this.loading = false;
       } else {
         this.serverResponse.setNotFound();
