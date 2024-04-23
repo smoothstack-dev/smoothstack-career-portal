@@ -7,19 +7,18 @@ import { CORPORATION, CORP_TYPE } from '../../../app/typings/corporation';
 @Injectable()
 export class ApplyService {
   public constructor(private http: HttpClient, public settings: SettingsService) {}
-  get baseUrl(): string {
-    return 'https://1syp4w9c5h.execute-api.us-east-1.amazonaws.com/prod/careers';
-  }
 
   get sfdcBaseUrl(): string {
-    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod/jobs/apply';
-    // return 'http://localhost:3000/local/jobs/apply';
+    return 'https://704k2n7od3.execute-api.us-east-1.amazonaws.com/prod';
+    // return 'http://localhost:3000/local';
   }
 
   public apply(id: number, params: any, formData: FormData, corpType: CORP_TYPE): Observable<any> {
     let applyParams: any = this.assembleParams(params);
-    const corpId = SettingsService.settings[CORPORATION[corpType].serviceName].corpToken;
-    const url = corpType === CORP_TYPE.APPRENTICESHIP ? this.sfdcBaseUrl : `${this.baseUrl}/${corpId}/${id}`;
+    const url =
+      corpType === CORP_TYPE.APPRENTICESHIP
+        ? `${this.sfdcBaseUrl}/jobs/apply`
+        : `${this.sfdcBaseUrl}/staffAug/jobs/apply`;
     return this.http.post(`${url}?${applyParams}`, formData);
   }
 

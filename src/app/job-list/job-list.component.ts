@@ -57,22 +57,17 @@ export class JobListComponent implements OnChanges {
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'description', content: description });
     const jobCall = this.http.getJobs();
-    const saJobCall = this.http.getSAJobs(
-      {
-        saJobFilter: 'employmentType:Contract OR employmentType:"Direct Hire" OR employmentType:"Contract To Hire"',
-      },
-      { start: this.saStart }
-    );
-    const saCorpJobCall = this.http.getSAJobs({ saCorpFilter: 'employmentType:Corporate' }, { start: this.saStart });
+    const saJobCall = this.http.getSAJobs();
+    // const saCorpJobCall = this.http.getSAJobs({ saCorpFilter: 'employmentType:Corporate' }, { start: this.saStart });
     switch (this.jobListType) {
       case JOBLIST_TYPE.SENIOR:
         saJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
         this.title = 'OPEN SENIOR POSITIONS';
         break;
-      case JOBLIST_TYPE.CORPORATE:
-        saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
-        this.title = 'OPEN CORPORATE POSITIONS';
-        break;
+      // case JOBLIST_TYPE.CORPORATE:
+      //   saCorpJobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
+      //   this.title = 'OPEN CORPORATE POSITIONS';
+      //   break;
       default:
         jobCall.subscribe({ next: this.onSuccess.bind(this), error: this.onFailure.bind(this) });
         this.title = 'OPEN ENTRY LEVEL POSITIONS';
@@ -112,11 +107,13 @@ export class JobListComponent implements OnChanges {
       case JOBLIST_TYPE.CORPORATE:
       case JOBLIST_TYPE.SENIOR: {
         const corpType = CORP_TYPE.STAFF_AUG;
-        saRes = results.data.map((r) => {
+        saRes = results.map((r) => {
           return {
             ...r,
+            id: r.Requisition__c,
             corpType,
             corpId: CORPORATION[corpType].corpId,
+            title: r.Job_Title__c,
           };
         });
         saTotalCount = results.count || 0;
