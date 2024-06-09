@@ -1,19 +1,26 @@
-
-nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
-  font-family: 'Space Grotesk', sans-serif !important;
-  background-color: #7857FF  !important;
+nova-toast,
+novo-toast.success,
+.toast-container,
+.toast-content,
+.success-alert {
+  font-family: 'Inter', sans-serif !important;
+  background-color: #7857ff !important;
 }
 
 :host {
   min-width: 30%;
-  nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
-    font-family: 'Space Grotesk', sans-serif !important;
-    background-color: #7857FF  !important;
+  nova-toast,
+  novo-toast.success,
+  .toast-container,
+  .toast-content,
+  .success-alert {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #7857ff !important;
   }
   /deep/novo-card {
     .novo-card {
       header {
-        background: #7857FF;
+        background: #7857ff;
       }
       border-radius: 1em !important;
     }
@@ -43,7 +50,7 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
         }
         .tile {
           border: solid thin #010147;
-          border-radius:5px !important;
+          border-radius: 5px !important;
           margin: 3px;
           padding: 10px;
         }
@@ -89,7 +96,7 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
     .ext-label {
       text-transform: uppercase;
       font-size: 1.2em;
-      color: #010147!important;
+      color: #010147 !important;
       font-weight: 500;
     }
     .ext-icon > i {
@@ -115,8 +122,8 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
       align-items: center;
       .apply-button {
         font-size: 1.2em;
-        background-color: #7857FF;
-        border-radius: 999px;
+        background-color: #7857ff;
+        border-radius: 8px;
         width: 98%;
       }
       .apply-button:hover {

@@ -1,26 +1,26 @@
 .share-container {
-    display: flex;
-    margin-top: 50px;
-    margin-bottom: 100px;
-    button {
-      margin-right: 20px;
-    }
-    .share-btn {
-      width: 12em;
-      color: white;
-      background-color: #7857ff;
-      justify-content: center;
-      font-weight: 700;
-      border-radius: 999px;
-    }
-    .share-btn:hover {
-      background-color: #010147;
-    }
-    .share-icon:hover{
-      width: 3em;
-      color: white;
-      background-color: #010147;
-      justify-content: center;
-      border-radius: 999px;
-    }
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  button {
+    margin-right: 20px;
   }
+  .share-btn {
+    width: 12em;
+    color: white;
+    background-color: #7857ff;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 8px;
+  }
+  .share-btn:hover {
+    background-color: #010147;
+  }
+  .share-icon:hover {
+    width: 3em;
+    color: white;
+    background-color: #010147;
+    justify-content: center;
+    border-radius: 8px;
+  }
+}

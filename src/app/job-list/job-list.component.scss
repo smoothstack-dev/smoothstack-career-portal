@@ -1,6 +1,6 @@
 :host {
   div.job-list-header-container {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Inter, sans-serif;
     font-weight: 700;
     font-size: 5em;
     padding: 1em;
@@ -25,7 +25,7 @@ novo-list {
     margin: 12px 35px;
   }
   .list-item {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Inter, sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -39,9 +39,9 @@ novo-list {
 
     cursor: pointer;
     .apply-btn {
-      padding: 0% 10%;
+      padding: 1% 10%;
       background-color: #7857ff;
-      border-radius: 999px;
+      border-radius: 8px;
     }
     .apply-btn:hover {
       background-color: #010147;

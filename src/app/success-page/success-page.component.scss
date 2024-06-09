@@ -1,50 +1,59 @@
-nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
-  font-family: 'Space Grotesk', sans-serif !important;
-  background-color: #7857FF  !important;
+nova-toast,
+novo-toast.success,
+.toast-container,
+.toast-content,
+.success-alert {
+  font-family: Inter, sans-serif !important;
+  background-color: #7857ff !important;
 }
 
 .background {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: Inter, sans-serif;
   overflow-x: hidden;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   min-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
 
-  nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert {
-    font-family: 'Space Grotesk', sans-serif !important;
-    background-color: #7857FF  !important;
+  nova-toast,
+  novo-toast.success,
+  .toast-container,
+  .toast-content,
+  .success-alert {
+    font-family: Inter, sans-serif !important;
+    background-color: #7857ff !important;
   }
-  
-  .flex-div{
-    display:flex;
+
+  .flex-div {
+    display: flex;
     justify-content: center;
   }
 
   .success-container {
     min-height: 70%;
 
-    .success-header-container, .thankyou-header-container {
+    .success-header-container,
+    .thankyou-header-container {
       color: #010147;
       background-color: #fff;
-      display:grid;
+      display: grid;
       justify-content: center;
       min-height: 8em;
       margin-bottom: 2rem;
       h1 {
         margin-top: 2%;
         font-weight: 900;
-        font-size:3rem;
+        font-size: 3rem;
       }
       h3 {
         padding-top: 0% !important;
         font-weight: 500;
-        font-size:2.2rem;
+        font-size: 2.2rem;
       }
     }
 
     .success-content-container {
       display: flex;
-      justify-content:center;
+      justify-content: center;
       margin-bottom: 2rem;
     }
 
@@ -58,7 +67,7 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
       order: 1;
       max-width: 1000px;
     }
-    
+
     .success-iframe {
       border: none;
       width: 100%;
@@ -71,18 +80,18 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
       flex: 0 0 25%;
       width: 98%;
       margin-top: 2em;
-      margin-left:0.5em;
+      margin-left: 0.5em;
       order: 1;
     }
 
     .challenge-info-box {
-      background-color: #F7F6FC;
-      border-radius:5px !important;
+      background-color: #f7f6fc;
+      border-radius: 5px !important;
       box-shadow: 5px 5px 5px rgb(234, 232, 232);
       h3 {
         background-color: #010147;
-        border-top-left-radius:5px !important;
-        border-top-right-radius:5px !important;
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
         color: white;
         text-align: center;
       }
@@ -96,7 +105,7 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
         color: #010147;
       }
       .challenge-list-content {
-        padding-left:5px;
+        padding-left: 5px;
       }
     }
 
@@ -113,38 +122,45 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
       .success-content-container {
         flex-direction: column;
       }
-      .success-header-container, .thankyou-header-container{
+      .success-header-container,
+      .thankyou-header-container {
         min-height: 8em;
-        padding:2%;
+        padding: 2%;
         margin-bottom: 1rem;
+        h1 {
+          font-size: 2.2rem;
+        }
+        h3 {
+          font-size: 1.75rem;
+        }
         p {
-          font-size:1.5em;
+          font-size: 1.5em;
         }
       }
     }
   }
 
   .thankyou-content-container {
-    min-height:20em;
+    min-height: 20em;
     justify-content: center;
 
     p {
       margin-left: auto;
       margin-right: auto;
-      margin-top:4em;
-      margin-bottom:2em;
+      margin-top: 4em;
+      margin-bottom: 2em;
       width: 60%;
       font-size: 1.5rem;
       font-weight: 500;
-      text-align: center
+      text-align: center;
     }
     .back-btn {
-      background-color: #7857FF;
-      border-radius: 999px;
+      background-color: #7857ff;
+      border-radius: 8px;
       font-size: 1.5rem;
       padding: 1rem 3rem;
       text-transform: none !important;
-      margin-bottom:2em;
+      margin-bottom: 2em;
     }
     .back-btn:hover {
       background-color: #010147;
@@ -152,13 +168,12 @@ nova-toast, novo-toast.success, .toast-container, .toast-content, .success-alert
     @media (max-width: 850px) {
       height: 8em;
       p {
-        margin:1em;
+        margin: 1em;
         width: 90%;
       }
       .back-btn {
-        left:0%;
+        left: 0%;
       }
     }
   }
 }
-

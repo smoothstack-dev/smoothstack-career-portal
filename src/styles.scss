@@ -1,27 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~novo-elements/novo-elements";
+@import '~novo-elements/novo-elements';
 
 html {
-  color: #010147
+  color: #010147;
 }
 
 .header-background-style {
-  background-color:#fff
+  background-color: #fff;
 }
 
 app-job-list {
   novo-loading {
-  position: absolute;
-  top: 50%;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+    position: absolute;
+    top: 50%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 }
 
 body {
   overflow: hidden;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 novo-file-input {
@@ -30,16 +30,16 @@ novo-file-input {
 }
 
 app-job-list {
-  novo-list>div>novo-list-item   {
+  novo-list > div > novo-list-item {
     border-bottom: unset;
 
     div.list-item {
-      font-family: "Space Grotesk",sans-serif;
-      item-content i{
-       color: #010147;
+      font-family: 'Inter', sans-serif;
+      item-content i {
+        color: #010147;
       }
-      >item-header item-title {
-        >h6 {
+      > item-header item-title {
+        > h6 {
           color: #010147;
         }
       }
@@ -48,11 +48,11 @@ app-job-list {
 }
 novo-search {
   padding: 17px;
-  > input[data-automation-id="novo-search-input"] {
+  > input[data-automation-id='novo-search-input'] {
     padding: 8px 10px;
     font-size: 1em;
   }
-  button[theme="fab"][icon="bhi-search"] {
+  button[theme='fab'][icon='bhi-search'] {
     width: 40px;
     height: 33px;
     min-height: unset;
@@ -71,9 +71,9 @@ novo-search {
   }
 }
 
-app-job-details novo-card header{
+app-job-details novo-card header {
   padding: 10px 20px 10px 20px !important;
-  background-color: #BB5566;
+  background-color: #bb5566;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -92,10 +92,10 @@ app-job-details novo-card header{
   }
 }
 
-.header{
-  >header {
+.header {
+  > header {
     h1 {
-      color: #D9DADC;
+      color: #d9dadc;
     }
   }
 }
@@ -115,38 +115,38 @@ app-sidebar {
     overflow-y: auto;
     overflow-x: hidden;
     &::-webkit-scrollbar {
-      background-color:#fff;
-      height:4px;
+      background-color: #fff;
+      height: 4px;
       width: 4px;
     }
     &::-webkit-scrollbar-track {
-      background-color:#fff
+      background-color: #fff;
     }
     &::-webkit-scrollbar-thumb {
-      background-color:#babac0;
-      border-radius:4px;
+      background-color: #babac0;
+      border-radius: 4px;
     }
     label {
-      color: #2F384F !important;
+      color: #2f384f !important;
       font-weight: 600;
     }
   }
 }
 
 app-main-page {
-  >novo-loading {
-  position: absolute;
-  top: 50%;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  > novo-loading {
+    position: absolute;
+    top: 50%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 }
 
 app-apply-modal {
   novo-form {
     form {
-      div.consent-form{
+      div.consent-form {
         display: flex;
         novo-control.checkbox {
           width: 50px;
@@ -173,7 +173,8 @@ app-apply-modal {
       }
     }
   }
-  novo-modal > footer, novo-notification > footer {
+  novo-modal > footer,
+  novo-notification > footer {
     flex-flow: column-reverse !important;
     button {
       width: 90%;
@@ -183,7 +184,9 @@ app-apply-modal {
 }
 
 @media print {
-  body, html, #wrapper {
+  body,
+  html,
+  #wrapper {
     overflow: visible !important;
     -webkit-print-color-adjust: exact;
     height: 100% !important;
