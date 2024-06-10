@@ -14,11 +14,16 @@
   > button[theme='dialogue'] {
     margin: -10px -15px 20px -15px;
   }
-  h1,
-  h2,
-  h3 {
+
+  h1 {
     font-weight: 700;
   }
+
+  h2,
+  h3 {
+    font-weight: 600;
+  }
+
   ul {
     margin-top: 0px !important;
     list-style: none;
@@ -75,7 +80,7 @@
   .job-salary {
     color: white;
     font-size: 2.5em;
-    font-weight: 700;
+    font-weight: 600;
     min-height: 5rem;
     padding-left: 8%;
     display: flex;

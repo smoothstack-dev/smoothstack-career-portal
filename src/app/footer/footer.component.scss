@@ -14,6 +14,10 @@
   font-weight: lighter;
   line-height: 1.8rem;
 
+  strong {
+    font-weight: 500 !important;
+  }
+
   .footer-left {
     width: 30%;
     color: rgba(255, 255, 255, 0.85);
@@ -35,7 +39,7 @@
         .msg-btn {
           text-align: center;
           font-size: 1.2rem;
-          font-weight: 800;
+          font-weight: 600;
           background-color: #7857ff;
           border-radius: 8px !important;
           padding: 1rem 2.5rem;
@@ -80,11 +84,11 @@
       font-weight: 300;
       a:after {
         color: #7857ff;
-        font-weight: 900 !important;
+        font-weight: 300 !important;
       }
       strong {
         color: #fff !important;
-        font-weight: 900;
+        font-weight: 300;
       }
       ul.no-bullets {
         margin-top: 3rem;
@@ -104,6 +108,7 @@
 
     a {
       color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
     }
     a:hover {
       color: rgba(255, 255, 255, 1);
@@ -145,6 +150,7 @@
       justify-content: right;
       a {
         color: rgba(255, 255, 255, 0.8);
+        font-weight: 300 !important;
         text-decoration: underline;
         margin-right: 1rem;
       }

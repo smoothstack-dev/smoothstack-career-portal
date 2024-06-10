@@ -18,7 +18,7 @@
 
 novo-list {
   overflow: auto;
-  min-height: 61.3vh;
+  min-height: 50vh;
   padding: 2em 10%;
   text-align: center;
   app-share {
@@ -57,7 +57,7 @@ novo-list {
     }
     .category {
       padding: 0px 15px 10px 15px;
-      font-weight: 500;
+      font-weight: 400;
       display: inline-block;
       word-wrap: break-word;
       overflow: hidden;
@@ -83,7 +83,7 @@ novo-list {
           font-size: 1.5em;
           line-height: 1.8em;
           color: #010147;
-          font-weight: 500;
+          font-weight: 400;
         }
         text-align: left;
       }
@@ -91,13 +91,13 @@ novo-list {
       .apply-button-text {
         font-family: 'Inter', sans-serif;
         font-size: 1.2em;
-        font-weight: 700;
+        font-weight: 500;
         color: #fff;
         text-transform: capitalize !important;
       }
 
       .apply-button-text:hover {
-        font-weight: 900;
+        font-weight: 700;
       }
 
       @media (max-width: 800px) {
@@ -131,7 +131,7 @@ novo-list {
       max-width: none !important;
     }
     div.job-list-header-container {
-      font-weight: 800;
+      font-weight: 600;
       font-size: 2em;
     }
     div.mobile-filter-container {
