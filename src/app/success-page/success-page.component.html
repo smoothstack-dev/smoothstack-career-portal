@@ -2,11 +2,12 @@
   <div class="success-container">
     <div *ngIf="schedulingLink">
       <div class="success-header-container header-background-style">
-        <p>
+        <h1>
           Based on your application, you are eligible to take the {{jobId === 2 ? 'skills' : 'coding'}} challenge!
-          <br />
+        </h1>
+        <h3>
           Please select a date/time that works best for you.
-        </p>
+        </h3>
       </div>
       <div class="success-content-container">
         <div class="iframe-div">
@@ -14,7 +15,7 @@
         </div>
         <div class="challenge-info-container" *ngIf="challengeInfo">
           <div class="challenge-info-box">
-            <h4><strong>Challenge Details</strong></h4>
+            <h3><strong>Challenge Details</strong></h3>
             <div class="coding-challenge-details" *ngFor="let detailItem of challengeInfo.details">
               <div *ngIf="detailItem.contentType === 'PARAGRAPH'">
                 <p *ngFor="let detailItemContent of detailItem.contents">{{ detailItemContent }}</p>
@@ -35,7 +36,7 @@
     </div>
     <div *ngIf="!schedulingLink">
       <div class="thankyou-header-container header-background-style">
-        <p>THANK YOU!</p>
+        <h1>SUCCESS!</h1>
       </div>
       <div class="thankyou-content-container">
         <p>
@@ -44,7 +45,7 @@
         </p>
         <br />
         <div class="flex-div">
-          <button theme="primary" class="back-btn center" (click)="goToSSWebsite()">Back To SmoothStack</button>
+          <button theme="primary" class="back-btn center" (click)="goToSSWebsite()">Back To Smoothstack</button>
         </div>
       </div>
     </div>

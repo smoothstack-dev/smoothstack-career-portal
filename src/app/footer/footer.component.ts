@@ -18,8 +18,16 @@ export class FooterComponent {
     this.learnMoreWPLink = LINKS.learnMoreWPLink;
     this.privacyWPLink = LINKS.privacyWPLink;
     this.infoEMailAddress = LINKS.infoEMailAddress;
-    this.logoLink = LINKS.logoLink;
+    this.logoLink = LINKS.logoLinkLight;
     this.currentYear = new Date().getFullYear().toString();
+  }
+
+  public sendUsMsgLink(): void {
+    window.open('https://smoothstack.com/contact-smoothstack', '_blank');
+  }
+
+  public goToSSWebsite(): void {
+    window.open('https://smoothstack.com/', '_blank');
   }
 
   public shareLinks(mediaDestination: string): void {
@@ -33,6 +41,9 @@ export class FooterComponent {
         break;
       case 'linkedin':
         destLink = LINKS.linkedinLink;
+        break;
+      case 'youtube':
+        destLink = LINKS.youtubeLink;
         break;
     }
     window.open(destLink, '_blank');

@@ -2,17 +2,15 @@
 <!-- <app-structured-seo *ngIf="!loading" [jobData]="job"></app-structured-seo> -->
 <div class="background" id="job-details-container" *ngIf="!loading">
   <div class="job-container" [ngClass]="{ 'safari-scroll': isSafariAgent }">
-    <div class="black-block job-section header-background-style no-print" >
+    <div class="no-print back-sign-section" >
       <span class="back-sign" (click)="goToJobList()" icon="previous" side="left">{{ '< BACK' | translate }}</span>
     </div>
     <div class="job-header job-section">
       <h1 class="job-title">{{ job.title }}</h1>
-      <br />
       <span class="category" *ngIf="job.publishedCategory && showCategory">
         {{ job.publishedCategory?.name }}
       </span>
     </div>
-    <div class="job-info-container black-block job-section header-background-style no-print"></div>
     <div>
         <div *ngIf="!job.details" class="job-section-container job-publicDescription">
           <pre>{{job.publicDescription}}</pre>
@@ -24,8 +22,8 @@
             <div [class.job-sectionOne]="isOdd" [class.job-sectionTwo]="!isOdd">
               <div *ngFor="let sectionItem of sectionDetailList">
                 <div *ngIf="sectionItem.contentType !== 'SALARY'" class="job-section-container">
-                  <h1 *ngIf="isFirst">{{ sectionItem.title}} </h1>
-                  <h3 *ngIf="!isFirst">{{ sectionItem.title}} </h3>
+                  <!-- <h1 *ngIf="isFirst">{{ sectionItem.title}} </h1> -->
+                  <h3>{{ sectionItem.title}} </h3>
                   <div *ngIf="sectionItem.contentType === 'PARAGRAPH'">
                     <p *ngFor="let sectionContent of sectionItem.contents">{{ sectionContent }}</p>
                   </div>

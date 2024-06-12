@@ -1,190 +1,207 @@
 .background {
+  font-family: Inter, sans-serif;
   overflow-x: hidden;
-  background-color: #f4f4f4;
+  background-color: #f7f6fc;
   max-height: calc(100vh - 55px);
   height: calc(100vh - 55px);
   position: relative;
-    background-color: #ffffff;
-    &.safari-scroll {
-      height: 100%;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
-    > button[theme='dialogue'] {
-      margin: -10px -15px 20px -15px;
-    }
-    h1, h2, h3 {
-      font-weight: 700;
-    }
-    ul {
-      list-style: none;
-    }
-    li {
-      text-indent: -0.2em;
-      line-height: 2em;
-    }
-    li::before {
-      content:url("./../utils/resources/icon-bullet.png");
-      margin-right: 1em;
-      margin-left:-2em;
-      zoom: 0.8;
-    }
-    p, li {
-      font-weight: 400;
-      font-size: 1.2em;
-    }
-    p {
-      line-height: 1.5em;
-    }
-    .job-publicDescription{
-      padding-top:20px;
-      min-height: 90em;
-    }
-    .job-section{
-      padding: 3% 12%;
-      min-height:10em;
-    }
-    .job-section-container {
-      min-width: 45%;
-      max-width: 50%;
-      padding-left: 12%;
-      padding-right: 12%;
-      word-break: break-word;
-    }
-    // title and salary background color
-    .job-salary, .job-header{
-      background-color: #5532C0;
-    }
-    // section background color
-    .job-sectionOne, .job-sectionTwo {
-      padding-top:3%;
-      padding-bottom: 2%;
-      min-height:10em;
-    }
-    .job-sectionOne {
-      background-color: #F0F2FC;
-    }
-    .youtube-video {
-      margin-top: 20px;
-    }
-    .job-salary {
-      color: white;
-      font-size: 2.5em;
-      font-weight: 700;
-      min-height: 5rem;
-      padding-left:12%;
-      display: flex;
-      align-items: center; 
-      margin-top:3%;
-    }
-    div.black-block {
-      background-color: black;
-      color:#ffffff;
-      min-height: 8rem;
-      display: flex;
-      align-items: flex-end;
-    }
-    .back-sign {
-      font-size: 1.2em;
-      font-weight: 600;
-      cursor: pointer; 
-    }
-    .job-header {
-      .job-title {
-        font-size: 5em;
-        font-weight: 700;
-        max-width: 45%;
-        padding: 0 0;
-      }
-      .category {
-        font-weight: 600;
-        display: inline-block;
-        font-size: 1.6em;
-        word-wrap: break-word;
-        overflow: hidden;
-        padding-top: 15px;
-      }
-      color:#ffffff;
-    }
-    div.job-info-container {
-      display: flex;
-      width: 100%;
-      flex-wrap: wrap;
-      padding-bottom: 3%;
-      .job-info {
-        padding: 10px 20px;
-        margin: 5px;
-        border-radius: 2px;
-        align-self: center;
-        i {
-          font-size: 1em;
-        }
-      }
-    }
-    app-apply-form {
-      position:absolute;
-      top: calc(3%);
-      left:calc(50%);
-      margin: 2%;
-    }
-    .youtube-video{
-      width:100%;
-      height: 35vh;
-    } 
-    .go-to-form-btm {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 30px;
-      z-index: 99;
-      font-size: 1em;
-      font-weight: 600;
-      border: none;
-      outline: none;
-      background-color: #5532C0;
-      color: white;
-      cursor: pointer;
-      padding: 15px;
-      border-radius: 20px;
-    }
-    .hide-go-to-form-btm {
-      display: none;
-    }
+  background-color: #ffffff;
+  &.safari-scroll {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  > button[theme='dialogue'] {
+    margin: -10px -15px 20px -15px;
+  }
 
-    @media (max-width:800px){
-      div.black-block {
-        min-height: 3rem;
-      }
-      .job-publicDescription{
-        min-height: auto;
-      }
-      .job-section-container {
-        padding:5%;
-      }
-      .go-to-form-btm {
-        display:block;
-      }
-      .job-header {
-        .job-title {
-          font-size: 3em;
-          max-width: 100%;
-        }
-      }
-      .youtube-video{
-        width:100%;
-      }
-      .job-section-container{
-        max-width: 100%;
-      }
-      .job-salary {
-        font-size: 1.5em;
-        padding:5%
-      }
-      p, li {
-        font-weight: 400;
+  h1 {
+    font-weight: 700;
+  }
+
+  h2,
+  h3 {
+    font-weight: 600;
+  }
+
+  ul {
+    margin-top: 0px !important;
+    list-style: none;
+  }
+
+  li::before {
+    // content:url("./../utils/resources/icon-bullet.png");
+    content: '•';
+    color: #3122b3;
+    margin-right: 1em;
+    margin-left: -2rem;
+    zoom: 0.8;
+  }
+  p,
+  li {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .job-publicDescription {
+    padding-top: 20px;
+    min-height: 90em;
+  }
+  .job-section {
+    padding: 3% 8%;
+    min-height: 10em;
+  }
+  .job-section-container {
+    min-width: 45%;
+    max-width: 50%;
+    padding-left: 8%;
+    padding-right: 8%;
+    word-break: break-word;
+  }
+  // title and salary background color
+  .job-salary,
+  .job-header {
+    background-color: #010147;
+  }
+  // section background color
+  .job-sectionOne,
+  .job-sectionTwo {
+    padding-top: 3%;
+    padding-bottom: 2%;
+    min-height: 10em;
+  }
+  .job-sectionOne {
+    background-color: #f7f6fc;
+  }
+  .youtube-video {
+    margin-top: 20px;
+  }
+  .job-salary {
+    color: white;
+    font-size: 2.5em;
+    font-weight: 600;
+    min-height: 5rem;
+    padding-left: 8%;
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+  }
+  div.black-block {
+    background-color: #010147;
+    color: #ffffff;
+    min-height: 8rem;
+    display: flex;
+    align-items: flex-end;
+  }
+  .back-sign-section {
+    padding: 0% 8% !important;
+  }
+  .back-sign {
+    color: #7857ff;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .job-header {
+    padding: 2% 8% 0% 8% !important;
+    .job-title {
+      font-size: 5em;
+      font-weight: 700;
+      max-width: 45%;
+      padding: 0 0;
+    }
+    .category {
+      font-weight: 600;
+      display: inline-block;
+      font-size: 1.6em;
+      word-wrap: break-word;
+      overflow: hidden;
+      padding-top: 1rem;
+    }
+    background-color: #ffffff;
+    color: #010147;
+  }
+  div.job-info-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-bottom: 3%;
+    .job-info {
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 2px;
+      align-self: center;
+      i {
         font-size: 1em;
       }
     }
+  }
+  app-apply-form {
+    position: absolute;
+    top: calc(3%);
+    left: calc(50%);
+    margin: 2%;
+  }
+  .youtube-video {
+    height: 35vh;
+    width: 100%;
+  }
+  .go-to-form-btm {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    background-color: #7857ff;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .hide-go-to-form-btm {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    div.black-block {
+      min-height: 3rem;
+    }
+    .job-publicDescription {
+      min-height: auto;
+    }
+    .job-section-container {
+      padding: 5%;
+    }
+    .go-to-form-btm {
+      display: block;
+    }
+    .job-header {
+      .job-title {
+        font-size: 3em;
+        max-width: 100%;
+      }
+    }
+    .youtube-video {
+      width: 100%;
+    }
+    .job-section-container {
+      max-width: 100%;
+    }
+    .job-salary {
+      font-size: 1.5em;
+      padding: 5%;
+    }
+    p,
+    li {
+      font-weight: 400;
+      font-size: 1em;
+    }
+  }
 }
 
 @media only screen and (max-width: 800px) {
@@ -196,8 +213,8 @@
 
   app-apply-form {
     position: relative !important;
-    left:1% !important;
-    right:1% !important;
+    left: 1% !important;
+    right: 1% !important;
     margin: 1%;
   }
 }
@@ -205,8 +222,8 @@
 @media print {
   .background {
     overflow: visible !important;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     font-size: 10px !important;
     font-weight: 400 !important;
     margin: 0px !important;
@@ -215,7 +232,10 @@
       margin: 0px !important;
       min-height: 0px;
     }
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       font-size: 1.3rem !important;
       font-weight: 600 !important;
       padding: 2px !important;
@@ -224,13 +244,14 @@
     .job-title {
       font-size: 32px !important;
       font-weight: 700 !important;
-      padding: 5px !important;
     }
     .job-section-container {
       max-width: 100%;
-      line-height: 1.5rem;
+      line-height: 2rem;
     }
-    .job-sectionOne, .job-sectionTwo, .job-salary {
+    .job-sectionOne,
+    .job-sectionTwo,
+    .job-salary {
       padding: 3% !important;
       font-size: 1rem;
     }
@@ -242,10 +263,12 @@
       padding-left: 3px;
     }
   }
-  body, .background, .job-container{
-    width:100%;
-    height:100%;
-    display:block;
+  body,
+  .background,
+  .job-container {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }
 

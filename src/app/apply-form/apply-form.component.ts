@@ -866,12 +866,13 @@ export class ApplyFormComponent implements OnInit {
 
   private applyOnSuccess(res: any): void {
     let toastOptions: any = {
-      theme: 'success',
+      theme: 'info',
       icon: 'check',
       title: TranslateService.translate('THANK_YOU'),
       message: TranslateService.translate('YOU_WILL_BE_CONTACTED'),
       position: 'growlTopRight',
       hideDelay: 3000,
+      customClass: 'success-alert',
     };
     this.toaster.alert(toastOptions);
     this.storehasApplied();
