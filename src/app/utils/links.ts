@@ -8,6 +8,6 @@ export const linkedinLink = 'https://www.linkedin.com/company/smoothstack/';
 export const youtubeLink = 'https://www.youtube.com/channel/UCPVkhHlCe90uarMqefcrrVQ';
 
 // export const logoLink = 'https://smoothstack.com/wp-content/uploads/2018/07/logo-rvrs.png';
-export const logoLink = 'https://omssmoothprd.wpenginepowered.com/wp-content/uploads/2024/01/smoothstack-logo-dark.png';
+export const logoLink = 'https://smoothstack.com/wp-content/uploads/2024/01/smoothstack-logo-dark.png';
 export const logoLinkLight =
   'https://omssmoothprd.wpenginepowered.com/wp-content/uploads/2024/01/smoothstack-logo-light.png';
