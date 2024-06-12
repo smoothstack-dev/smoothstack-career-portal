@@ -6,7 +6,7 @@
   font-weight: 300;
   display: flex;
   flex-wrap: wrap;
-  padding: 2.5rem 7rem;
+  padding: 2.5rem 3rem;
   margin-top: 4rem;
 
   color: white;
@@ -19,7 +19,7 @@
   }
 
   .footer-left {
-    width: 30%;
+    width: 34%;
     color: rgba(255, 255, 255, 0.85);
     .contact-section {
       width: 100%;
@@ -45,7 +45,6 @@
           padding: 1rem 2.5rem;
           margin-right: 1rem;
           text-transform: none !important;
-          line-height: 2;
         }
         .msg-btn:hover {
           background-color: #010147;
@@ -73,7 +72,7 @@
   }
   .footer-right {
     color: rgba(255, 255, 255, 0.85);
-    width: 70%;
+    width: 66%;
     display: flex;
     padding-top: 1.3rem;
 
@@ -133,7 +132,7 @@
     margin-bottom: 8rem;
 
     .copyright {
-      width: 30%;
+      width: 34%;
       display: flex;
       align-items: flex-end;
       justify-content: left;
@@ -143,7 +142,7 @@
     }
 
     .tandcs {
-      width: 70%;
+      width: 66%;
       display: flex;
       font-size: 1rem;
       font-weight: 300;
