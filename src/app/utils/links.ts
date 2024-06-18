@@ -9,4 +9,4 @@ export const youtubeLink = 'https://www.youtube.com/channel/UCPVkhHlCe90uarMqefc
 
 // export const logoLink = 'https://smoothstack.com/wp-content/uploads/2018/07/logo-rvrs.png';
 export const logoLink = 'https://smoothstack.com/wp-content/uploads/2024/01/smoothstack-logo-dark.png';
-export const logoLinkLight = 'https://smoothstack.com/wp-content/uploads/2024/01/smoothstack-logo-light.png';
+export const logoLinkLight = 'https://dwkfogbh8lfl9.cloudfront.net/smoothstack-logo-white.png';

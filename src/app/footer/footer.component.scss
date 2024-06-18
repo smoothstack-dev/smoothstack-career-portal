@@ -1,3 +1,9 @@
+.footer {
+  background-color: #010147;
+  display: flex;
+  justify-content: center;
+}
+
 .footer-container {
   font-family: 'Inter', sans-serif;
   min-height: 4rem;
@@ -6,8 +12,9 @@
   font-weight: 300;
   display: flex;
   flex-wrap: wrap;
-  padding: 2.5rem 3rem;
+  padding: 3rem 3rem;
   margin-top: 4rem;
+  max-width: 135rem;
 
   color: white;
   font-size: 1.4rem;
@@ -27,10 +34,10 @@
       padding-right: 2rem;
       margin-right: 3rem;
       .footer-logo {
-        width: 90%;
-        height: auto;
         padding: 1.5em 0em;
         cursor: pointer;
+        height: auto;
+        max-width: 85%;
       }
       .social-section {
         display: flex;
@@ -163,6 +170,9 @@
 }
 
 @media only screen and (max-width: 1300px) {
+  .footer-container {
+    padding: 2rem 2rem;
+  }
   .footer-left {
     width: 50% !important;
     .msg-btn {
@@ -229,9 +239,6 @@
       width: 100% !important;
       padding: 2rem;
       text-align: center;
-      .footer-logo {
-        width: 85% !important;
-      }
       .msg-btn {
         width: 50% !important;
         padding: 1rem 1rem;
